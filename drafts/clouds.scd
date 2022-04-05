@@ -6,7 +6,7 @@
 		var rate, input;
 
 		var pitchEnv = KEnvelopes().getWrap(\adsr, "pitch", "", dur, 0);
-		var pitchenvAmount = KNC.kr("pitchEnvAmount", 0);
+		var pitchenvAmount = K_NC.kr("pitchEnvAmount", 0);
 		rate = bufferRate.Klag(lagTime);
 
 		rate = pitchEnv.linlin(

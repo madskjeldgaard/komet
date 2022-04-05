@@ -79,7 +79,7 @@ autopan shape
 
 SECTION:: Named controls
 
-LINK::Classes/KNC::
+LINK::Classes/K_NC::
 
 SUBSECTION:: How to add a synth
 
@@ -87,10 +87,10 @@ code::
 (
 K.add("vosim", {|dur|
 	VosimOsc.ar(
-		freq: KNC.kr("freq", 100),
-		form1freq: KNC.kr("form1freq", 1054, spec: Spec.specs[\freq]),
-		form2freq: KNC.kr("form2freq", 454, spec: Spec.specs[\freq]),
-		shape: KNC.kr("shape", 0, spec: [-1.0,1.0])
+		freq: K_NC.kr("freq", 100),
+		form1freq: K_NC.kr("form1freq", 1054, spec: Spec.specs[\freq]),
+		form2freq: K_NC.kr("form2freq", 454, spec: Spec.specs[\freq]),
+		shape: K_NC.kr("shape", 0, spec: [-1.0,1.0])
 	);
 
 	}, numChannelsIn: 1);

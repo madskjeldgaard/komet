@@ -64,24 +64,24 @@ panners.multi2azimuth = {|prefix, suffix, numChannelsOut|
 
 			// @TODO auto panning untested
 			var anglePanner = KAutoPan.ar(
-				pan:KNC.kr("angle", 0),
-				panFreq:KNC.kr("panFreq", 1, prefix:"angle"),
-				autopan:KNC.kr("autopan", 0.0, prefix:"angle"),
-				panShape:KNC.kr("panshape", 1.0, prefix:"angle"),
+				pan:K_NC.kr("angle", 0),
+				panFreq:K_NC.kr("panFreq", 1, prefix:"angle"),
+				autopan:K_NC.kr("autopan", 0.0, prefix:"angle"),
+				panShape:K_NC.kr("panshape", 1.0, prefix:"angle"),
 			);
 
 			var elevationPanner = KAutoPan.ar(
-				pan:KNC.kr("elevation", 0),
-				panFreq:KNC.kr("panFreq", 1, prefix:"elevation"),
-				autopan:KNC.kr("autopan", 0.0, prefix:"elevation"),
-				panShape:KNC.kr("panshape", 1.0, prefix:"elevation"),
+				pan:K_NC.kr("elevation", 0),
+				panFreq:K_NC.kr("panFreq", 1, prefix:"elevation"),
+				autopan:K_NC.kr("autopan", 0.0, prefix:"elevation"),
+				panShape:K_NC.kr("panshape", 1.0, prefix:"elevation"),
 			);
 
 			HoaEncodeDirection.ar(
 				in: sig,
 				theta: anglePanner * pi,
 				phi: elevationPanner * pi,
-				radius: KNC.kr("radius", AtkHoa.refRadius),
+				radius: K_NC.kr("radius", AtkHoa.refRadius),
 				order: order
 			);
 		}
@@ -94,17 +94,17 @@ panners.multi2azimuth = {|prefix, suffix, numChannelsOut|
 
 			// @TODO auto panning untested
 			var anglePanner = KAutoPan.ar(
-				pan:KNC.kr("angle", 0),
-				panFreq:KNC.kr("panFreq", 1, prefix:"angle"),
-				autopan:KNC.kr("autopan", 0.0, prefix:"angle"),
-				panShape:KNC.kr("panshape", 1.0, prefix:"angle"),
+				pan:K_NC.kr("angle", 0),
+				panFreq:K_NC.kr("panFreq", 1, prefix:"angle"),
+				autopan:K_NC.kr("autopan", 0.0, prefix:"angle"),
+				panShape:K_NC.kr("panshape", 1.0, prefix:"angle"),
 			);
 
 			var elevationPanner = KAutoPan.ar(
-				pan:KNC.kr("elevation", 0),
-				panFreq:KNC.kr("panFreq", 1, prefix:"elevation"),
-				autopan:KNC.kr("autopan", 0.0, prefix:"elevation"),
-				panShape:KNC.kr("panshape", 1.0, prefix:"elevation"),
+				pan:K_NC.kr("elevation", 0),
+				panFreq:K_NC.kr("panFreq", 1, prefix:"elevation"),
+				autopan:K_NC.kr("autopan", 0.0, prefix:"elevation"),
+				panShape:K_NC.kr("panshape", 1.0, prefix:"elevation"),
 			);
 
 			var numChansIn = 2;
@@ -112,9 +112,9 @@ panners.multi2azimuth = {|prefix, suffix, numChannelsOut|
 			Array.fill(numChansIn, {|chan|
 				HoaEncodeDirection.ar(
 					in: sig[chan],
-					theta: (anglePanner * pi * (1+(chan*KNC.kr("stereospread", 0.25)))).wrap2(pi),
+					theta: (anglePanner * pi * (1+(chan*K_NC.kr("stereospread", 0.25)))).wrap2(pi),
 					phi: elevationPanner * pi,
-					radius: KNC.kr("radius", AtkHoa.refRadius),
+					radius: K_NC.kr("radius", AtkHoa.refRadius),
 					order: order
 				);
 			}

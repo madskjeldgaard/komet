@@ -3,15 +3,15 @@ var envs = ();
 
 envs.adsr = { |prefix, suffix|
 	{|dur=1, envDone=2|
-		var attack=KNC.kr("attack", 0.1, suffix: suffix, prefix: prefix),
-		release=KNC.kr("release", 0.9, suffix: suffix, prefix: prefix),
-		envcurve=KNC.kr("envcurve", -5.0, suffix: suffix, prefix: prefix),
-		gate=KNC.kr("gate", 1),
-		legato = KNC.kr("legato", 1),
-		decay=KNC.kr("decay", 0.3, suffix: suffix, prefix: prefix),
-		peakLevel=KNC.kr("peakLevel", 1.0, suffix: suffix, prefix: prefix),
+		var attack=K_NC.kr("attack", 0.1, suffix: suffix, prefix: prefix),
+		release=K_NC.kr("release", 0.9, suffix: suffix, prefix: prefix),
+		envcurve=K_NC.kr("envcurve", -5.0, suffix: suffix, prefix: prefix),
+		gate=K_NC.kr("gate", 1),
+		legato = K_NC.kr("legato", 1),
+		decay=K_NC.kr("decay", 0.3, suffix: suffix, prefix: prefix),
+		peakLevel=K_NC.kr("peakLevel", 1.0, suffix: suffix, prefix: prefix),
 		bias=0,
-		sustainLevel = KNC.kr("sustainLevel", 0.95, suffix: suffix, prefix: prefix);
+		sustainLevel = K_NC.kr("sustainLevel", 0.95, suffix: suffix, prefix: prefix);
 
 		dur = legato * dur;
 
@@ -34,15 +34,15 @@ envs.adsr = { |prefix, suffix|
 // Same as Env.adsr but with release node set to nil to make it triggered
 // envs.tadsr = { |prefix, suffix|
 // 	{ |dur=1, envDone=2|
-// 		var attack=KNC.kr("attack", 0.01, suffix: suffix, prefix: prefix),
-// 		decay=KNC.kr("decay", 0.3, suffix: suffix, prefix: prefix),
-// 		sustainLevel=KNC.kr("sustainLevel", 0.5, suffix: suffix, prefix: prefix),
-// 		release=KNC.kr("release", 1.0, suffix: suffix, prefix: prefix),
-// 		peakLevel=KNC.kr("peakLevel", 1.0, suffix: suffix, prefix: prefix),
-// 		curve = KNC.kr("curve", -4.0, suffix: suffix, prefix: prefix),
-// 		bias = KNC.kr("bias", 0.0, suffix: suffix, prefix: prefix),
-// 		gate=KNC.kr("gate", 1),
-// 		legato = KNC.kr("legato", 1);
+// 		var attack=K_NC.kr("attack", 0.01, suffix: suffix, prefix: prefix),
+// 		decay=K_NC.kr("decay", 0.3, suffix: suffix, prefix: prefix),
+// 		sustainLevel=K_NC.kr("sustainLevel", 0.5, suffix: suffix, prefix: prefix),
+// 		release=K_NC.kr("release", 1.0, suffix: suffix, prefix: prefix),
+// 		peakLevel=K_NC.kr("peakLevel", 1.0, suffix: suffix, prefix: prefix),
+// 		curve = K_NC.kr("curve", -4.0, suffix: suffix, prefix: prefix),
+// 		bias = K_NC.kr("bias", 0.0, suffix: suffix, prefix: prefix),
+// 		gate=K_NC.kr("gate", 1),
+// 		legato = K_NC.kr("legato", 1);
 // 		dur = legato * dur;
 
 // 		EnvGen.kr(
@@ -62,11 +62,11 @@ envs.adsr = { |prefix, suffix|
 
 envs.perc = { |prefix, suffix|
 	{|dur=1, envDone=2|
-		var attack=KNC.kr("attack", 0.1, suffix: suffix, prefix: prefix),
-		release=KNC.kr("release", 0.9, suffix: suffix, prefix: prefix),
-		envcurve=KNC.kr("envcurve", -5.0, suffix: suffix, prefix: prefix),
-		gate=KNC.kr("gate", 1),
-		legato = KNC.kr("legato", 1);
+		var attack=K_NC.kr("attack", 0.1, suffix: suffix, prefix: prefix),
+		release=K_NC.kr("release", 0.9, suffix: suffix, prefix: prefix),
+		envcurve=K_NC.kr("envcurve", -5.0, suffix: suffix, prefix: prefix),
+		gate=K_NC.kr("gate", 1),
+		legato = K_NC.kr("legato", 1);
 
 		dur = legato * dur;
 
@@ -83,8 +83,8 @@ envs.perc = { |prefix, suffix|
 
 envs.gate = { |prefix, suffix|
 	{|dur=1, envDone=2|
-		var gate = KNC.kr("gate", 1, prefix:prefix, suffix: suffix);
-		var legato = KNC.kr("legato", 1);
+		var gate = K_NC.kr("gate", 1, prefix:prefix, suffix: suffix);
+		var legato = K_NC.kr("legato", 1);
 		dur = legato * dur;
 
 		EnvGen.kr(

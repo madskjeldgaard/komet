@@ -11,13 +11,13 @@
         var lagTime = \lagTime.kr(1);
         freq = (freq + freqOffset).Klag(lagTime);
 
-        timbreMod=KNC.ar("timbreMod", 0).Klag(lagTime);
+        timbreMod=K_NC.ar("timbreMod", 0).Klag(lagTime);
 
 		modulator = Squine.ar(
 			freq: modFreq.Klag(lagTime),
-			clip: KNC.kr("clip", 0, prefix: "mod").Klag(lagTime),
-			skew: KNC.kr("skew", 0, prefix:"mod").Klag(lagTime),
-			initphase: KNC.kr("phase", 1.25, prefix:"mod").Klag(lagTime)
+			clip: K_NC.kr("clip", 0, prefix: "mod").Klag(lagTime),
+			skew: K_NC.kr("skew", 0, prefix:"mod").Klag(lagTime),
+			initphase: K_NC.kr("phase", 1.25, prefix:"mod").Klag(lagTime)
 		);
 
 		fm = modulator.range(
@@ -29,9 +29,9 @@
 		// var sig = SinOsc.ar(freq: fm,  phase: 0.0);
 		sig = Squine.ar(
 			freq: fm,
-			clip: KNC.kr("clip", 0, prefix: "main").Klag(lagTime),
-			skew: KNC.kr("skew", 0, prefix:"main").Klag(lagTime),
-			initphase: KNC.kr("phase", 1.25, prefix:"main").Klag(lagTime)
+			clip: K_NC.kr("clip", 0, prefix: "main").Klag(lagTime),
+			skew: K_NC.kr("skew", 0, prefix:"main").Klag(lagTime),
+			initphase: K_NC.kr("phase", 1.25, prefix:"main").Klag(lagTime)
 		);
 
 		am;
@@ -45,7 +45,7 @@
 
         // Optional wavefolder
         if(addWavefolder, {
-            var wavefold=KNC.ar("wavefold", 0.1).Klag(lagTime), numCells=KNC.ir("cells", 4);
+            var wavefold=K_NC.ar("wavefold", 0.1).Klag(lagTime), numCells=K_NC.ir("cells", 4);
             var gain = wavefold.linexp(0.00000000000001,1.0,1.0,20.0);
 
             gain = modulator.range(
@@ -64,12 +64,12 @@
 			sig = LPG.ar(
 				input: sig,
 				controlinput: lpgenv,
-				controloffset: KNC.kr(name: "offset",  values: 1,  suffix: "lpg"),
-				controlscale: KNC.kr(name: "controlscale",  values: 1,  suffix: "lpg"),
-				vca: KNC.kr(name: "vca",  values: 1,  suffix: "lpg"),
-				resonance: KNC.kr(name: "resonance",  values: 1.5,  suffix: "lpg"),
-				lowpassmode: KNC.kr(name: "lowpassmode",  values: 1,  suffix: "lpg"),
-				linearity: KNC.kr(name: "linearity",  values: 1,  suffix: "lpg"),
+				controloffset: K_NC.kr(name: "offset",  values: 1,  suffix: "lpg"),
+				controlscale: K_NC.kr(name: "controlscale",  values: 1,  suffix: "lpg"),
+				vca: K_NC.kr(name: "vca",  values: 1,  suffix: "lpg"),
+				resonance: K_NC.kr(name: "resonance",  values: 1.5,  suffix: "lpg"),
+				lowpassmode: K_NC.kr(name: "lowpassmode",  values: 1,  suffix: "lpg"),
+				linearity: K_NC.kr(name: "linearity",  values: 1,  suffix: "lpg"),
 			);
 
 		});

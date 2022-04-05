@@ -7,14 +7,14 @@ K.add(\dub1, {
 	var freqs = [
 		freq, subfreq
 	];
-	var oscs = BLOsc.ar(freq: freqs,  pulsewidth: 0.5,  waveform: [1,2]) * [1, KNC.kr("subOscAmp", 0.5)];
+	var oscs = BLOsc.ar(freq: freqs,  pulsewidth: 0.5,  waveform: [1,2]) * [1, K_NC.kr("subOscAmp", 0.5)];
 	
-	var modAmount = KNC.kr("modDepthHz", 50, spec: Spec.specs[\freq]);
-	var modulation = LFTri.ar(KNC.kr("modfreq", 1, spec: Spec.specs[\freq]), iphase: Rand(0.0,1.0)).linlin(-1.0,1.0,0, modAmount);
+	var modAmount = K_NC.kr("modDepthHz", 50, spec: Spec.specs[\freq]);
+	var modulation = LFTri.ar(K_NC.kr("modfreq", 1, spec: Spec.specs[\freq]), iphase: Rand(0.0,1.0)).linlin(-1.0,1.0,0, modAmount);
 
 	oscs = BPF.ar(
 		oscs.sum, 
-		freq: modulation + KNC.kr("bpfcutoff", 2500, spec: Spec.specs[\freq]), 
+		freq: modulation + K_NC.kr("bpfcutoff", 2500, spec: Spec.specs[\freq]), 
 		rq: \q.kr(1.1, spec: [0.00001,10.0,\exp])
 	);
 

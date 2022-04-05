@@ -19,7 +19,7 @@ Pdef(\tg,
 	M.add("tgrains3x%".format(numChans), {|density=10, grainsize=0.1, grainpos=0, grainrate=0.5, buffer| 
 		var trigger = Dust2.kr(density);
 		var shape = KGrainShapes().getWrap();
-		var graindur = KNC.kr("graindur", 0.1);
+		var graindur = K_NC.kr("graindur", 0.1);
 
 		TGrains3.ar(numChans, 
 			trigger: trigger, 

@@ -4,9 +4,9 @@
 	[1,2].do{|numChannels|
 	M.add(\Kgrain, { |buffer|
 		var numGrains = 4;
-		var grainRate = KNC.ar("grainRate", 1);
-		var playRate = KNC.ar("playRate", 0.25);
-		var wobble = KNC.ar("wobble", 0.5);
+		var grainRate = K_NC.ar("grainRate", 1);
+		var playRate = K_NC.ar("playRate", 0.25);
+		var wobble = K_NC.ar("wobble", 0.5);
 		var shape = M.embedWithGrainShapes(); 
 
 		var grains = Array.fill(numGrains, {|grainNum|
@@ -52,19 +52,19 @@
 	// MUST HAVE MONO INPUT
 	(1..2).do{|numChannels|
 	M.add("tgrain%".format(numChannels), {|buffer|
-		var clock = Dust2.ar(KNC.kr("graindensity", 10.5)).poll(label:"clockkkk");
+		var clock = Dust2.ar(K_NC.kr("graindensity", 10.5)).poll(label:"clockkkk");
 		var shape = M.embedWithGrainShapes(); 
 
 		TGrains3.ar(numChannels.poll(label: "numc"), 
 			clock.poll(label: "clock"),
 			buffer.poll(label: \buff), 
-			KNC.kr("grainrate", 1.5),
-			dur: KNC.kr("graindur", 0.01),
+			K_NC.kr("grainrate", 1.5),
+			dur: K_NC.kr("graindur", 0.01),
 			centerPos: LFNoise2.kr(0.5).range(0, BufDur.kr(buffer)) + TRand.kr(0, 0.02, clock), 
-			// rate: KNC.kr("rate", 0.5) * BufDur.kr(buffer),
+			// rate: K_NC.kr("rate", 0.5) * BufDur.kr(buffer),
 			// amp: 0.5,
-			att: KNC.kr("grainAttack", 0.001),
-			dec: KNC.kr("grainDecay", 0.001),
+			att: K_NC.kr("grainAttack", 0.001),
+			dec: K_NC.kr("grainDecay", 0.001),
 			window: shape,
 			// interp: 4
 		).poll

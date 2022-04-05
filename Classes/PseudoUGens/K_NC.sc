@@ -1,5 +1,5 @@
 // Named control with prefix and suffix
-KNC {
+K_NC {
 
   *new1{arg rate, name, values, lags, fixedLag = false, spec, suffix="", prefix="";
     name = this.fixedName(name, prefix, suffix);
