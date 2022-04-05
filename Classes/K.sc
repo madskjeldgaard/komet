@@ -6,9 +6,7 @@ K {
   <synthNames, // Flat list of synth names
   <path, <files, <faustFiles,
   <initialized = false,
-  <forceRebuild,
-  <faustInstaller,
-  <pkgName = 'komet';
+  <forceRebuild;
 
   *new {|numChannelsOut=2, rebuild=false, verbose=true|
     ^this.init(numChannelsOut, rebuild, verbose);
@@ -16,7 +14,7 @@ K {
 
   *initClass{
       StartUp.add({
-          path = PathName(Main.packages.asDict.at(pkgName));
+          path = KometPath.fullPath;
           files = (path +/+ "synths/main").folders.collect{|dir| dir.files}.flatten;
           faustFiles =(path +/+ "faust").files.select{|ff| ff.extension == "dsp"};
           synthNames = [];

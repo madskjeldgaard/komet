@@ -13,10 +13,7 @@
 
      Class.initClassTree(M);
      StartUp.add{
-       pkgPath = PathName(
-         Main.packages.asDict.at(M.pkgName).asString
-       );
-
+       pkgPath = KometPath.fullPath;
        componentsPath = pkgPath +/+ "components";
        componentFiles = componentsPath.files;
      }

@@ -4,11 +4,11 @@
 *
 */
 K_FX {
-    classvar <types, <fx, <numChannels, <initialized=false, <synthNames, <path, <pkgName='mk-fxlib', <files;
+    classvar <types, <fx, <numChannels, <initialized=false, <synthNames, <path, <files;
 
     *initClass{
         StartUp.add({
-            path = PathName(Main.packages.asDict.at(pkgName));
+            path = KometPath.fullPath;
             files = (path +/+ "synths").folders.collect{|dir| dir.files}.flatten;
         });
 
@@ -38,8 +38,7 @@ K_FX {
 
     *load{
         var synthFolders, parallelFiles;
-        var packageName = 'mk-fxlib';
-        path = PathName(Main.packages.asDict.at(packageName));
+        path = KometPath.fullPath;
         synthFolders =  (path  +/+ "synths" +/+ "fx").folders;
 
         // Need to be loaded AFTER the synth folders
@@ -209,10 +208,6 @@ K_FX {
         fx[thisType].put(basename, id);
 
         this.addDef(basename, func, thisType);
-    }
-
-    *installFaustPlugins{
-        faustInstaller.install();
     }
 
 }
