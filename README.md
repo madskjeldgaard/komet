@@ -1,5 +1,5 @@
 # Komet
-[assets/komet.png]
+![komet](assets/komet.png) 
 
 This is my SuperCollider synthdef library and factory. It produces tons of variations of synths that I use. Some of the synths in here are based on stuff found on [scsynth.org](https://scsynth.org), [sccode.org](https://sccode.org), the SuperCollider mailing list. Thank you to everyone sharing their ideas!
 
