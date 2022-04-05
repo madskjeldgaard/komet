@@ -1,0 +1,18 @@
+SynthLib:
+- submodule macos build scripts for plugins
+- add os dependent *install method
+- Fix autopan for stereo
+- use specs
+- add check to *add as in K_FX
+- Add test for \Ks event
+- Simplify fm7 and analog to reduce build time
+- *rebuildAll method
+- Write test for main class
+
+FXLib:
+- add synths for andromeda, musli and datorroplusplus
+- Add install and AurHelper installation stuff
+- prefix/suffix function arguments in parallel methods to allow more of the same effect
+- What to do about the fact that if the lib is built for 2 channels you cannot input mono?
+- Serial processing chain convenience
+- Use specs

@@ -1,0 +1,20 @@
+(
+  name: "komet",
+  summary: "Komet is a computer music / sound system by Mads Kjeldgaard",
+  version: "0.0.1",
+  schelp: "K",
+  dependencies: [],
+  aur_dependencies: [
+      "faust",
+      "supercollider-xplaybuf-git",
+      "supercollider-guttersynth-git",
+      "supercollider-squinewave-git",
+      "supercollider-portedplugins"
+  ],
+  brew_dependencies: [
+      // TODO
+  ],
+  url: "https://github.com/madskjeldgaard/komet/",
+  license: "GPL",
+  copyright: "Mads Kjeldgaard, 2021"
+)
