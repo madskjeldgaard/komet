@@ -1,0 +1,22 @@
+import("stdfaust.lib");
+import("filters.lib");
+
+ek = environment {
+
+	// Classic equalizer with low, high shelf and nuK_bells number of peaking equalizers
+	ekvi(nuK_bells) = low_shelf(low_level, low_freq) : bells(nuK_bells) : high_shelf(high_level, high_freq)
+	with {
+		bells(nuK_bells) = seq(bellNum, nuK_bells, one_bell(bellNum))
+			with {
+				one_bell(bellNum, one_bell_in) = one_bell_in : peak_eq(Lfx(bellNum),fx(bellNum),B(bellNum)) with {
+					Lfx(bellNum) = vslider("bellLevel%bellNum",0,-96,96,0.001);
+					fx(bellNum) = vslider("bellfreq%bellNum",((bellNum + 1) * 500) + 500,20,20000,0.001);
+					B(bellNum) = vslider("bandwidth%bellNum",100,20,20000,0.001);
+				};
+			};
+		low_freq = vslider("low_freq",250,10,20000,0.01);
+		low_level = vslider("low_level",0,-96,96,0.01);
+		high_freq = vslider("high_freq",8000,10,20000,0.01);
+		high_level = vslider("high_level",0,-96,96,0.01);
+	};
+};
