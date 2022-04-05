@@ -1,7 +1,7 @@
 # Komet
 ![komet](assets/komet.png) 
 
-Komet is a SuperCollider/Faust sound system by Mads Kjeldgaard.
+Komet is a computer music / sound system by Mads Kjeldgaard written in [supercollider](https://github.com/supercollider/supercollider) and [faust](https://faust.grame.fr/).
 
 It is currently not intended for use by others, but feel free to check it out.
 
