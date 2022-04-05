@@ -1,7 +1,7 @@
 # Komet
 ![komet](assets/komet.png) 
 
-This is my SuperCollider synthdef library and factory. It produces tons of variations of synths that I use. Some of the synths in here are based on stuff found on [scsynth.org](https://scsynth.org), [sccode.org](https://sccode.org), the SuperCollider mailing list. Thank you to everyone sharing their ideas!
+Komet is a SuperCollider/Faust sound system by Mads Kjeldgaard.
 
 The motivation for making this library was to create a central place for my synths but also a unified interface to make sure that all synths are expected to respond to the same parameters in the same way (especially pertaining to timing, envelopes and filters etc.) to make it easier for me to focus on the composition work.
 
@@ -62,13 +62,6 @@ Quarks.install("https://codeberg.org/madskjeldgaard/komet")
 ```
 
 This library makes use of a range of internal Faust plugins and external c++-plugins.
-
-To install the internal Faust plugins:
-
-```supercollider
-// Compile and install the Faust plugins that come with this library
-K.installFaustPlugins();
-```
 
 TODO: 
 - Install packages on arch
