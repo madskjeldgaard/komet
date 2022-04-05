@@ -2,3 +2,5 @@ tmp/
 .FAUSTCOMPILED
 faust/*.json
 faust/*.cpp
+scratch*
+sketch*
