@@ -1,4 +1,4 @@
-KSEvent{
+K_Event{
 
   *initClass{
     Class.initClassTree(Event);
@@ -10,7 +10,7 @@ KSEvent{
   *addEventTypes{
 
     // This is an expanded version of \note but where you dont set the \instrument key but rather the base, env type and filter used in KS
-    Event.addEventType(\m, { |server|
+    Event.addEventType(\k, { |server|
 
       ~base = ~base ? \complex;
       ~env = ~env ? \adsr;

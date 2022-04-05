@@ -33,9 +33,9 @@
 
    *loadAll{
      all = componentFiles.collect{|file|
-       var Kloader = this.new(file.fileName);
-       Kloader.load();
-       [Kloader.name -> Kloader]
+       var kloader = this.new(file.filename);
+       kloader.load();
+       [kloader.name -> kloader]
      }.flatten.asDict;
      allLoaded = true;
    }
