@@ -5,7 +5,7 @@ This class takes a folder containing faust files and compiles them to SuperColli
 It places them in the user extensions folder in a folder defined in the installTargetFolder argument.
 
 */
-M_FaustInstaller{
+K_FaustInstaller{
     classvar <>flags = "-double -vec";
     var installationFolder,sourcecodeFolder, fullCompilationPath, installationFolderHead;
 

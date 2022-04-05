@@ -1,6 +1,6 @@
-TITLE::M_SCDocGen
+TITLE::K_SCDocGen
 SUMMARY::Autogenerate help file from/for class
-CATEGORIES::MK>Tools
+CATEGORIES::K_>Tools
 RELATED::Classes/SCDoc
 
 DESCRIPTION::
@@ -17,5 +17,5 @@ ARGUMENT::outfolder
 EXAMPLES::
 
 CODE::
-M_SCDocGen.new(MyCrazyClass, "~/Desktop".asAbsolutePath);
+K_SCDocGen.new(MyCrazyClass, "~/Desktop".asAbsolutePath);
 ::

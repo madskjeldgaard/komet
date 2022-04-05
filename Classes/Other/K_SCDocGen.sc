@@ -3,7 +3,7 @@
 this will auto generate a help file for a class. If no outputfolder path is given, it will try and guess the output folder based on the class's path.
 
 */
-M_SCDocGen{
+K_SCDocGen{
     *method2scdoc{|meth|
         var outString = "";
         var argString = "";

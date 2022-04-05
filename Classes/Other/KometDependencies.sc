@@ -1,7 +1,7 @@
 KometDependencies : Singleton {
 
     installFaustPlugins{
-        ^M_FaustInstaller.install()
+        ^K_FaustInstaller.install()
     }
 
     installPlugins{

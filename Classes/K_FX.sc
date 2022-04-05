@@ -17,8 +17,8 @@ K_FX {
         StartUp.add({
             // This will trigger compilation if it hasn't already been compiled
             faustInstaller = K_FaustInstaller.new(
-                // Will be compiled to extensions/MKFxLibFaustPlugins
-                "MKFXLibFaustPlugins",
+                // Will be compiled to extensions/K_FxLibFaustPlugins
+                "K_FXLibFaustPlugins",
                 // Source of faust files
                 sourcecodeDir: path +/+ "faust",
                 // Trigger autocompile if folder does not exist
@@ -46,7 +46,7 @@ K_FX {
     }
 
     *browse{
-        MKSynthBrowser.new(synthNames)
+        K_SynthBrowser.new(synthNames)
     }
 
     *load{

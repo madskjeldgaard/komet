@@ -1,6 +1,6 @@
-TITLE::M_FaustInstaller
+TITLE::K_FaustInstaller
 SUMMARY::Compile and install faust files as SuperCollider plugins
-CATEGORIES::MK>Faust
+CATEGORIES::K_>Faust
 RELATED::Classes/UGen
 
 DESCRIPTION::
@@ -30,7 +30,7 @@ MyFunkyFaustPlugins{
 	*initClass{
 		StartUp.add({
 				// This will trigger compilation if it hasn't already been compiled
-				M_FaustInstaller.new(
+				K_FaustInstaller.new(
 						// Will be compiled to extensions/MyFunkyFaustPlugins
 						"MyFunkyFaustPlugins",
 						// Source of faust files. RELATIVE
@@ -68,8 +68,8 @@ CODE::
 (
 var pathToFolderContainingFaustFiles = "TODO"; // <--- Put path to faust files here
 
-var target = "MKSynthLibFaustPlugins";
-var installer = M_FaustInstaller.new(target, pathToFolderContainingFaustFiles);
+var target = "K_SynthLibFaustPlugins";
+var installer = K_FaustInstaller.new(target, pathToFolderContainingFaustFiles);
 installer.install();
 )
 
