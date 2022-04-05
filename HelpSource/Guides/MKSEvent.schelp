@@ -1,0 +1,37 @@
+TITLE::KSEvent
+categories:: komet
+summary:: Custom event types for K-syntlib
+related:: Classes/Event
+
+DESCRIPTION::
+
+This provides custom event types for komet. They are automatically loaded at startup.
+
+CLASSMETHODS::
+
+INSTANCEMETHODS::
+
+EXAMPLES::
+
+CODE::
+K.new(2, rebuild: true);
+
+(
+Pbind(
+	\type, \Ks,
+	\base, \complex,
+	\envType, \adsr,
+	\filter, \vadim,
+	\atk, 0.95,
+	\rel, 2.5,
+	\dur, 0.25,
+	\amp, 0.5,
+	\freq, Pwhite(100,1500),
+	\filterType, Pwhite(0,1),
+	\fcutoff, Pkey(\freq) * 2
+).play
+)
+
+::
+
+KEYWORD:: komet

@@ -1,0 +1,81 @@
+// Buchla 261 Complex Waveform Generator inspired
+(
+["", "_lpg", "_folded", "_lpg_folded"].do{|version|
+    var addWavefolder = version.contains("folded");
+    var addLPG = version.contains("lpg");
+
+	M.add("complex" ++ version,  {|dur, freq=440, freqOffset=0, modFreq=100, amMod=0, fmMod=0|
+		// var modulator = SinOsc.ar(freq: modulatorFreq,  phase: 0.0);
+        var am, fm, sig, modulator, timbreMod;
+
+        var lagTime = \lagTime.kr(1);
+        freq = (freq + freqOffset).Klag(lagTime);
+
+        timbreMod=KNC.ar("timbreMod", 0).Klag(lagTime);
+
+		modulator = Squine.ar(
+			freq: modFreq.Klag(lagTime),
+			clip: KNC.kr("clip", 0, prefix: "mod").Klag(lagTime),
+			skew: KNC.kr("skew", 0, prefix:"mod").Klag(lagTime),
+			initphase: KNC.kr("phase", 1.25, prefix:"mod").Klag(lagTime)
+		);
+
+		fm = modulator.range(
+			(1.0 - fmMod.Klag(lagTime)) * freq,
+			freq
+		)
+		.lag(Rand(0.001,0.01));
+
+		// var sig = SinOsc.ar(freq: fm,  phase: 0.0);
+		sig = Squine.ar(
+			freq: fm,
+			clip: KNC.kr("clip", 0, prefix: "main").Klag(lagTime),
+			skew: KNC.kr("skew", 0, prefix:"main").Klag(lagTime),
+			initphase: KNC.kr("phase", 1.25, prefix:"main").Klag(lagTime)
+		);
+
+		am;
+
+        am = modulator.range(
+			(1.0 - amMod.Klag(lagTime)) * 1,
+			1
+		).lag(Rand(0.001,0.01));
+
+		sig  = sig * am;
+
+        // Optional wavefolder
+        if(addWavefolder, {
+            var wavefold=KNC.ar("wavefold", 0.1).Klag(lagTime), numCells=KNC.ir("cells", 4);
+            var gain = wavefold.linexp(0.00000000000001,1.0,1.0,20.0);
+
+            gain = modulator.range(
+                (1.0 - timbreMod) * gain,
+                gain
+            )
+            .lag(Rand(0.001,0.01));
+
+            sig = sig * LockhartWavefolder.ar(input: sig * gain,  numCells: numCells);
+        });
+
+        // Optional lowpass gate
+		if(addLPG, {
+			var lpgenv = KEnvelopes().getWrap(\perc, "lpg", "", dur, 0);
+
+			sig = LPG.ar(
+				input: sig,
+				controlinput: lpgenv,
+				controloffset: KNC.kr(name: "offset",  values: 1,  suffix: "lpg"),
+				controlscale: KNC.kr(name: "controlscale",  values: 1,  suffix: "lpg"),
+				vca: KNC.kr(name: "vca",  values: 1,  suffix: "lpg"),
+				resonance: KNC.kr(name: "resonance",  values: 1.5,  suffix: "lpg"),
+				lowpassmode: KNC.kr(name: "lowpassmode",  values: 1,  suffix: "lpg"),
+				linearity: KNC.kr(name: "linearity",  values: 1,  suffix: "lpg"),
+			);
+
+		});
+
+		sig
+
+	},  numChannelsIn: 1);
+}
+)

@@ -1,0 +1,21 @@
+TITLE::M_SCDocGen
+SUMMARY::Autogenerate help file from/for class
+CATEGORIES::MK>Tools
+RELATED::Classes/SCDoc
+
+DESCRIPTION::
+Auto generate scdoc files from a class.
+
+CLASSMETHODS::
+METHOD::method2scdoc
+ARGUMENT::meth
+
+METHOD::new
+ARGUMENT::inclass
+ARGUMENT::outfolder
+
+EXAMPLES::
+
+CODE::
+M_SCDocGen.new(MyCrazyClass, "~/Desktop".asAbsolutePath);
+::

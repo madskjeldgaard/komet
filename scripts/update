@@ -1,0 +1,42 @@
+#!/usr/bin/bash
+VERSION_NUMBER=$1
+QUARK_FILE=$(fd .quark)
+
+# Check input
+if [[ -z $VERSION_NUMBER ]]; then echo "No version supplied" && exit 1; fi
+
+# Changelog
+function changelog(){
+	if [[ -f "cliff.toml" ]]; then
+		# git cliff --tag $VERSION_NUMBER
+		git cliff --output CHANGELOG.md
+	else
+		echo "No git cliff config found. Generating cliff.toml now."
+		git cliff --init
+		# git cliff --tag $VERSION_NUMBER
+		git cliff --output CHANGELOG.md
+	fi
+}
+
+# Update quark file
+function update_quark_file(){
+	if [[ -f $QUARK_FILE ]]; then
+		sed -i -e "s/version.*/version: \"$VERSION_NUMBER\",/g" "$QUARK_FILE"
+	else
+		echo "Cannot find quarks file: $QUARK_FILE" && exit 1
+	fi
+}
+
+# Git tag
+function update_tags(){
+	echo "Updating git tag"
+	git tag v$VERSION_NUMBER
+}
+
+# commit changes made by version system
+function commit_version_changes(){
+	echo "committing changes made by the version system"
+	git commit $QUARK_FILE CHANGELOG.md -m "v$VERSION_NUMBER"
+}
+
+ update_quark_file && update_tags && changelog && commit_version_changes

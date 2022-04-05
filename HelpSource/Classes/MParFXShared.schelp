@@ -1,0 +1,52 @@
+TITLE:: MParFXShared
+SUMMARY:: Play an event pattern through an fx with data sharing between patterns
+related:: Classes/Pgroup
+categories:: MK>Patterns
+
+DESCRIPTION::
+
+Play an event pattern through an fx and set both using patterns with
+data sharing
+
+CLASSMETHODS::
+copymethod:: MParFX *new
+
+METHOD::prmakePattern
+argument::sourcePattern
+argument::fxPairs
+argument::releaseTime
+
+EXAMPLES::
+
+CODE::
+K_FX.new(2);
+
+// Use degree key from sourcePattern to set the delay of the effect pattern
+(
+var releaseTime = 1;
+
+Pdef(\,
+    MParFXShared(
+        Pbind(
+            \octave, Pwhite(3,5),
+            \degree, Plet.new(\deggy, pattern: Pwhite(0,10)),
+            \dur, Pwrand([Pwhite(0.1,1.0,1)*Rest(), 0.25], [0.25, 0.75], inf),
+            \amp, Pwhite(0.125,0.25),
+            \pan, Pwhite(-1.0,1.0)
+        ),
+        K_FX.get(basename:\comb, type:\channelized),
+        [
+            \delaytime, Ptrace(Pget(\deggy, 1, inf) + 1 / 30 + 0.1).trace(prefix:"delaytime: "),
+            \drywet, 0.25,
+            \dur, Pwhite(1.0,4.0),
+            \lagTime, Pkey(\dur),
+            \maxdelay, 4,
+            \decaytime, 12,
+            \gate, 1,
+            \fadeOutTime, releaseTime
+        ],
+        releaseTime: releaseTime,
+    ),
+).play;
+)
+::
