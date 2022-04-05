@@ -1,0 +1,4 @@
+tmp/
+.FAUSTCOMPILED
+faust/*.json
+faust/*.cpp
