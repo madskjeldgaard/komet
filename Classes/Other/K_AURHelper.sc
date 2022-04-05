@@ -3,7 +3,7 @@
 * Manage packages on an Arch Linux based operating system
 *
 */
-M_AURHelper : Singleton{
+K_AURHelper : Singleton{
 
     // Install packages
     *install{|packages(["supercollider", "sc3-plugins"])|
