@@ -17,24 +17,13 @@ K {
   *initClass{
       StartUp.add({
           path = PathName(Main.packages.asDict.at(pkgName));
-          files = (path +/+ "synths").folders.collect{|dir| dir.files}.flatten;
+          files = (path +/+ "synths/main").folders.collect{|dir| dir.files}.flatten;
           faustFiles =(path +/+ "faust").files.select{|ff| ff.extension == "dsp"};
           synthNames = [];
           synthFuncs = IdentityDictionary.new;
           synths = IdentityDictionary.new;
       });
 
-      StartUp.add({
-            // This will trigger compilation if it hasn't already been compiled
-            faustInstaller = K_FaustInstaller.new(
-                // Will be compiled to extensions/...
-                "KSynthLibFaustPlugins",
-                // Source of faust files
-                sourcecodeDir: path +/+ "faust",
-                // Trigger autocompile if folder does not exist
-                autoCompile: true
-            );
-        })
   }
 
   *init{|numChannels, rebuild, verbose|
@@ -292,23 +281,6 @@ K {
   *browse{
     this.checkIfInitialized();
     KSynthBrowser.new(synthNames)
-  }
-
-  *installFaustPlugins{
-      faustInstaller.install();
-  }
-
-  *installDependenciesArch{|aurHelper="paru"|
-    "% -S supercollider-squinewave-git supercollider-steroids-ugens-git supercollider-xplaybuf-git supercollider-portedplugins supercollider-mi-ugens-git supercollider-guttersynth-git supercollider-vbugens-git".format(aurHelper).runInTerminal
-  }
-
-  *test{
-    "Running all tests for M associated classes!!\n".postln;
-    TestKLoad.run;
-    TestKFilters.run;
-    TestKPanners.run;
-    TestKGrainShapes.run;
-    TestK.run;
   }
 
 }

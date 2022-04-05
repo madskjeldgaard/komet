@@ -4,27 +4,14 @@
 *
 */
 K_FX {
-    classvar <types, <fx, <numChannels, <initialized=false, <synthNames, <path, <pkgName='mk-fxlib', <files, <faustFiles, <faustInstaller;
+    classvar <types, <fx, <numChannels, <initialized=false, <synthNames, <path, <pkgName='mk-fxlib', <files;
 
     *initClass{
         StartUp.add({
             path = PathName(Main.packages.asDict.at(pkgName));
             files = (path +/+ "synths").folders.collect{|dir| dir.files}.flatten;
-            faustFiles =(path +/+ "faust").files.select{|ff| ff.extension == "dsp"};
-
         });
 
-        StartUp.add({
-            // This will trigger compilation if it hasn't already been compiled
-            faustInstaller = K_FaustInstaller.new(
-                // Will be compiled to extensions/K_FxLibFaustPlugins
-                "K_FXLibFaustPlugins",
-                // Source of faust files
-                sourcecodeDir: path +/+ "faust",
-                // Trigger autocompile if folder does not exist
-                autoCompile: true
-            );
-        })
     }
 
     *new{|channels|
@@ -53,10 +40,10 @@ K_FX {
         var synthFolders, parallelFiles;
         var packageName = 'mk-fxlib';
         path = PathName(Main.packages.asDict.at(packageName));
-        synthFolders =  (path +/+ "synths").folders;
+        synthFolders =  (path  +/+ "synths" +/+ "fx").folders;
 
         // Need to be loaded AFTER the synth folders
-        parallelFiles = (path +/+ "parallel").files;
+        parallelFiles = (path +/+ "synths" +/+ "parallel").files;
 
         synthFolders.do{|f|
             f.files.do({|file|

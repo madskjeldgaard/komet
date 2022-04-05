@@ -16,3 +16,6 @@ FXLib:
 - What to do about the fact that if the lib is built for 2 channels you cannot input mono?
 - Serial processing chain convenience
 - Use specs
+
+Dependencies:
+- Finish installation for MacOS
