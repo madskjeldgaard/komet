@@ -64,7 +64,7 @@
 // 	grainenvelopes.keysValuesDo{|shapename, envelope|
 // 		var buffer = Buffer.sendCollection(Server.local, envelope.discretize, 1);
 
-// 		M.addGrainShapeBuffer(shapename, buffer);
+// 		K.addGrainShapeBuffer(shapename, buffer);
 // 	};
 
 grainenvelopes;

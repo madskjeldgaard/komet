@@ -1,6 +1,6 @@
 // Benjolin inspired instrument originally by Alejandro Olarte. Thanks Alejandro!!!
 
-// z=Synth(M.get(\benjolis))
+// z=Synth(K.get(\benjolis))
 // z.set(\freq1, 1900.1, \freq2, 0.01, \rungler2,0.9, \scale, 1.0, \q, 0.95, \runglerFilt, 10)
 // s.record;
 (

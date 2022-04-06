@@ -1,6 +1,6 @@
 (
 	[1, 2].do{|numChansIn|
-	M.add("warpi%".format(numChansIn), {|dur, buffer|
+	K.add("warpi%".format(numChansIn), {|dur, buffer|
         var lagTime = \lagTime.kr(1);
 		var rate = K_NC.kr("positionRate", 0.5).Klag(lagTime);
 		var pointer = LFSaw.ar(rate.Klag(lagTime)).range(0.0,1.0);
@@ -23,7 +23,7 @@
 	};
 
 	// [1].do{|numChans|
-	// M.add("warpoverlap%".format(numChans), {|buffer|
+	// K.add("warpoverlap%".format(numChans), {|buffer|
 	// 	var rate = K_NC.kr("grainrate", 0.5);
 
 	// 	var sig = WarpOverlap.ar(numChans: numChans,

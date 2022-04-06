@@ -11,7 +11,7 @@
 
      allLoaded = false;
 
-     Class.initClassTree(M);
+     Class.initClassTree(K);
      StartUp.add{
        pkgPath = KometPath.fullPath;
        componentsPath = pkgPath +/+ "components";

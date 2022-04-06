@@ -1,5 +1,5 @@
 (
-[1,2].do{|numChannels| M.add("sampler%".format(numChannels), {
+[1,2].do{|numChannels| K.add("sampler%".format(numChannels), {
 	|dur, buffer, rate=1, loop=1, direction=0, startPosition=0|
 	var dir = Select.kr(direction, [1,(-1)]);
     var lagTime = \lagTime.kr(1);

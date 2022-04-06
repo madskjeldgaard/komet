@@ -1,7 +1,7 @@
 (
 // Overlapping sampler
 [1,2].do{|numChannels|
-	M.add("xplaybuf%".format(numChannels), {
+	K.add("xplaybuf%".format(numChannels), {
 		|dur, buffer, rate=1, loop=1, loopDur=(-1), startPos=0, fadeTime=0.001, trigger=1, direction=0|
         var lagTime = \lagTime.kr(1);
 		var dir = Select.kr(direction, [1,(-1)]);

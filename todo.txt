@@ -1,3 +1,6 @@
+General:
+- Handle submodules somehow.
+
 SynthLib:
 - submodule macos build scripts for plugins
 - add os dependent *install method
@@ -19,3 +22,6 @@ FXLib:
 
 Dependencies:
 - Finish installation for MacOS
+
+Patterns:
+- Convenience for mapping LFO's to parameters using https://doc.sccode.org/Classes/Pproto.html

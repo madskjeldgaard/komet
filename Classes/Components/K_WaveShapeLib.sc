@@ -15,7 +15,7 @@ KWaveShapeLib {
 	*addWaveshapeBuffer{|name, buffer|
       if(initialized != true, { this.init() });
 
-		M.poster("Adding waveshape buffer %".format(name));
+		K.poster("Adding waveshape buffer %".format(name));
 		shapeBuffers.put(name, buffer);
 	}
 
@@ -23,7 +23,7 @@ KWaveShapeLib {
       if(initialized != true, { this.init() });
 
 		^SynthDef.wrap(
-			M.getWaveshapeWrapper(waveshaperName),  
+			K.getWaveshapeWrapper(waveshaperName),  
 			prependArgs: [sig]
 		) 
 	}
@@ -34,7 +34,7 @@ KWaveShapeLib {
 		if(
 			waveshapeWrappers.keys.asArray.indexOfEqual(name).isNil,
 			{
-				M.poster("Waveshape wrapper % not found", error: true);
+				K.poster("Waveshape wrapper % not found", error: true);
 				^nil
 			}, 
 			{
@@ -44,7 +44,7 @@ KWaveShapeLib {
 	}
 
 	*addWaveshapeWrapper{|name, func|
-		M.poster("Adding waveshape wrapper function %".format(name));
+		K.poster("Adding waveshape wrapper function %".format(name));
 		waveshapeWrappers.put(name, func);
 	}
 

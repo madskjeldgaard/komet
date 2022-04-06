@@ -4,7 +4,7 @@
     var addWavefolder = version.contains("folded");
     var addLPG = version.contains("lpg");
 
-	M.add("complex" ++ version,  {|dur, freq=440, freqOffset=0, modFreq=100, amMod=0, fmMod=0|
+	K.add("complex" ++ version,  {|dur, freq=440, freqOffset=0, modFreq=100, amMod=0, fmMod=0|
 		// var modulator = SinOsc.ar(freq: modulatorFreq,  phase: 0.0);
         var am, fm, sig, modulator, timbreMod;
 
