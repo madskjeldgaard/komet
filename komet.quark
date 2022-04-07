@@ -5,6 +5,7 @@
   schelp: "K",
   dependencies: [
 	  "atk-sc3",
+	  "https://github.com/scztt/Log.quark",
 	  "https://github.com/madskjeldgaard/faust.quark",
 	  "https://github.com/scztt/Singleton.quark",
 	  "https://github.com/madskjeldgaard/fxpatterns"
