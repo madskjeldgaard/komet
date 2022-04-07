@@ -254,16 +254,14 @@ K {
     fork{
 
       // Synths that need to be manually killed
-      (path +/+ "synths").folders.do{|directory|
-        directory.filesDo{|file|
-            if(file.extension == "scd", {
-                var thisPath = file.fullPath;
-                this.poster("Loading %".format(file.fileName));
-                thisPath.load;
-            }, {
-                this.poster("Skipping % because it is not a .scd file".format(file.fileName));
-            })
-        }
+      files.do{|file|
+          if(file.extension == "scd", {
+              var thisPath = file.fullPath;
+              this.poster("Loading %".format(file.fileName));
+              thisPath.load;
+          }, {
+              this.poster("Skipping % because it is not a .scd file".format(file.fileName));
+          })
       };
 
       // s.sync;
