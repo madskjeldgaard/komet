@@ -1,5 +1,7 @@
 General:
-- Handle submodules somehow.
+- Split using a faust filter
+- Write specification for .add - when to use lag? when to use dur?
+- Return booleans from file loading to make testing easy.
 
 SynthLib:
 - submodule macos build scripts for plugins
