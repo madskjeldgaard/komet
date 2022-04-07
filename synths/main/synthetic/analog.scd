@@ -9,12 +9,12 @@
 		var sig, modulators, detune;
         var lagTime = \lagTime.kr(1);
 
-        freq = (freq + freqOffset).Klag(lagTime);
-        modFreq = modFreq.Klag(lagTime);
-        freqModAmount = freqModAmount.Klag(lagTime);
-        detuneFreq = detuneFreq.Klag(lagTime);
-        detuneModAmount = detuneModAmount.Klag(lagTime);
-        detuneModShape = detuneModShape.Klag(lagTime);
+        freq = (freq + freqOffset).klag(lagTime);
+        modFreq = modFreq.klag(lagTime);
+        freqModAmount = freqModAmount.klag(lagTime);
+        detuneFreq = detuneFreq.klag(lagTime);
+        detuneModAmount = detuneModAmount.klag(lagTime);
+        detuneModShape = detuneModShape.klag(lagTime);
 
 		// Detune modulator
 		modulators = [
@@ -30,7 +30,7 @@
 			wrap: 1
 		);
 
-		detune = detune.lag(Rand() * 0.01).Klag(lagTime);
+		detune = detune.lag(Rand() * 0.01).klag(lagTime);
 
 		freq = detune.linexp(-1.0,1.0,freq,(1.0+freqModAmount) * freq);
 

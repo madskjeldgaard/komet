@@ -10,7 +10,7 @@
                 in: sig, //.poll(label: chanNum),
                 maxDelay: maxDelay,
                 autoMode: autoMode,
-                autoSpeed: autoSpeed.mklag(lagTime),
+                autoSpeed: autoSpeed..klag(lagTime),
                 skipTrigger: skipTrigger,
                 resetTrigger: resetTrigger,
                 pos: pos,

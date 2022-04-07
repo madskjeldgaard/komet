@@ -8,7 +8,7 @@ K_FX.addFX(
             var lagTime = \lagTime.kr(1);
             Array.fill(numChannels, {|chanNum|
                 var sig = in[chanNum];
-                VAKorg35.ar(input:sig, freq:\cutoff.ar(500).mklag(lagTime), res:\res.ar(0.1).mklag(lagTime), overdrive:\overdrive.kr(0.1).mklag(lagTime), type:\type.ir(0))
+                VAKorg35.ar(input:sig, freq:\cutoff.ar(500)..klag(lagTime), res:\res.ar(0.1)..klag(lagTime), overdrive:\overdrive.kr(0.1)..klag(lagTime), type:\type.ir(0))
             })
         }
     },
@@ -32,9 +32,9 @@ K_FX.addFX(
                 var sig = in[chanNum];
                 VALadder.ar(
                     input:sig,
-                    freq:\cutoff.ar(500).mklag(lagTime),
-                    res:\res.ar(0.1).mklag(lagTime),
-                    overdrive:\overdrive.kr(0.1).mklag(lagTime),
+                    freq:\cutoff.ar(500)..klag(lagTime),
+                    res:\res.ar(0.1)..klag(lagTime),
+                    overdrive:\overdrive.kr(0.1)..klag(lagTime),
                     type:\type.ir(0)
                 )
             })
@@ -59,8 +59,8 @@ K_FX.addFX(
                 var sig = in[chanNum];
                 VADiodeFilter.ar(
                     input:sig,
-                    freq:\cutoff.ar(500).mklag(lagTime),
-                    res:\res.ar(0.1).mklag(lagTime),
+                    freq:\cutoff.ar(500)..klag(lagTime),
+                    res:\res.ar(0.1)..klag(lagTime),
                     overdrive:\overdrive.kr(0.1)
                 )
             })
@@ -84,7 +84,7 @@ K_FX.addFX(
         var lagTime = \lagTime.kr(1);
             Array.fill(numChannels, {|chanNum|
                 var sig = in[chanNum];
-                VASEM12.ar(input:sig, freq:\cutoff.ar(500).mklag(lagTime), res:\res.ar(0.1).mklag(lagTime), transition:\transition.kr(0))
+                VASEM12.ar(input:sig, freq:\cutoff.ar(500)..klag(lagTime), res:\res.ar(0.1)..klag(lagTime), transition:\transition.kr(0))
             })
         }
     },

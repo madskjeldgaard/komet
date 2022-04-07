@@ -33,7 +33,7 @@
 
    *loadAll{
      all = componentFiles.collect{|file|
-       var kloader = this.new(file.filename);
+       var kloader = this.new(file.fileName);
        kloader.load();
        [kloader.name -> kloader]
      }.flatten.asDict;

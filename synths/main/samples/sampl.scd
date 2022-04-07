@@ -7,9 +7,9 @@
 
 	// When playing backwards
 	var startOffset = Select.kr(direction, [0,1]);
-	var pitchenvAmount = K_NC.kr("pitchEnvAmount", 0).Klag(lagTime);
+	var pitchenvAmount = K_NC.kr("pitchEnvAmount", 0).klag(lagTime);
 
-	rate = dir * rate.Klag(lagTime) * BufRateScale.kr(buffer);
+	rate = dir * rate.klag(lagTime) * BufRateScale.kr(buffer);
 
 	rate = pitchEnv.linlin(
 		0.0,

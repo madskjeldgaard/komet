@@ -1,16 +1,16 @@
 /*
 
 // Example
-b = Buffer.read(s, M.sndPath.fullPath +/+ "harmshort-mono.wav");
+b = Buffer.read(s, K.sndPath.fullPath +/+ "harmshort-mono.wav");
 M();
-z = Synth(M.get('paulstretch1'), [\buffer, b, \stretchscale, 2, \amp, 1, \pitchMix, 0.5]);
-x = Synth(M.get('paulstretch'), [\buffer, b, \stretchscale, 2.1, \amp, 1, \pan, 1, \pitchMix, 0.5, \pitchHarm, 2.01]);
+z = Synth(K.get('paulstretch1'), [\buffer, b, \stretchscale, 2, \amp, 1, \pitchMix, 0.5]);
+x = Synth(K.get('paulstretch'), [\buffer, b, \stretchscale, 2.1, \amp, 1, \pan, 1, \pitchMix, 0.5, \pitchHarm, 2.01]);
 K.genPat('paulstretch');
 (
 // Pdef('210818_155914').clear;
 Pdef('210818_155914',
 	Pbind(
-		\instrument, M.get('paulstretch', 'adsr'),
+		\instrument, K.get('paulstretch', 'adsr'),
 		\dur, Pwhite(4.1,8).trace,
 		\buffer, b,
 		\timestretch, Pexprand(80.0,1000.0),
@@ -46,7 +46,7 @@ K.gui;
 	// var paulstretch_grain_buf = Buffer.alloc(server: s,  numFrames: s.sampleRate,  numChannels: 1);
 	// 	paulstretch_grain_buf.loadCollection(Signal.newClear(Server.local.sampleRate).waveFill({|x| (1 - x.pow(2)).pow(1.25)}, -1.0, 1.0));
 (1..1).do{|numChannels|
-	M.add("paulstretch%".format(numChannels), {
+	K.add("paulstretch%".format(numChannels), {
 		arg dur, buffer, timestretch=100, stretchscale=1, window=0.25,
 		pitchMix=0, pitchHarm=2.0,
 		bpFreq=440, bpWidth=10, trigratescale=1;

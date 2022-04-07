@@ -6,14 +6,14 @@ K.add(\sinpulsar, {|dur|
 	var shape2 = KGrainShapes().getWrap(suffix: "2");
 	var shape3 = KGrainShapes().getWrap(suffix: "3");
     var lagTime = \lagTime.kr(1);
-	lev = \level.kr(0.9).Klag(lagTime);
-	f = \freq.kr(440).Klag(lagTime);
+	lev = \level.kr(0.9).klag(lagTime);
+	f = \freq.kr(440).klag(lagTime);
 	f_ = f.clip(50, 1500);
 
-	formantA = \formantA.kr(4).Klag(lagTime);
-	formantB = \formantB.kr(6).Klag(lagTime);
-	overlapA = \overlapA.kr(2).Klag(lagTime);
-	overlapB = \overlapB.kr(9).Klag(lagTime);
+	formantA = \formantA.kr(4).klag(lagTime);
+	formantB = \formantB.kr(6).klag(lagTime);
+	overlapA = \overlapA.kr(2).klag(lagTime);
+	overlapB = \overlapB.kr(9).klag(lagTime);
 
 	fund = GrainSin.ar(
 		numChannels: 1,

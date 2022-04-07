@@ -18,9 +18,9 @@ K_FX.addFX(
                 DynKlank.ar(
                     specificationsArrayRef:`[freqs, amps, rings],
                     input:sig * 0.1,
-                    freqscale: K_NC.kr("freqscale", 1).mklag(lagTime) * spread,
-                    freqoffset: K_NC.kr("freqoffset", 0).mklag(lagTime),
-                    decayscale: K_NC.kr("decayscale", 0.1).mklag(lagTime)
+                    freqscale: K_NC.kr("freqscale", 1)..klag(lagTime) * spread,
+                    freqoffset: K_NC.kr("freqoffset", 0)..klag(lagTime),
+                    decayscale: K_NC.kr("decayscale", 0.1)..klag(lagTime)
                 ) * 0.5
             });
 

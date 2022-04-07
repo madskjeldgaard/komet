@@ -2,18 +2,18 @@
 	[1, 2].do{|numChansIn|
 	K.add("warpi%".format(numChansIn), {|dur, buffer|
         var lagTime = \lagTime.kr(1);
-		var rate = K_NC.kr("positionRate", 0.5).Klag(lagTime);
-		var pointer = LFSaw.ar(rate.Klag(lagTime)).range(0.0,1.0);
+		var rate = K_NC.kr("positionRate", 0.5).klag(lagTime);
+		var pointer = LFSaw.ar(rate.klag(lagTime)).range(0.0,1.0);
 		var shape = KGrainShapes().getWrap();
 		var sig = Warp1.ar(
 			numChannels: numChansIn,
 			bufnum: buffer,
 			pointer: pointer,
-			freqScale: K_NC.kr("grainfreqScale", 1).Klag(lagTime),
-			windowSize: K_NC.kr("grainsize", 0.1).Klag(lagTime),
+			freqScale: K_NC.kr("grainfreqScale", 1).klag(lagTime),
+			windowSize: K_NC.kr("grainsize", 0.1).klag(lagTime),
 			envbufnum: shape,
-			overlaps: K_NC.kr("grainoverlap", 2).Klag(lagTime),
-			windowRandRatio: K_NC.kr("windowrand", 0.9).Klag(lagTime),
+			overlaps: K_NC.kr("grainoverlap", 2).klag(lagTime),
+			windowRandRatio: K_NC.kr("windowrand", 0.9).klag(lagTime),
 			interp: 4
 		);
 

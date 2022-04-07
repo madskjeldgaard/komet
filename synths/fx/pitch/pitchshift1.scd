@@ -11,9 +11,9 @@ K_FX.addFX(
                 PitchShift.ar(
                     in:sig,
                     windowSize:\windowSize.ir(0.25),
-                    pitchRatio:\pitchRatio.kr(2).mklag(lagTime),
-                    pitchDispersion:\pitchDispersion.kr(0.1).mklag(lagTime),
-                    timeDispersion:\timeDispersion.kr(0.1).mklag(lagTime)
+                    pitchRatio:\pitchRatio.kr(2)..klag(lagTime),
+                    pitchDispersion:\pitchDispersion.kr(0.1)..klag(lagTime),
+                    timeDispersion:\timeDispersion.kr(0.1)..klag(lagTime)
                 )
 
             })

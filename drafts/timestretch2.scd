@@ -38,7 +38,7 @@ s.waitForBoot{
 
     sig[1] = DelayN.ar(sig[1], trigPeriod/2, trigPeriod/2);
 
-    sum = RunningSum.ar((sig[0]*sig[1]), fftSize/2)/RunningSum.ar((sig[0]*sig[0]), fftSize/2);
+    sum = RunningSuK.ar((sig[0]*sig[1]), fftSize/2)/RunningSuK.ar((sig[0]*sig[0]), fftSize/2);
 
     rVal = Latch.ar(sum, DelayN.ar(trig1+trig2, (3*fftMax/2)-(3*fftSize/2)+BlockSize.ir/SampleRate.ir, fftMax-fftSize+BlockSize.ir/SampleRate.ir)).clip(-1,1);
 
@@ -71,7 +71,7 @@ s.waitForBoot{
 
     };
 
-    M.add(
+    K.add(
         basename: \timestretch2,
         synthfunc: {|dur, buffer, fftVal=8192, fftMax=65536, hiPass, lowPass, stretch=10, startPos=0|
             // var thissig = filterVals.collect{|filterPair, splitNum|
@@ -104,7 +104,7 @@ var filterVals = TimeStretch2.getFilterVals(sampleRate, numSplits);
 var fftVals = TimeStretch2.getFFTVals(filterVals, fftMax);
 
 ~synths = filterVals.collect{|fv, i|
-    Synth(M.get(\timestretch2, \adsr, \none),
+    Synth(K.get(\timestretch2, \adsr, \none),
         [
             \out, outChan,
             \dur, 8,

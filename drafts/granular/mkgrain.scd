@@ -2,12 +2,12 @@
 /*
 (
 	[1,2].do{|numChannels|
-	M.add(\Kgrain, { |buffer|
+	K.add(\Kgrain, { |buffer|
 		var numGrains = 4;
 		var grainRate = K_NC.ar("grainRate", 1);
 		var playRate = K_NC.ar("playRate", 0.25);
 		var wobble = K_NC.ar("wobble", 0.5);
-		var shape = M.embedWithGrainShapes(); 
+		var shape = K.embedWithGrainShapes(); 
 
 		var grains = Array.fill(numGrains, {|grainNum|
 			var windowPhasor = Phasor.ar(0, 
@@ -51,9 +51,9 @@
 (
 	// MUST HAVE MONO INPUT
 	(1..2).do{|numChannels|
-	M.add("tgrain%".format(numChannels), {|buffer|
+	K.add("tgrain%".format(numChannels), {|buffer|
 		var clock = Dust2.ar(K_NC.kr("graindensity", 10.5)).poll(label:"clockkkk");
-		var shape = M.embedWithGrainShapes(); 
+		var shape = K.embedWithGrainShapes(); 
 
 		TGrains3.ar(numChannels.poll(label: "numc"), 
 			clock.poll(label: "clock"),

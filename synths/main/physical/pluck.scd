@@ -8,9 +8,9 @@ K.add(\pluck,  synthfunc: {
 		in: WhiteNoise.ar(pluckLevel),
 		trig: trig,
 		maxdelaytime: pluckMaxDelay,
-		delaytime: freq.reciprocal.Klag(lagTime),
-		decaytime: pluckDecay.Klag(lagTime),
-		coef: pluckCoef.Klag(lagTime)
+		delaytime: freq.reciprocal.klag(lagTime),
+		decaytime: pluckDecay.klag(lagTime),
+		coef: pluckCoef.klag(lagTime)
 	);
 
 },  numChannelsIn: 1);

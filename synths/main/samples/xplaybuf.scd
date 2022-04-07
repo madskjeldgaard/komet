@@ -5,15 +5,15 @@
 		|dur, buffer, rate=1, loop=1, loopDur=(-1), startPos=0, fadeTime=0.001, trigger=1, direction=0|
         var lagTime = \lagTime.kr(1);
 		var dir = Select.kr(direction, [1,(-1)]);
-		var wowParam = K_NC.kr("wow", 0).Klag(lagTime);
+		var wowParam = K_NC.kr("wow", 0).klag(lagTime);
 		var wow = LFNoise2.kr(
 			wowParam.linexp(0.0,1.0,0.01,10.0)
 		).range(1.0 + wowParam, 1.0 - wowParam);
 
 		var pitchEnv = KEnvelopes().getWrap(\adsr, "pitch", "", dur, 0);
-		var pitchenvAmount = K_NC.kr("pitchEnvAmount", 0).Klag(lagTime);
+		var pitchenvAmount = K_NC.kr("pitchEnvAmount", 0).klag(lagTime);
 
-		rate = dir * rate.Klag(lagTime) * BufRateScale.kr(buffer);
+		rate = dir * rate.klag(lagTime) * BufRateScale.kr(buffer);
 
 		rate = pitchEnv.linlin(
 			0.0,

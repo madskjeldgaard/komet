@@ -6,18 +6,18 @@ K.add(\fmpulsar, {|dur|
     var lagTime = \lagTime.kr(1);
 	var shape = KGrainShapes().getWrap();
 
-	f = \freq.kr(100).Klag(lagTime);
+	f = \freq.kr(100).klag(lagTime);
 	f = f + SinOsc.ar(LFNoise1.kr(0.3!2).range(1,4));
 
-	vel = \velocity.kr(0.5).Klag(lagTime);
+	vel = \velocity.kr(0.5).klag(lagTime);
 	vel_ = vel.clip(0,1.0).linlin( 0, 1, 2, 0.7);
 
-	carfreq = f * \carrierFreq.kr(2).Klag(lagTime) + LFNoise1.kr(3).range(0,50);
-	modfreq = carfreq * \modulatorFreq.kr(2).Klag(lagTime) +  LFNoise1.kr(3).range(0,100);
+	carfreq = f * \carrierFreq.kr(2).klag(lagTime) + LFNoise1.kr(3).range(0,50);
+	modfreq = carfreq * \modulatorFreq.kr(2).klag(lagTime) +  LFNoise1.kr(3).range(0,100);
 
 	t = Impulse.ar(f);
-	mInd = LFNoise2.kr(5!2).range(\modulatorIndexMin.kr(0.1).Klag(lagTime),\modulatorIndexMax.kr(2.3).Klag(lagTime));
-	overlap = 1.1 - LFNoise1.kr(0.3!2).range(\overlapMin.kr(1).Klag(lagTime),\overlapMax.kr(8).Klag(lagTime));
+	mInd = LFNoise2.kr(5!2).range(\modulatorIndexMin.kr(0.1).klag(lagTime),\modulatorIndexMax.kr(2.3).klag(lagTime));
+	overlap = 1.1 - LFNoise1.kr(0.3!2).range(\overlapMin.kr(1).klag(lagTime),\overlapMax.kr(8).klag(lagTime));
 	d = overlap/f;
 
 	a = SinOsc.ar(f)+

@@ -6,11 +6,11 @@ K.add("stringvoice",
 		var sig = StringVoice.ar(
 			trig,
 			infsustain: trig,
-			freq:freq.Klag(lagTime),
-			accent: accent.Klag(lagTime),
-			structure: structure.Klag(lagTime),
-			brightness: brightness.Klag(lagTime),
-			damping: damping.Klag(lagTime),
+			freq:freq.klag(lagTime),
+			accent: accent.klag(lagTime),
+			structure: structure.klag(lagTime),
+			brightness: brightness.klag(lagTime),
+			damping: damping.klag(lagTime),
 		);
 
 		sig

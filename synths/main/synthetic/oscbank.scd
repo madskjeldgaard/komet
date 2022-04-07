@@ -2,7 +2,7 @@
 K.add("oscbank", {|dur, freqOffset=0|
 var lagTime = \lagTime.kr(1);
 	OscBank.ar(
-		freq:(K_NC.kr("freq", 100) + freqOffset).Klag(lagTime),
+		freq:(K_NC.kr("freq", 100) + freqOffset).klag(lagTime),
 		gain:K_NC.kr("gain", 1),
 		saw8:K_NC.kr("saw8", 0.5),
 		square8:K_NC.kr("square8", 0.5),

@@ -9,7 +9,7 @@ K_FX.addFX(
                 var sig = in[chanNum];
                 BandSplitter2.ar(
                     sig:sig,
-                    freq:\freq.kr(1000).mklag(lagTime),
+                    freq:\freq.kr(1000)..klag(lagTime),
                     order:2
                 )
             })
@@ -31,9 +31,9 @@ K_FX.addFX(
                 var sig = in[chanNum];
                 BandSplitter4.ar(
                     sig:sig,
-                    f1:\freq1.kr(100).mklag(lagTime),
-                    f2:\freq2.kr(1000).mklag(lagTime),
-                    f3:\freq3.kr(10000).mklag(lagTime),
+                    f1:\freq1.kr(100)..klag(lagTime),
+                    f2:\freq2.kr(1000)..klag(lagTime),
+                    f3:\freq3.kr(10000)..klag(lagTime),
                     order:2
                 )
             })

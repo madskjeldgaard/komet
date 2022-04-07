@@ -1,5 +1,5 @@
 + UGen {
-    klag{ arg time=0.1;
+   .klag{ arg time=0.1;
         var curvature = (-3);
         var warp = 5;
         var start = 0;

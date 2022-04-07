@@ -9,19 +9,19 @@
         var am, fm, sig, modulator, timbreMod;
 
         var lagTime = \lagTime.kr(1);
-        freq = (freq + freqOffset).Klag(lagTime);
+        freq = (freq + freqOffset).klag(lagTime);
 
-        timbreMod=K_NC.ar("timbreMod", 0).Klag(lagTime);
+        timbreMod=K_NC.ar("timbreMod", 0).klag(lagTime);
 
 		modulator = Squine.ar(
-			freq: modFreq.Klag(lagTime),
-			clip: K_NC.kr("clip", 0, prefix: "mod").Klag(lagTime),
-			skew: K_NC.kr("skew", 0, prefix:"mod").Klag(lagTime),
-			initphase: K_NC.kr("phase", 1.25, prefix:"mod").Klag(lagTime)
+			freq: modFreq.klag(lagTime),
+			clip: K_NC.kr("clip", 0, prefix: "mod").klag(lagTime),
+			skew: K_NC.kr("skew", 0, prefix:"mod").klag(lagTime),
+			initphase: K_NC.kr("phase", 1.25, prefix:"mod").klag(lagTime)
 		);
 
 		fm = modulator.range(
-			(1.0 - fmMod.Klag(lagTime)) * freq,
+			(1.0 - fmMod.klag(lagTime)) * freq,
 			freq
 		)
 		.lag(Rand(0.001,0.01));
@@ -29,15 +29,15 @@
 		// var sig = SinOsc.ar(freq: fm,  phase: 0.0);
 		sig = Squine.ar(
 			freq: fm,
-			clip: K_NC.kr("clip", 0, prefix: "main").Klag(lagTime),
-			skew: K_NC.kr("skew", 0, prefix:"main").Klag(lagTime),
-			initphase: K_NC.kr("phase", 1.25, prefix:"main").Klag(lagTime)
+			clip: K_NC.kr("clip", 0, prefix: "main").klag(lagTime),
+			skew: K_NC.kr("skew", 0, prefix:"main").klag(lagTime),
+			initphase: K_NC.kr("phase", 1.25, prefix:"main").klag(lagTime)
 		);
 
 		am;
 
         am = modulator.range(
-			(1.0 - amMod.Klag(lagTime)) * 1,
+			(1.0 - amMod.klag(lagTime)) * 1,
 			1
 		).lag(Rand(0.001,0.01));
 
@@ -45,7 +45,7 @@
 
         // Optional wavefolder
         if(addWavefolder, {
-            var wavefold=K_NC.ar("wavefold", 0.1).Klag(lagTime), numCells=K_NC.ir("cells", 4);
+            var wavefold=K_NC.ar("wavefold", 0.1).klag(lagTime), numCells=K_NC.ir("cells", 4);
             var gain = wavefold.linexp(0.00000000000001,1.0,1.0,20.0);
 
             gain = modulator.range(
