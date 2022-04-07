@@ -24,7 +24,7 @@ K_FX.addFX(
                 ) * 0.5
             });
 
-            SafetyLimiter.ar(output)
+            Klimit.ar(output)
         }
     },
     type: \channelized,

@@ -45,7 +45,7 @@ K.add(
             qs2:         `q2,
         );
 
-        sig = SafetyLimiter.ar(sig);
+        sig = Klimit.ar(sig);
 		sig = LeakDC.ar(sig);
 
 	},

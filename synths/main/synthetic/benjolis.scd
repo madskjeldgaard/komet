@@ -62,7 +62,7 @@ K.add(\benjolis, { |dur, freq= 40, modFreq=20, scale=1, rungler1=0.16, rungler2=
 
     output = LeakDC.ar(output, 0.99).tanh;
 
-    SafetyLimiter.ar(output)
+    Klimit.ar(output)
 
 })
 )

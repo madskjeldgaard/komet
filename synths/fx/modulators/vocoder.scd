@@ -41,13 +41,13 @@
 
                     sig = sig.sum * 30.dbamp;
 
-                    SafetyLimiter.ar(sig)
+                    Klimit.ar(sig)
 
                 })
             }
         },
         type: \channelized,
-        check: { \SafetyLimiter.asClass.notNil },
+        check: { \Klimit.asClass.notNil },
         specs:
         (
             oscType: [0,1],
