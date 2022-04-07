@@ -8,7 +8,7 @@ K_FX {
 
     *initClass{
         StartUp.add({
-            path = KometPath.fullPath;
+            path = KometPath.path;
             files = (path +/+ "synths").folders.collect{|dir| dir.files}.flatten;
         });
 
@@ -38,7 +38,7 @@ K_FX {
 
     *load{
         var synthFolders, parallelFiles;
-        path = KometPath.fullPath;
+        path = KometPath.path;
         synthFolders =  (path  +/+ "synths" +/+ "fx").folders;
 
         // Need to be loaded AFTER the synth folders

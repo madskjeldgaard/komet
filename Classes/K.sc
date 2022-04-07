@@ -14,7 +14,7 @@ K {
 
   *initClass{
       StartUp.add({
-          path = KometPath.fullPath;
+          path = KometPath.path;
           files = (path +/+ "synths/main").folders.collect{|dir| dir.files}.flatten;
           faustFiles =(path +/+ "faust").files.select{|ff| ff.extension == "dsp"};
           synthNames = [];

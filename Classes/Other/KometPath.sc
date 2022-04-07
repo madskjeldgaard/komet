@@ -1,9 +1,10 @@
 KometPath{
-    classvar <fullPath, <pkgName='komet';
+    classvar <fullPath, <path, <pkgName='komet';
 
     *initClass{
         StartUp.add({
-            fullPath = PathName(Main.packages.asDict.at(pkgName));
+            path = PathName(Main.packages.asDict.at(pkgName));
+            fullPath = path.fullPath;
         })
     }
 }
