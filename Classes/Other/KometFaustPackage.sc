@@ -7,6 +7,7 @@ It places them in the user extensions folder in a folder defined in the installT
 */
 
 KometFaustPackage : AbstractFaustPackage{
+
     // FIXME: This is a hack to fix a problem with Quarks that don't recurse submodules currently
     *checkSubmodules{
         // https://stackoverflow.com/questions/12641469/list-submodules-in-a-git-repository
