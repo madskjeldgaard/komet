@@ -67,10 +67,6 @@ KometSynthFactory {
     }
   }
 
-  *sndPath{
-    ^path +/+ "snd"
-  }
-
   *getName{|basename ... nameComponents|
     var name = "%".format(basename);
 
@@ -272,11 +268,6 @@ KometSynthFactory {
 
     };
 
-  }
-
-  *browse{
-    this.checkIfInitialized();
-    KSynthBrowser.new(synthNames)
   }
 
 }

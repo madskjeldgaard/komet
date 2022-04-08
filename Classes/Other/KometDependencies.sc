@@ -27,6 +27,7 @@ KometDependencies : Singleton {
     }
 
     *installFaustPlugins{
+        Log(\komet).info("Installing Faust plugins");
         ^KometFaustPackage.install()
     }
 
