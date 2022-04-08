@@ -1,7 +1,9 @@
-General:
+Refactor:
 - Split using a faust filter
-- Write specification for .add - when to use lag? when to use dur?
 - Return booleans from file loading to make testing easy.
+
+Docs:
+- Write specification for .add - when to use lag? when to use dur?
 
 SynthLib:
 - submodule macos build scripts for plugins

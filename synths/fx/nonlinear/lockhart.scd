@@ -9,7 +9,7 @@ K_FX.addFX(
                 var sig = in[chanNum];
                 \LockhartWavefolder.asClass.perform(
                     \ar,
-                    input:sig * \wavefold.kr(0.01).linexp(0.00000000000001,1.0,1.0,20.0)..klag(lagTime),
+                    input:sig * \wavefold.kr(0.01).linexp(0.00000000000001,1.0,1.0,20.0).klag(lagTime),
                     numCells:\cells.ir(4),
                 )
             })

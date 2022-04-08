@@ -9,11 +9,11 @@ K_FX.addFX(
                 \AnalogVintageDistortion.asClass.perform(
                     \ar,
                     input:sig,
-                    drivegain:\drivegain.kr(0.5)..klag(lagTime),
-                    bias:\drivebias.kr(0.0)..klag(lagTime),
-                    lowgain:\lowgain.kr(-10).dbamp..klag(lagTime),
-                    highgain:\highgain.kr(-10).dbamp..klag(lagTime),
-                    shelvingfreq:\shelvingfreq.kr(1500)..klag(lagTime),
+                    drivegain:\drivegain.kr(0.5).klag(lagTime),
+                    bias:\drivebias.kr(0.0).klag(lagTime),
+                    lowgain:\lowgain.kr(-10).dbamp.klag(lagTime),
+                    highgain:\highgain.kr(-10).dbamp.klag(lagTime),
+                    shelvingfreq:\shelvingfreq.kr(1500).klag(lagTime),
                     oversample:\oversample.ir(1)
                 )
             })

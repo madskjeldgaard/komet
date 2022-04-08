@@ -13,10 +13,10 @@ K_FX.addFX(
                 \AnalogPhaser.asClass.perform(
                     \ar,
                     input: sig,
-                    lfoinput: LFTri.ar(\lfoFreq.kr(0.5)..klag(lagTime) * r[0], iphase: chanNum.linlin(0, numChannels - 1, 0.0, 4.0)),
-                    skew: \skew.ar(0.0)..klag(lagTime) * r[1],
-                    feedback: \feedback.ar(0.9)..klag(lagTime) * r[2],
-                    modulation: \modulation.ar(0.1)..klag(lagTime) * r[3],
+                    lfoinput: LFTri.ar(\lfoFreq.kr(0.5).klag(lagTime) * r[0], iphase: chanNum.linlin(0, numChannels - 1, 0.0, 4.0)),
+                    skew: \skew.ar(0.0).klag(lagTime) * r[1],
+                    feedback: \feedback.ar(0.9).klag(lagTime) * r[2],
+                    modulation: \modulation.ar(0.1).klag(lagTime) * r[3],
                     stages: \stages.ir(50)
                 )
             })

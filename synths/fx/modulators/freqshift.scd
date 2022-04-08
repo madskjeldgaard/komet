@@ -9,7 +9,7 @@ K_FX.addFX(
                 var sig = in[chanNum];
                 var spread = \spread.kr(0.1);
 
-                FreqShift.ar(in:sig, freq:\shiftfreq.ar(1)..klag(lagTime) * (1 + (chanNum/numChannels * spread)), phase:\shiftphase.kr(0))
+                FreqShift.ar(in:sig, freq:\shiftfreq.ar(1).klag(lagTime) * (1 + (chanNum/numChannels * spread)), phase:\shiftphase.kr(0))
 
             })
         }

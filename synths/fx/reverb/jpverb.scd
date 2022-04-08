@@ -6,7 +6,7 @@ K_FX.addFX(
 
             var lagTime = \lagTime.kr(1);
             var sig = in;
-            JPverb.ar(in:in, t60:t60..klag(lagTime), damp:damp..klag(lagTime), size:size..klag(lagTime), earlyDiff:earlyDiff, modDepth:modDepth..klag(lagTime), modFreq:modFreq..klag(lagTime), low:low, mid:mid, high:high, lowcut:lowcut, highcut:highcut);
+            JPverb.ar(in:in, t60:t60.klag(lagTime), damp:damp.klag(lagTime), size:size.klag(lagTime), earlyDiff:earlyDiff, modDepth:modDepth.klag(lagTime), modFreq:modFreq.klag(lagTime), low:low, mid:mid, high:high, lowcut:lowcut, highcut:highcut);
 
     },
     type: \stereo, // channelized, stereo or ambisonic

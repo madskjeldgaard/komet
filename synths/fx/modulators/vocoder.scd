@@ -10,7 +10,7 @@
                 Array.fill(numChannels, {|chanNum|
                     var sig = in[chanNum];
 
-                    var freq = \freq.ar(100)..klag(lagTime);
+                    var freq = \freq.ar(100).klag(lagTime);
                     var oscillator = Select.ar(\oscType.kr(0), array:[
                         SawDPW.ar(freq),
                         PulseDPW.ar(freq),
