@@ -10,6 +10,8 @@ KometSynthFactory : AbstractKometFactory {
 
   classvar <files;
 
+  classvar <synthDefPrefix="komet_";
+
   *new {|numChannelsOut=2, rebuild=false, verbose=true|
     ^this.init(numChannelsOut, rebuild, verbose);
   }
@@ -77,7 +79,7 @@ KometSynthFactory : AbstractKometFactory {
     };
 
     // Append number of outchannels to end
-    name = name ++ "_o" ++ numChansOut.asString;
+    name = synthDefPrefix ++ name ++ "_o" ++ numChansOut.asString;
 
     ^name.asSymbol
   }

@@ -5,8 +5,8 @@
 */
 KometFXFactory : AbstractKometFactory {
     classvar <types, <fx, <numChannels, <initialized=false, <synthNames, <path;
-
     classvar <files;
+    classvar <synthDefPrefix="kometfx_";
 
     *initClass{
         StartUp.add({
@@ -72,7 +72,7 @@ KometFXFactory : AbstractKometFactory {
     }
 
     *get{|basename, type|
-        ^("mfx_" ++ type ++ "_" ++ basename.asString ++ numChannels.asString).asSymbol
+        ^(synthDefPrefix ++ type ++ "_" ++ basename.asString ++ numChannels.asString).asSymbol
     }
 
     *typeExists{|type|

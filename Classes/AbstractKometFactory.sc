@@ -23,7 +23,7 @@ AbstractKometFactory{
 
         result = loaded.every{|isTrue| isTrue};
         if(result, {
-            Log(\komet).info("Loaded");
+            Log(\komet).info("Loaded %", this.name);
         }, {
             Log(\komet).error("Something went wrong while loading source function %. Aborting load.", lastFile);
         })

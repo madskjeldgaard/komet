@@ -2,6 +2,14 @@ Test:
 - Test that all files compile
 - Test that autopan works
 
+FXLib:
+- add synths for andromeda, musli and datorroplusplus
+- prefix/suffix function arguments in parallel methods to allow more of the same effect
+- Use specs
+- What to do about the fact that if the lib is built for 2 channels you cannot input mono?
+	--> Make a mono2stereo converter fx
+- Serial processing chain convenience
+
 Docs:
 - Write specification for .add - when to use lag? when to use dur?
 
@@ -14,14 +22,6 @@ SynthLib:
 - Write test for main class
 - submodule macos build scripts for plugins
 - More fm synths
-
-FXLib:
-- add synths for andromeda, musli and datorroplusplus
-- prefix/suffix function arguments in parallel methods to allow more of the same effect
-- Serial processing chain convenience
-- Use specs
-- What to do about the fact that if the lib is built for 2 channels you cannot input mono?
-	--> Make a mono2stereo converter fx
 
 Dependencies:
 - Finish installation for MacOS
