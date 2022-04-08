@@ -39,4 +39,8 @@ function commit_version_changes(){
 	git commit $QUARK_FILE CHANGELOG.md -m "v$VERSION_NUMBER"
 }
 
- update_quark_file && update_tags && changelog && commit_version_changes
+function run_tests(){
+	sclang scripts/runtests.scd
+}
+
+run_tests && update_quark_file && update_tags && changelog && commit_version_changes

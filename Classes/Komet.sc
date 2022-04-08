@@ -27,8 +27,6 @@ Komet : Singleton {
     }
 
     *browse{
-        // TODO:
-        // this.isInitialized();
         KSynthBrowser.new(KometSynthFactory.synthNames ++ KometFXFactory.synthNames);
     }
 
@@ -36,5 +34,18 @@ Komet : Singleton {
     // Get a synthdef name
     *get{
 
+    }
+
+    *test{
+        var fails = [];
+
+        // TODO make this synchronous
+        KometTest.subclasses.do{|sub|
+            sub.run();
+            fails = fails.add(sub.failures.any{|res| res});
+        };
+
+        fails.postln;
+        ^fails.any{|res| res}.not
     }
 }

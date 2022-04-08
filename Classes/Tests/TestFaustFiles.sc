@@ -1,4 +1,4 @@
-TestFaustFiles : UnitTest{
+TestKometFaustFiles : KometTest{
     // Test if faust files compile
     test_faustFilesCompile{
         this.assert(
