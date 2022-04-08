@@ -1,5 +1,5 @@
 (
-KometFXFactory.addFX(
+KometFXFactory.add(
     basename: \analogphaser,
     synthfunc: {|numChannels|
         {|in|

@@ -1,5 +1,6 @@
-Refactor:
-- Return booleans from file loading to make testing easy.
+Test:
+- Test that all files compile
+- Test that autopan works
 
 Docs:
 - Write specification for .add - when to use lag? when to use dur?
@@ -9,7 +10,6 @@ SynthLib:
 - use specs
 - add check to *add as in KometFXFactory
 - Add test for \Ks event
-- Simplify fm7 and analog to reduce build time
 - *rebuildAll method
 - Write test for main class
 - submodule macos build scripts for plugins

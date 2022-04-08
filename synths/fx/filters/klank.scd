@@ -1,5 +1,5 @@
 (
-KometFXFactory.addFX(
+KometFXFactory.add(
     basename: \klank,
     synthfunc: {|numChannels|
         {|in|

@@ -46,7 +46,7 @@ KometFXFactory : AbstractKometFactory {
         });
     }
 
-    *addFX{|basename, type, synthfunc, specs, check|
+    *add{|basename, type, synthfunc, specs, check|
 
         var ok = if(check.notNil, { check.value() }, { true });
 
@@ -107,13 +107,13 @@ KometFXFactory : AbstractKometFactory {
         })
     }
 
-    *addDef{|basename, func, type|
+    *prAddDef{|basename, func, type|
 
         var defname = this.get(basename, type);
         var numChans = numChannels; // @FIXME: Make work with other channel types
         synthNames = synthNames.add(defname);
 
-        "%: Adding synthdef: %".format(this.name, defname).postln;
+        Log(\komet).info("Adding synthdef: %".format(defname));
 
         SynthDef(defname, {|out, drywet=0.5, fadeInTime=1.0, fadeOutTime=8, gate=1|
 
@@ -147,7 +147,7 @@ KometFXFactory : AbstractKometFactory {
             sig
         };
 
-        this.addDef(basename, func, type)
+        this.prAddDef(basename, func, type)
     }
 
     // TODO untested
@@ -168,7 +168,7 @@ KometFXFactory : AbstractKometFactory {
             sig
         };
 
-        this.addDef(basename, func, type)
+        this.prAddDef(basename, func, type)
     }
 
     // TODO
@@ -178,7 +178,7 @@ KometFXFactory : AbstractKometFactory {
         var id = IdentityDictionary[\func -> func, \specs -> specs];
         fx[thisType].put(basename, id);
 
-        this.addDef(basename, func, thisType);
+        this.prAddDef(basename, func, thisType);
     }
 
     *prAddChannelized{|basename, func, specs|
@@ -189,7 +189,7 @@ KometFXFactory : AbstractKometFactory {
         id = IdentityDictionary[\func -> func, \specs -> specs];
         fx[thisType].put(basename, id);
 
-        this.addDef(basename, func, thisType);
+        this.prAddDef(basename, func, thisType);
     }
 
     *prAddStereo{|basename, func, specs|
@@ -197,7 +197,7 @@ KometFXFactory : AbstractKometFactory {
         var id = IdentityDictionary[\func -> func, \specs -> specs];
         fx[thisType].put(basename, id);
 
-        this.addDef(basename, func, thisType);
+        this.prAddDef(basename, func, thisType);
     }
 
 }

@@ -1,5 +1,5 @@
 (
-KometFXFactory.addFX(
+KometFXFactory.add(
     basename: \jpverb,
     synthfunc:
         {|in, t60=1, damp=0.1, size=3, earlyDiff=0.707, modDepth=0.9, modFreq=0.2, low=1, mid=1, high=1, lowcut=500, highcut=2000|

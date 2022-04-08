@@ -1,5 +1,5 @@
 (
-KometFXFactory.addFX(
+KometFXFactory.add(
     basename: \comb,
     synthfunc: {|numChannels|
         {|in|

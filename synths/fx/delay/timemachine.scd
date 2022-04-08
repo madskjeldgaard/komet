@@ -1,5 +1,5 @@
 (
-KometFXFactory.addFX(
+KometFXFactory.add(
     basename: \timemachine,
     synthfunc: {|numChannels|
             {|in, offset=0, reclvl=0.5, prelvl=0.5, timerate=2.0, fb=0.25, record=1, jumpToStart=1, damp=0.25|

@@ -1,6 +1,6 @@
 // TODO
 (
-KometFXFactory.addFX(
+KometFXFactory.add(
     basename: \eq3,
     synthfunc: {|numChannels|
         {|in|

@@ -1,7 +1,7 @@
 (
 [8, 16, 32].do{|numbands|
     var name = "vocoder%bands".format(numbands).asSymbol;
-    KometFXFactory.addFX(
+    KometFXFactory.add(
         basename: name,
         synthfunc: {|numChannels|
             {|in|
