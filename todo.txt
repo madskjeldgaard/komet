@@ -1,13 +1,10 @@
 Refactor:
-- Split using a faust filter
 - Return booleans from file loading to make testing easy.
 
 Docs:
 - Write specification for .add - when to use lag? when to use dur?
 
 SynthLib:
-- submodule macos build scripts for plugins
-- add os dependent *install method
 - Fix autopan for stereo
 - use specs
 - add check to *add as in KometFXFactory
@@ -15,17 +12,19 @@ SynthLib:
 - Simplify fm7 and analog to reduce build time
 - *rebuildAll method
 - Write test for main class
+- submodule macos build scripts for plugins
 
 FXLib:
 - add synths for andromeda, musli and datorroplusplus
-- Add install and AurHelper installation stuff
 - prefix/suffix function arguments in parallel methods to allow more of the same effect
-- What to do about the fact that if the lib is built for 2 channels you cannot input mono?
 - Serial processing chain convenience
 - Use specs
+- What to do about the fact that if the lib is built for 2 channels you cannot input mono?
+	--> Make a mono2stereo converter fx
 
 Dependencies:
 - Finish installation for MacOS
 
 Patterns:
 - Convenience for mapping LFO's to parameters using https://doc.sccode.org/Classes/Pproto.html
+- When that's done: A spectromorphological pattern that morphs between difference fx
