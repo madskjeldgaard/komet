@@ -1,5 +1,5 @@
 KWaveShapeLib {
-    classvar <waveshapeWrappers, <shapeBuffers, <initialized; 
+    classvar <waveshapeWrappers, <shapeBuffers, <initialized;
 
 	*new{|waveshaperName, sig|
         this.init();
@@ -23,20 +23,20 @@ KWaveShapeLib {
       if(initialized != true, { this.init() });
 
 		^SynthDef.wrap(
-			KometSynthFactory.getWaveshapeWrapper(waveshaperName),  
+			KometSynthFactory.getWaveshapeWrapper(waveshaperName),
 			prependArgs: [sig]
-		) 
+		)
 	}
 
 	// Waveshape wraper functions used with SynthDef.wrap
 	*getWaveshapeWrapper{|name|
 
 		if(
-			waveshapeWrappers.keys.asArray.indexOfEqual(name).isNil,
+			waveshapeWrappers.keys.asArray.includes(name),
 			{
 				KometSynthFactory.poster("Waveshape wrapper % not found", error: true);
 				^nil
-			}, 
+			},
 			{
 				^waveshapeWrappers[name]
 			}
