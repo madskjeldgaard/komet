@@ -3,10 +3,10 @@ import("filters.lib");
 
 ek = environment {
 
-	// Classic equalizer with low, high shelf and nuK_bells number of peaking equalizers
-	ekvi(nuK_bells) = low_shelf(low_level, low_freq) : bells(nuK_bells) : high_shelf(high_level, high_freq)
+	// Classic equalizer with low, high shelf and num_bells number of peaking equalizers
+	ekvi(num_bells) = low_shelf(low_level, low_freq) : bells(num_bells) : high_shelf(high_level, high_freq)
 	with {
-		bells(nuK_bells) = seq(bellNum, nuK_bells, one_bell(bellNum))
+		bells(num_bells) = seq(bellNum, num_bells, one_bell(bellNum))
 			with {
 				one_bell(bellNum, one_bell_in) = one_bell_in : peak_eq(Lfx(bellNum),fx(bellNum),B(bellNum)) with {
 					Lfx(bellNum) = vslider("bellLevel%bellNum",0,-96,96,0.001);
