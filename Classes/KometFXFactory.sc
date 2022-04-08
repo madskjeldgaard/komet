@@ -26,7 +26,7 @@ KometFXFactory : AbstractKometFactory {
         synthNames = [];
 
         channels.isNil.if({
-            "%: numChannels not set".format(this.name).error
+            Log(\komet).error("numChannels not set")
         }, {
             var result;
             types = [\hoa, \channelized, \stereo];
@@ -52,7 +52,7 @@ KometFXFactory : AbstractKometFactory {
 
         if(ok, {
             if(types.includes(type).not or: { type.isNil }, {
-                "%: Type % is not one of accepted types".format(type, this.name).error
+                Log(\komet).error("Type % is not one of accepted types", type)
             }, {
                 case
                 { type == \hoa }   {
@@ -94,7 +94,7 @@ KometFXFactory : AbstractKometFactory {
             })
 
         }, {
-            "%: Type % does not exist".format(this.name, type).error;
+            Log(\komet).error("Type % does not exist", type)
             nil
         })
     }
@@ -103,7 +103,7 @@ KometFXFactory : AbstractKometFactory {
         ^if(this.basenameExists(basename, type), {
             fx[type][basename][\func]
         }, {
-            "%: Could not find dict entry for %".format(this.name, basename).error
+            Log(\komet).error("Could not find dict entry for %", basename)
         })
     }
 
