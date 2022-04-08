@@ -34,12 +34,17 @@
    }
 
    *loadAll{
-     all = componentFiles.collect{|file|
-       var kloader = this.new(file.fileName);
-       kloader.load();
-       [kloader.name -> kloader]
-     }.flatten.asDict;
-     allLoaded = true;
+    var didLoad = [];
+    all = componentFiles.collect{|file|
+        // Only continue loading if nothing has failed
+        if(didLoad.every{|isTrue| isTrue}, {
+            var kloader = this.new(file.fileName);
+            didLoad = didLoad.add(kloader.load());
+            [kloader.name -> kloader]
+        })
+    }.flatten.asDict;
+     allLoaded = didLoad.every{|isTrue| isTrue } && didLoad.size == componentFiles.size;
+     ^allLoaded
    }
 
    *removeAll{
@@ -57,10 +62,11 @@
      name = path.fileNameWithoutExtension.asSymbol;
    }
 
+   // Returns whether or not it loaded
    load{
      isLoaded = true;
      items = path.fullPath.load;
-     ^items;
+     ^items.notNil;
    }
 
    keys{

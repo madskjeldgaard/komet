@@ -247,24 +247,30 @@ KometSynthFactory {
   }
 
   *loadSourceFunctions{
+      var loaded = [];
     fork{
 
       // Synths that need to be manually killed
       files.do{|file|
-          if(file.extension == "scd", {
-              var thisPath = file.fullPath;
-              this.poster("Loading %".format(file.fileName));
-              thisPath.load;
-          }, {
-              this.poster("Skipping % because it is not a .scd file".format(file.fileName));
-          })
+          if(loaded.every{|isTrue| isTrue}, {
+              if(file.extension == "scd", {
+                  var thisPath = file.fullPath;
+                  var result;
+                  Log(\komet).info("Loading %".format(file.fileName));
+                  result = thisPath.load;
+                  loaded = loaded.add(result.notNil);
+              }, {
+                  Log(\komet).debug("Skipping % because it is not a .scd file".format(file.fileName));
+              })
+          });
+
       };
 
-      // s.sync;
-      this.poster("DONE LOADING KOMET");
-
-      // See and test all loaded SynthDefs:
-      // SynthDescLib.global.browse;
+      if(loaded.every{|isTrue| isTrue}, {
+          Log(\komet).info("Loaded");
+      }, {
+          Log(\komet).error("Something went wrong while loading source functions");
+      })
 
     };
 
