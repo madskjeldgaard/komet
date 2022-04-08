@@ -1,7 +1,7 @@
 (
 KometSynthFactory.add("oscbank", {|dur, freqOffset=0|
 var lagTime = \lagTime.kr(1);
-	OscBanKometSynthFactory.ar(
+	OscBank.ar(
 		freq:(K_NC.kr("freq", 100) + freqOffset).klag(lagTime),
 		gain:K_NC.kr("gain", 1),
 		saw8:K_NC.kr("saw8", 0.5),

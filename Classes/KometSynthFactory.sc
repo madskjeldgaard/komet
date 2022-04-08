@@ -1,12 +1,14 @@
-KometSynthFactory {
+KometSynthFactory : AbstractKometFactory {
   classvar verbosity,
   <numChansOut,
   <synths,
   <synthFuncs,
   <synthNames, // Flat list of synth names
-  <path, <files, <faustFiles,
+  <path, <faustFiles,
   <initialized = false,
   <forceRebuild;
+
+  classvar <files;
 
   *new {|numChannelsOut=2, rebuild=false, verbose=true|
     ^this.init(numChannelsOut, rebuild, verbose);
@@ -60,7 +62,7 @@ KometSynthFactory {
       KGrainShapes.new();
       Server.local.sync;
 
-      this.loadSourceFunctions();
+      this.loadSourceFunctions(files);
       Server.local.sync;
 
       initialized = true;
@@ -143,7 +145,7 @@ KometSynthFactory {
           }
       ).load;
 
-      this.poster("Added SynthDef %".format(name));
+      Log(\komet).info("Added SynthDef %", name);
     });
   }
 
@@ -234,46 +236,15 @@ KometSynthFactory {
 
   *loadMessage{
     if(verbosity, {
-      "----------".postln;
-      "Loading komet".postln;
+      Log(\komet).info("Loading Komet");
     })
   }
 
   *checkIfInitialized{
     if(initialized.not, {
-      "% has not been initialized".format(this).error
+        Log(\komet).error("has not been initialized");
       ^false;
     }, { ^true })
-  }
-
-  *loadSourceFunctions{
-      var loaded = [];
-    fork{
-
-      // Synths that need to be manually killed
-      files.do{|file|
-          if(loaded.every{|isTrue| isTrue}, {
-              if(file.extension == "scd", {
-                  var thisPath = file.fullPath;
-                  var result;
-                  Log(\komet).info("Loading %".format(file.fileName));
-                  result = thisPath.load;
-                  loaded = loaded.add(result.notNil);
-              }, {
-                  Log(\komet).debug("Skipping % because it is not a .scd file".format(file.fileName));
-              })
-          });
-
-      };
-
-      if(loaded.every{|isTrue| isTrue}, {
-          Log(\komet).info("Loaded");
-      }, {
-          Log(\komet).error("Something went wrong while loading source functions");
-      })
-
-    };
-
   }
 
 }

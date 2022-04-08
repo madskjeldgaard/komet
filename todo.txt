@@ -13,6 +13,7 @@ SynthLib:
 - *rebuildAll method
 - Write test for main class
 - submodule macos build scripts for plugins
+- More fm synths
 
 FXLib:
 - add synths for andromeda, musli and datorroplusplus

@@ -8,8 +8,8 @@ KometFXFactory.addFX(
             Array.fill(numChannels, {|chanNum|
                 var sig = in[chanNum];
                 Krossover2.ar(
-                    sig:sig,
-                    freq:\freq.kr(1000).klag(lagTime)
+                    sig,
+                    \freq.kr(1000).klag(lagTime)
                 )
             })
         }
@@ -28,12 +28,11 @@ KometFXFactory.addFX(
             var lagTime = \lagTime.kr(1);
             Array.fill(numChannels, {|chanNum|
                 var sig = in[chanNum];
-                BandSplitter4.ar(
-                    sig:sig,
-                    f1:\freq1.kr(100).klag(lagTime),
-                    f2:\freq2.kr(1000).klag(lagTime),
-                    f3:\freq3.kr(10000).klag(lagTime),
-                    order:2
+                Krossover4.ar(
+                    sig,
+                    \freq1.kr(100).klag(lagTime),
+                    \freq2.kr(1000).klag(lagTime),
+                    \freq3.kr(10000).klag(lagTime),
                 )
             })
         }

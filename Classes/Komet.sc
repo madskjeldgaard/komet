@@ -1,5 +1,14 @@
 Komet : Singleton {
     classvar <synthFactory, <fxFactory;
+    classvar <files, <faustFiles, <allFiles;
+
+    *initClass{
+        StartUp.add{
+            files = KometSynthFactory.files ++ KometFXFactory.files;
+            faustFiles = KometSynthFactory.faustFiles;
+            allFiles = files ++ faustFiles;
+        }
+    }
 
     // TODO: Should the synthdef compilation be put in here?
     *install{

@@ -4,7 +4,7 @@ KometSynthFactory.add(\pluck,  synthfunc: {
 	var trig = Trig1.ar(1, pluckDur);
     var lagTime = \lagTime.kr(1);
 
-	PlucKometSynthFactory.ar(
+	Pluck.ar(
 		in: WhiteNoise.ar(pluckLevel),
 		trig: trig,
 		maxdelaytime: pluckMaxDelay,

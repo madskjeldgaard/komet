@@ -38,7 +38,7 @@ KometSynthFactory.add("modularstreng",
 KometSynthFactory.add("karplusstaerk",
 	{|dur, damping=0.9, pluckgate=1, freq=440,  gain=0.99, sustained=0|
         var trig = pluckgate;
-        var sig = KarplusStaerKometSynthFactory.ar(damping:damping, freq:freq, gain:gain, gate:pluckgate, sustain:sustained * pluckgate);
+        var sig = KarplusStaerk.ar(damping:damping, freq:freq, gain:gain, gate:pluckgate, sustain:sustained * pluckgate);
 
         sig
 	}, numChannelsIn: 1

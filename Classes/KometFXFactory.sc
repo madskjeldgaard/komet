@@ -3,13 +3,20 @@
 * Manage FX synth defs
 *
 */
-KometFXFactory {
-    classvar <types, <fx, <numChannels, <initialized=false, <synthNames, <path, <files;
+KometFXFactory : AbstractKometFactory {
+    classvar <types, <fx, <numChannels, <initialized=false, <synthNames, <path;
+
+    classvar <files;
 
     *initClass{
         StartUp.add({
+            var parallelFiles;
             path = KometPath.path;
-            files = (path +/+ "synths").folders.collect{|dir| dir.files}.flatten;
+            files = (path +/+ "synths" +/+ "fx").folders.collect{|dir| dir.files}.flatten;
+
+            // Need to be loaded AFTER the synth folders
+            parallelFiles = (path +/+ "synths" +/+ "parallel").files;
+            files = files ++ parallelFiles;
         });
 
     }
@@ -21,35 +28,22 @@ KometFXFactory {
         channels.isNil.if({
             "%: numChannels not set".format(this.name).error
         }, {
+            var result;
             types = [\hoa, \channelized, \stereo];
             fx = IdentityDictionary.new;
             types.do{|type| fx.put(type, IdentityDictionary.new)};
             numChannels = channels;
 
-            this.load();
-            initialized = true;
+            result = this.loadSourceFunctions(files);
+
+            if(result, {
+                Log(\komet).info("Initialized");
+                initialized = true;
+            }, {
+                Log(\komet).warning("Not initialized");
+            });
 
         });
-    }
-
-    *load{
-        var synthFolders, parallelFiles;
-        path = KometPath.path;
-        synthFolders =  (path  +/+ "synths" +/+ "fx").folders;
-
-        // Need to be loaded AFTER the synth folders
-        parallelFiles = (path +/+ "synths" +/+ "parallel").files;
-
-        synthFolders.do{|f|
-            f.files.do({|file|
-                file.fullPath.load()
-            });
-        };
-
-        parallelFiles.do{|f|
-            f.fullPath.load();
-        }
-
     }
 
     *addFX{|basename, type, synthfunc, specs, check|
@@ -72,7 +66,7 @@ KometFXFactory {
                 };
             })
         }, {
-            "%: Check failed for basename %".format(this.name, basename).warn
+            Log(\komet).warning("%: Check failed for basename %".format(this.name, basename))
         })
 
     }
@@ -142,7 +136,7 @@ KometFXFactory {
         var synthDefs = [this.getFunc(basename1, type), this.getFunc(basename2, type)];
 
         var func = {|sig, crossoverFreq=500|
-            var bands =  Krossover2.ar(sig:sig, freq:crossoverFreq, order:2);
+            var bands =  Krossover2.ar(sig, crossoverFreq);
 
             sig = Array.fill(2, {|i|
                 SynthDef.wrap(synthDefs[i], prependArgs: [bands[i]])
