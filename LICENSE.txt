@@ -84,7 +84,7 @@ License.  Each licensee is addressed as "you".  "Licensees" and
   To "modify" a work means to copy from or adapt all or part of the work
 in a fashion requiring copyright permission, other than the making of an
 exact copy.  The resulting work is called a "modified version" of the
-earlier work or a work "based on" the earlier work.
+earlier work or a work "based on" the earlier worKometSynthFactory.
 
   A "covered work" means either the unmodified Program or a work based
 on the Program.
@@ -113,7 +113,7 @@ menu, a prominent item in the list meets this criterion.
 
   The "source code" for a work means the preferred form of the work
 for making modifications to it.  "Object code" means any non-source
-form of a work.
+form of a worKometSynthFactory.
 
   A "Standard Interface" means an interface that either is an official
 standard defined by a recognized standards body, or, in the case of
@@ -137,19 +137,19 @@ work) run the object code and to modify the work, including scripts to
 control those activities.  However, it does not include the work's
 System Libraries, or general-purpose tools or generally available free
 programs which are used unmodified in performing those activities but
-which are not part of the work.  For example, Corresponding Source
+which are not part of the worKometSynthFactory.  For example, Corresponding Source
 includes interface definition files associated with source files for
 the work, and the source code for shared libraries and dynamically
 linked subprograms that the work is specifically designed to require,
 such as by intimate data communication or control flow between those
-subprograms and other parts of the work.
+subprograms and other parts of the worKometSynthFactory.
 
   The Corresponding Source need not include anything that users
 can regenerate automatically from other parts of the Corresponding
 Source.
 
   The Corresponding Source for a work in source code form is that
-same work.
+same worKometSynthFactory.
 
   2. Basic Permissions.
 
@@ -158,7 +158,7 @@ copyright on the Program, and are irrevocable provided the stated
 conditions are met.  This License explicitly affirms your unlimited
 permission to run the unmodified Program.  The output from running a
 covered work is covered by this License only if the output, given its
-content, constitutes a covered work.  This License acknowledges your
+content, constitutes a covered worKometSynthFactory.  This License acknowledges your
 rights of fair use or other equivalent, as provided by copyright law.
 
   You may make, run and propagate covered works that you do not
@@ -292,7 +292,7 @@ in one of these ways:
 
   A separable portion of the object code, whose source code is excluded
 from the Corresponding Source as a System Library, need not be
-included in conveying the object code work.
+included in conveying the object code worKometSynthFactory.
 
   A "User Product" is either (1) a "consumer product", which means any
 tangible personal property which is normally used for personal, family,
@@ -332,7 +332,7 @@ for a work that has been modified or installed by the recipient, or for
 the User Product in which it has been modified or installed.  Access to a
 network may be denied when the modification itself materially and
 adversely affects the operation of the network or violates the rules and
-protocols for communication across the network.
+protocols for communication across the networKometSynthFactory.
 
   Corresponding Source conveyed, and Installation Information provided,
 in accord with this section must be in a format that is publicly
@@ -354,7 +354,7 @@ this License without regard to the additional permissions.
   When you convey a copy of a covered work, you may at your option
 remove any additional permissions from that copy, or from any part of
 it.  (Additional permissions may be written to require their own
-removal in certain cases when you modify the work.)  You may place
+removal in certain cases when you modify the worKometSynthFactory.)  You may place
 additional permissions on material, added by you to a covered work,
 for which you have or can give appropriate copyright permission.
 
@@ -439,7 +439,7 @@ run a copy of the Program.  Ancillary propagation of a covered work
 occurring solely as a consequence of using peer-to-peer transmission
 to receive a copy likewise does not require acceptance.  However,
 nothing other than this License grants you permission to propagate or
-modify any covered work.  These actions infringe copyright if you do
+modify any covered worKometSynthFactory.  These actions infringe copyright if you do
 not accept this License.  Therefore, by modifying or propagating a
 covered work, you indicate your acceptance of this License to do so.
 
@@ -554,7 +554,7 @@ License would be to refrain entirely from conveying the Program.
   Notwithstanding any other provision of this License, you have
 permission to link or combine any covered work with a work licensed
 under version 3 of the GNU Affero General Public License into a single
-combined work, and to convey the resulting work.  The terms of this
+combined work, and to convey the resulting worKometSynthFactory.  The terms of this
 License will continue to apply to the part which is the covered work,
 but the special requirements of the GNU Affero General Public License,
 section 13, concerning interaction through a network will apply to the

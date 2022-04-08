@@ -1,5 +1,5 @@
 (
-K_FX.addFX(
+KometFXFactory.addFX(
     basename: \pitchshift1,
     synthfunc: {|numChannels|
         {|in|

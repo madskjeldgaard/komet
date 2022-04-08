@@ -4,9 +4,9 @@
 //                    through a different effect                    //
 //------------------------------------------------------------------//
 (
-K_FX.addParallel2(\comb, \vocoder8bands, \channelized);
-K_FX.addParallel2(\vocoder8bands, \comb, \channelized);
-K_FX.addParallel2(\freqshift, \comb, \channelized);
-K_FX.addParallel2(\klank, \comb, \channelized);
-K_FX.addParallel2(\freqshift, \pitchshift1, \channelized);
+KometFXFactory.addParallel2(\comb, \vocoder8bands, \channelized);
+KometFXFactory.addParallel2(\vocoder8bands, \comb, \channelized);
+KometFXFactory.addParallel2(\freqshift, \comb, \channelized);
+KometFXFactory.addParallel2(\klank, \comb, \channelized);
+KometFXFactory.addParallel2(\freqshift, \pitchshift1, \channelized);
 )

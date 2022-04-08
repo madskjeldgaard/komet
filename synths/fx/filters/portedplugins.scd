@@ -1,6 +1,6 @@
 (
 // Korg 35
-K_FX.addFX(
+KometFXFactory.addFX(
     basename: \korg35,
     synthfunc: {|numChannels|
         {|in|
@@ -22,7 +22,7 @@ K_FX.addFX(
 );
 
 // VALadder
-K_FX.addFX(
+KometFXFactory.addFX(
     basename: \valadder,
     synthfunc: {|numChannels|
         {|in|
@@ -50,7 +50,7 @@ K_FX.addFX(
 );
 
 // VADiodeFilter
-K_FX.addFX(
+KometFXFactory.addFX(
     basename: \diodefilter,
     synthfunc: {|numChannels|
         {|in|
@@ -76,7 +76,7 @@ K_FX.addFX(
 );
 
 // vasem
-K_FX.addFX(
+KometFXFactory.addFX(
     basename: \vasem,
     synthfunc: {|numChannels|
         {|in|

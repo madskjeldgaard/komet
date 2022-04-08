@@ -3,7 +3,7 @@
 * Manage FX synth defs
 *
 */
-K_FX {
+KometFXFactory {
     classvar <types, <fx, <numChannels, <initialized=false, <synthNames, <path, <files;
 
     *initClass{
@@ -58,7 +58,7 @@ K_FX {
 
     *addFX{|basename, type, synthfunc, specs, check|
 
-        var ok = if(checKometSynthFactory.notNil, { checKometSynthFactory.value() }, { true });
+        var ok = if(check.notNil, { check.value() }, { true });
 
         if(ok, {
             if(types.includes(type).not or: { type.isNil }, {

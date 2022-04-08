@@ -1,5 +1,5 @@
 (
-    K_FX.addFX(
+    KometFXFactory.addFX(
         basename: \cdskip,
         synthfunc:
         {|in, maxDelay=2.0,autoMode=1,autoSpeed=1,skipTrigger=0,resetTrigger=0,pos=0,freeze=0,clean=0|

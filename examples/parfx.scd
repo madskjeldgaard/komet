@@ -1,4 +1,4 @@
-K_FX.new(2);
+KometFXFactory.new(2);
 
 (
 var releaseTime = 1;
@@ -12,7 +12,7 @@ Pdef(\,
             \amp, Pwhite(0.125,0.25),
             \pan, Pwhite(-1.0,1.0)
         ),
-        K_FX.get(basename:\comb, type:\channelized),
+        KometFXFactory.get(basename:\comb, type:\channelized),
         [
             \delaytime, Ptrace(Pget(\deggy, 1, inf) + 1 / 30 + 0.1).trace(prefix:"delaytime: "),
             \drywet, 0.25,

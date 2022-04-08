@@ -10,7 +10,7 @@ SynthLib:
 - add os dependent *install method
 - Fix autopan for stereo
 - use specs
-- add check to *add as in K_FX
+- add check to *add as in KometFXFactory
 - Add test for \Ks event
 - Simplify fm7 and analog to reduce build time
 - *rebuildAll method

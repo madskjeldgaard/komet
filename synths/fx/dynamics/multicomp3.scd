@@ -1,6 +1,6 @@
 // TODO
 (
-K_FX.addFX(
+KometFXFactory.addFX(
     basename: \multicomp3,
     synthfunc: {|numChannels|
         {|in|

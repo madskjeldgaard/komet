@@ -1,5 +1,5 @@
 (
-K_FX.addFX(
+KometFXFactory.addFX(
     basename: \split2,
     synthfunc: {|numChannels|
         {|in|
@@ -21,7 +21,7 @@ K_FX.addFX(
     ),
 );
 
-K_FX.addFX(
+KometFXFactory.addFX(
     basename: \split4,
     synthfunc: {|numChannels|
         {|in|

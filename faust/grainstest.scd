@@ -1,4 +1,4 @@
-K_FX.installFaustPlugins()
+KometFXFactory.installFaustPlugins()
 
 b = Buffer.read(s, "~/testsound/whistle.wav".asAbsolutePath)
 

@@ -23,7 +23,7 @@ argument::releaseTime
 EXAMPLES::
 
 CODE::
-K_FX.new(2);
+KometFXFactory.new(2);
 
 (
 var releaseTime = 1;
@@ -35,11 +35,11 @@ Pdef(\,
                 \dur, 0.125,
                 \amp, 0.25,
             ),
-            K_FX.get(basename:\comb, type:\channelized),
+            KometFXFactory.get(basename:\comb, type:\channelized),
             [\drywet, 0.5, \lagTime, 4, \dur, 4,  \maxdelay, 10, \delaytime, Pwhite(0.25,5.0), \decaytime, 2, \gate, 1, \fadeOutTime, releaseTime],
             releaseTime: releaseTime,
         ),
-        K_FX.get(basename:\jpverb, type:\stereo) ,
+        KometFXFactory.get(basename:\jpverb, type:\stereo) ,
         [
             \drywet, 0.5, \timerate, Pwhite(0.5,0.6), \lagTime, 4, \dur, 4, \tapeLength, 10.125, \fadeOutTime, releaseTime, \gate, 1
         ],
