@@ -94,7 +94,7 @@ KometFXFactory : AbstractKometFactory {
             })
 
         }, {
-            Log(\komet).error("Type % does not exist", type)
+            Log(\komet).error("Type % does not exist", type);
             nil
         })
     }
