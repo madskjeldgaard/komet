@@ -15,7 +15,7 @@ K_Event{
       ~base = ~base ? \complex;
       ~env = ~env ? \adsr;
       ~filter = ~filter ? \vadim;
-      ~instrument = K.get(~base, ~env, ~filter);
+      ~instrument = KometSynthFactory.get(~base, ~env, ~filter);
       if(~instrument.isNil, { "%: instrument is nil".format(this.name).error; ~instrument = \default});
 
       // This is basically a bunch of aliases and default settings for the envelopes

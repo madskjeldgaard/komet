@@ -1,5 +1,5 @@
 (
-K.add("formant", {|dur, freqOffset=0|
+KometSynthFactory.add("formant", {|dur, freqOffset=0|
     var lagTime = \lagTime.kr(1);
 
 	NeoFormant.ar(

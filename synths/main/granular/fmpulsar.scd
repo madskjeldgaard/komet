@@ -1,6 +1,6 @@
 // Originally from https://github.com/alikthename/Musical-Design-in-Supercollider/blob/master/1_sin_pulsar.sc
 (
-K.add(\fmpulsar, {|dur|
+KometSynthFactory.add(\fmpulsar, {|dur|
 	var a,f;
 	var t, overlap, carfreq, modfreq, mInd, vel, vel_;
     var lagTime = \lagTime.kr(1);

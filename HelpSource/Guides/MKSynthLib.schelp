@@ -7,10 +7,10 @@ SECTION:: Using M
 A simple example:
 CODE::
 // Stereo output setup. Build all synths
-K.new(numChannelsOut: 2, rebuild: true);
+KometSynthFactory.new(numChannelsOut: 2, rebuild: true);
 
 // Get def name for a complex oscillator synth
-~synthName = K.get(basename:\complex, envType:\adsr, filterType:\ladder);
+~synthName = KometSynthFactory.get(basename:\complex, envType:\adsr, filterType:\ladder);
 
 // Generate a pattern for it using all of it's arguments and post it in the post window
 KGenPat(~synthName);
@@ -40,7 +40,7 @@ To be able to easily animate a panning using simple modulation, all of the panni
 
 SUBSECTION:: Panning resolution
 
-The number of channels you choose when you build the library has an effect on the choice of panning algorithm chosen for the sources. In conjunction with the number of channels output by the synth function, a number of different panning algorithms are selected by the systeK. All of this happens internally in the CODE::KPanners.choosePanAlgo:: method.
+The number of channels you choose when you build the library has an effect on the choice of panning algorithm chosen for the sources. In conjunction with the number of channels output by the synth function, a number of different panning algorithms are selected by the systeKometSynthFactory. All of this happens internally in the CODE::KPanners.choosePanAlgo:: method.
 
 In the table below, you will see the matrix of choices made by the system when faced with the values for the number of outputs of the system and the number of outputs of the source synth function (confusingly named numChannelsIn):
 
@@ -85,7 +85,7 @@ SUBSECTION:: How to add a synth
 
 code::
 (
-K.add("vosim", {|dur|
+KometSynthFactory.add("vosim", {|dur|
 	VosimOsc.ar(
 		freq: K_NC.kr("freq", 100),
 		form1freq: K_NC.kr("form1freq", 1054, spec: Spec.specs[\freq]),
@@ -113,7 +113,7 @@ var server = Server(\nrt,
 );
 
 var dur = 60;
-var synth = K.get(\fb1, \adsr, \korg35);
+var synth = KometSynthFactory.get(\fb1, \adsr, \korg35);
 var synthArgs = [delayscale: 20, autopan: 1, panShape: 2, fcutoff: 100];
 
 a = Score([

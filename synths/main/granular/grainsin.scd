@@ -1,5 +1,5 @@
 (
-	K.add(\grainsin, {|dur, freq=100, density=10, graindur=0.1, panwidth=0.5|
+	KometSynthFactory.add(\grainsin, {|dur, freq=100, density=10, graindur=0.1, panwidth=0.5|
         var lagTime = \lagTime.kr(1);
 		var trigger = Dust2.ar(density.klag(lagTime));
 		var maxgrains = 512;

@@ -14,7 +14,7 @@ INSTANCEMETHODS::
 EXAMPLES::
 
 CODE::
-K.new(2, rebuild: true);
+KometSynthFactory.new(2, rebuild: true);
 
 (
 Pbind(

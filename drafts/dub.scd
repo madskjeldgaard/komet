@@ -1,7 +1,7 @@
 M(force:true);
 
 (
-K.add(\dub1, { 
+KometSynthFactory.add(\dub1, { 
 	var freq = \freq.kr(100, spec:Spec.specs[\freq]);
 	var subfreq = \subFreq.kr(100, spec:Spec.specs[\freq]);
 	var freqs = [

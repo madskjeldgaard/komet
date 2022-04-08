@@ -64,7 +64,7 @@
 // 	grainenvelopes.keysValuesDo{|shapename, envelope|
 // 		var buffer = Buffer.sendCollection(Server.local, envelope.discretize, 1);
 
-// 		K.addGrainShapeBuffer(shapename, buffer);
+// 		KometSynthFactory.addGrainShapeBuffer(shapename, buffer);
 // 	};
 
 grainenvelopes;

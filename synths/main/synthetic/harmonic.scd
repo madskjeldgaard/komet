@@ -1,5 +1,5 @@
 (
-K.add("harmonic", {|dur, freqOffset=0|
+KometSynthFactory.add("harmonic", {|dur, freqOffset=0|
     var lagTime = \lagTime.kr(1);
 
 	var amplitudes = Array.fill(16, {|i| K_NC.kr("amp%".format(i+1), 1/16) });

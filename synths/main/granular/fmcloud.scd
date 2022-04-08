@@ -1,7 +1,7 @@
 (
 var basename = "fmcloud";
 
-K.add(basename, {|dur|
+KometSynthFactory.add(basename, {|dur|
     var lagTime = \lagTime.kr(1);
 	var grainFreq = K_NC.kr("grainDensity", 10.0).klag(lagTime);
 	var interGrainRatio = K_NC.kr("interGrainRatio", 1.01).klag(lagTime);

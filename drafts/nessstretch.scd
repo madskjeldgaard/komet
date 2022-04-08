@@ -1,5 +1,5 @@
 (
-K.add(
+KometSynthFactory.add(
     basename: \ness,
     synthfunc: { |dur, bufnum, stretch = 100, startPos = 0, fftSize = 8192, fftMax = 65536, hiPass = 0, lowPass=0, amp = 1, gate = 1|
 				var trigPeriod, sig, chain, trig, trig1, trig2, pos, jump, trigEnv, fftDelay, bigEnv, window0, window1, rVal, correlation, sum, localIn, rVal1, rVal2, outSig, analSig;
@@ -31,7 +31,7 @@ K.add(
 
 				sig[1] = DelayC.ar(sig[1], trigPeriod/2, trigPeriod/2);
 
-				sum = RunningSuK.ar((sig[0]*sig[1]), fftSize/2)/RunningSuK.ar((sig[0]*sig[0]), fftSize/2);
+				sum = RunningSuKometSynthFactory.ar((sig[0]*sig[1]), fftSize/2)/RunningSuKometSynthFactory.ar((sig[0]*sig[0]), fftSize/2);
 
 				rVal = Latch.ar(sum, DelayC.ar(trig1+trig2, (3*fftMax/2)-(3*fftSize/2)+BlockSize.ir/SampleRate.ir, fftMax-fftSize+BlockSize.ir/SampleRate.ir)).clip(-1,1);
 

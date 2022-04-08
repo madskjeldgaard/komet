@@ -1,10 +1,10 @@
 // Benjolin inspired instrument originally by Alejandro Olarte. Thanks Alejandro!!!
 
-// z=Synth(K.get(\benjolis))
+// z=Synth(KometSynthFactory.get(\benjolis))
 // z.set(\freq1, 1900.1, \freq2, 0.01, \rungler2,0.9, \scale, 1.0, \q, 0.95, \runglerFilt, 10)
 // s.record;
 (
-K.add(\benjolis, { |dur, freq= 40, modFreq=20, scale=1, rungler1=0.16, rungler2=0.0, runglerFilt=9, loop=0, filtFreq=40, q=0.82, gain=1, internalFilterType=0, outSignal=6|
+KometSynthFactory.add(\benjolis, { |dur, freq= 40, modFreq=20, scale=1, rungler1=0.16, rungler2=0.0, runglerFilt=9, loop=0, filtFreq=40, q=0.82, gain=1, internalFilterType=0, outSignal=6|
     var osc1, osc2, tri1, tri2, sh0, sh1, sh2, sh3, sh4, sh5, sh6, sh7, sh8=1, rungler, pwm, filt, output;
     var sr;
     var osc2freq, buf, bufR;

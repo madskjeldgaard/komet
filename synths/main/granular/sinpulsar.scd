@@ -1,6 +1,6 @@
 (
 // Originally from https://github.com/alikthename/Musical-Design-in-Supercollider/blob/master/1_sin_pulsar.sc
-K.add(\sinpulsar, {|dur|
+KometSynthFactory.add(\sinpulsar, {|dur|
 	var a,b,c,d,e,f, f_, fund ,t,lev, formantA, formantB, overlapA, overlapB;
 	var shape1 = KGrainShapes().getWrap(suffix: "1");
 	var shape2 = KGrainShapes().getWrap(suffix: "2");

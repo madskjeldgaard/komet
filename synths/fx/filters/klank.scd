@@ -15,7 +15,7 @@ K_FX.addFX(
                 var lagTime = \lagTime.kr(1);
                 var spread = 1+(\spread.kr(0.1)*chanNum);
 
-                DynKlank.ar(
+                DynKlanKometSynthFactory.ar(
                     specificationsArrayRef:`[freqs, amps, rings],
                     input:sig * 0.1,
                     freqscale: K_NC.kr("freqscale", 1).klag(lagTime) * spread,

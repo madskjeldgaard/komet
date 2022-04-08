@@ -2,7 +2,7 @@
 // Some of these were pulled out of Aaron Lanterman's Buchla 700 project: https://github.com/lantertronics/b700ish/blob/main/b700ish.scd
 
 (
-	K.poster("Loading waveshaper algos");
+	KometSynthFactory.poster("Loading waveshaper algos");
 
 	// Coeffecients
 	~waveShapeCoeffecients = IdentityDictionary.new;
@@ -41,8 +41,8 @@
 
 		// This wrapping trick is necessary to embed all the buffers in the synth. 
 		// This way you don't have to supply them as arguments 
-		var shapeBuffers = SynthDef.wrap({ K.shapeBuffers.asArray });
-		var shape = Select.kr((waveshape % K.shapeBuffers.size), shapeBuffers);
+		var shapeBuffers = SynthDef.wrap({ KometSynthFactory.shapeBuffers.asArray });
+		var shape = Select.kr((waveshape % KometSynthFactory.shapeBuffers.size), shapeBuffers);
 		sig = Shaper.ar(shape, waveshapeGain *sig );
 		LeakDC.ar(XFade2.ar(clean, sig, waveshapeAmount.linlin(0.0,1.0,-1.0,1.0)));
 	});
@@ -57,9 +57,9 @@
 		waveshapeCrossfade=0;
 		var clean = sig;
 
-		var shapeBuffers = SynthDef.wrap({ K.shapeBuffers.asArray });
-		var shapeA = Select.kr((waveshapeA % K.shapeBuffers.size), shapeBuffers);
-		var shapeB = Select.kr((waveshapeB % K.shapeBuffers.size), shapeBuffers);
+		var shapeBuffers = SynthDef.wrap({ KometSynthFactory.shapeBuffers.asArray });
+		var shapeA = Select.kr((waveshapeA % KometSynthFactory.shapeBuffers.size), shapeBuffers);
+		var shapeB = Select.kr((waveshapeB % KometSynthFactory.shapeBuffers.size), shapeBuffers);
 
 		var sigA = Shaper.ar(shapeA, waveshapeGain * sig );
 		var sigB = Shaper.ar(shapeB, waveshapeGain * sig );

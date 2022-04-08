@@ -4,7 +4,7 @@
 
 	var basename = "analog_%".format(soundSource.name.asString.toLower);
 
-	K.add(basename, {
+	KometSynthFactory.add(basename, {
 		arg dur, freq=100, freqOffset=0, freqModAmount=0.09, modFreq=5.5, detuneFreq=1, detuneModAmount=0.5, detuneModShape=0;
 		var sig, modulators, detune;
         var lagTime = \lagTime.kr(1);

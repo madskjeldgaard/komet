@@ -1,5 +1,5 @@
 (
-K.add("varshape", {|dur, freqOffset=0|
+KometSynthFactory.add("varshape", {|dur, freqOffset=0|
     var lagTime = \lagTime.kr(1);
 	VarShapeOsc.ar(
 		freq: (K_NC.kr("freq", 100) + freqOffset).klag(lagTime),

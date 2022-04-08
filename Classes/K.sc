@@ -1,4 +1,4 @@
-K {
+KometSynthFactory {
   classvar verbosity,
   <numChansOut,
   <synths,

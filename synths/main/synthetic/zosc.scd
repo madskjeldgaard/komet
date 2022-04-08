@@ -1,5 +1,5 @@
 (
-K.add("zosc", {|dur, freqOffset=0|
+KometSynthFactory.add("zosc", {|dur, freqOffset=0|
     var lagTime = \lagTime.kr(1);
 	ZOsc.ar(
 		freq: (K_NC.kr("freq", 100) + freqOffset).klag(lagTime),

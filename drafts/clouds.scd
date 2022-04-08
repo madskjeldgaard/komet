@@ -1,6 +1,6 @@
 (
 (1..2).do{|numIn|
-	K.add(basename: "clouds%in".format(numIn),  synthfunc: {
+	KometSynthFactory.add(basename: "clouds%in".format(numIn),  synthfunc: {
 		|dur, buffer, bufferRate=0.5, pitch=0.5, grainsize=0.25, density=0.6, position=0.0, spread=0.5, freeze=0, texture=0.0, drywet=1, reverb=0, feedback=0, mode=0, lofi=0|
         var lagTime = \lagTime.kr(1);
 		var rate, input;
@@ -31,7 +31,7 @@
 			in_gain: 1,
 			spread: spread.klag(lagTime),
 			rvb: reverb.klag(lagTime),
-			fb: feedback.klag(lagTime),
+			fb: feedbacKometSynthFactory.klag(lagTime),
 			freeze: freeze.klag(lagTime),
 			mode: mode,
 			lofi: lofi,

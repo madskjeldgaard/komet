@@ -58,7 +58,7 @@ K_FX {
 
     *addFX{|basename, type, synthfunc, specs, check|
 
-        var ok = if(check.notNil, { check.value() }, { true });
+        var ok = if(checKometSynthFactory.notNil, { checKometSynthFactory.value() }, { true });
 
         if(ok, {
             if(types.includes(type).not or: { type.isNil }, {

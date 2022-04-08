@@ -1,5 +1,5 @@
 /*
-b = Buffer.read(s, K.sndPath.fullPath +/+ "harmshort.wav");
+b = Buffer.read(s, KometSynthFactory.sndPath.fullPath +/+ "harmshort.wav");
 b.numChannels
 M();
 
@@ -7,7 +7,7 @@ Pdef(\tg).clear;
 (
 Pdef(\tg, 
 	Pbind(
-		\instrument, K.get(\tgrains3x2, \adsr, \dfm1), \buffer, b
+		\instrument, KometSynthFactory.get(\tgrains3x2, \adsr, \dfm1), \buffer, b
 	)
 ).play
 )
@@ -16,7 +16,7 @@ Pdef(\tg,
 (
 	[1, 2].do{|numChans|
 
-	K.add("tgrains3x%".format(numChans), {|density=10, grainsize=0.1, grainpos=0, grainrate=0.5, buffer| 
+	KometSynthFactory.add("tgrains3x%".format(numChans), {|density=10, grainsize=0.1, grainpos=0, grainrate=0.5, buffer| 
 		var trigger = Dust2.kr(density);
 		var shape = KGrainShapes().getWrap();
 		var graindur = K_NC.kr("graindur", 0.1);

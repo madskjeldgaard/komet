@@ -1,5 +1,5 @@
 (
-K.add(
+KometSynthFactory.add(
 	basename: \gutter,
 	synthfunc: {|dur|
 		var sig, freq1, freq2, pitch;

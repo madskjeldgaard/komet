@@ -1,11 +1,11 @@
 /*
 
 M();
-K.genPat('cheapflute');
+KometSynthFactory.genPat('cheapflute');
 
 */
 (
-K.add("cheapflute", {|freq=440,  noiseLvl=0.1,gaussLvl=0.2|
+KometSynthFactory.add("cheapflute", {|freq=440,  noiseLvl=0.1,gaussLvl=0.2|
 	var numOvertones = 4;
 	var freqs= [freq]++({|i| freq*(i+2)*LFGauss.ar(0.001, gaussLvl)}!(numOvertones-1));
 	var phases= {2pi.rand}!numOvertones;

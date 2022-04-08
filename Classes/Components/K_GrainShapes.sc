@@ -33,7 +33,7 @@ KGrainShapes : KComponentManager{
 
 //*embedWithGrainShapes{
 		// ^SynthDef.wrap({|grainshape=0.5|
-		// 	var shapebuffers = SynthDef.wrap({ K.grainShapeBuffers.asArray });
+		// 	var shapebuffers = SynthDef.wrap({ KometSynthFactory.grainShapeBuffers.asArray });
 		// 	Select.kr(
 		// 		grainshape * shapebuffers.size, 
 		// 		shapebuffers
