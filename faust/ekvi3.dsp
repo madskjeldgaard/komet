@@ -3,4 +3,4 @@ import("stdfaust.lib");
 import("lib/ekvi.lib");
 
 num_bells = 3;
-process = eKometSynthFactory.ekvi(num_bells);
+process = ek.ekvi(num_bells);

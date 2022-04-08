@@ -7,10 +7,9 @@ KometFXFactory.addFX(
             var lagTime = \lagTime.kr(1);
             Array.fill(numChannels, {|chanNum|
                 var sig = in[chanNum];
-                BandSplitter2.ar(
+                Krossover2.ar(
                     sig:sig,
-                    freq:\freq.kr(1000).klag(lagTime),
-                    order:2
+                    freq:\freq.kr(1000).klag(lagTime)
                 )
             })
         }

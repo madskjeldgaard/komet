@@ -2,9 +2,10 @@
   name: "komet",
   summary: "Komet is a computer music / sound system by Mads Kjeldgaard",
   version: "0.0.1",
-  schelp: "K",
+  schelp: "Komet",
   dependencies: [
 	  "atk-sc3",
+	  "https://github.com/madskjeldgaard/PolyBuf.git", // Not strictly a dependency but nice to have
 	  "https://github.com/scztt/Log.quark",
 	  "https://github.com/madskjeldgaard/faust.quark",
 	  "https://github.com/scztt/Singleton.quark",
