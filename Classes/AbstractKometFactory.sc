@@ -5,6 +5,7 @@ AbstractKometFactory{
         var result;
 
         // Synths that need to be manually killed
+        // FIXME: This would be faster if it would break the do-loop on fail
         files.do{|file|
             if(loaded.every{|isTrue| isTrue}, {
                 if(file.extension == "scd", {

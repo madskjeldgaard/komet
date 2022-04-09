@@ -1,0 +1,3 @@
+TestKometSynthFactory : KometTest{
+
+}

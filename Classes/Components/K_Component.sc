@@ -4,6 +4,9 @@
 *
 * Think of it as a factory producing functions that will be used within a larger synthdef
 *
+* One of the special things about this clas (it seems, in hindsight) is it's ability to manage dependencies for other components
+
+TODO: Should this be merged into KometComponentLoader ?
 */
 KComponentManager {
   classvar <dependencies, <instances;
@@ -30,7 +33,7 @@ KComponentManager {
   init {|componentName|
     if(componentName.isNil, { "%: No component name".format(this.asString).error });
     name = componentName;
-    items = KLoad.at(componentName);
+    items = KometComponentLoader.at(componentName);
     loaded = true;
   }
 
@@ -39,8 +42,8 @@ KComponentManager {
   }
 
   *loadComponents{
-    if(KLoad.all.isNil, {
-      KLoad.loadAll();
+    if(KometComponentLoader.all.isNil, {
+      KometComponentLoader.loadAll();
     });
   }
 

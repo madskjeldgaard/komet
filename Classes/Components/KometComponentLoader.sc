@@ -2,10 +2,28 @@
  *
  * Used for loading components
  *
+ * TODO: Rewrite to use Singleton in KometComponentLoader(\componentName) style
  */
- KLoad {
-   classvar <all, <pkgPath, <componentsPath, <componentFiles, <allLoaded;
+ KometComponentLoader {
+   classvar <all, <componentsPath, <componentFiles, <allLoaded;
    var <path, <items, <name, <isLoaded;
+
+   *clear{
+       this.removeAll();
+
+       allLoaded = false;
+       all = nil;
+
+       // TODO
+       // this.instances.do{|inst|
+       //     inst.clear();
+       // }
+   }
+
+   clear{
+       items = [];
+       isLoaded = false;
+   }
 
    *initClass{
 
@@ -15,7 +33,7 @@
      Class.initClassTree(KometFXFactory);
 
      StartUp.add{
-       pkgPath = KometPath.path;
+       var pkgPath = KometPath.path;
        componentsPath = pkgPath +/+ "components";
        componentFiles = componentsPath.files;
      }
@@ -60,13 +78,16 @@
      isLoaded = false;
      path = componentsPath +/+ componentFile;
      name = path.fileNameWithoutExtension.asSymbol;
+
+     Log(\komet).debug("Initializing component loader for %", name);
    }
 
    // Returns whether or not it loaded
    load{
-     isLoaded = true;
-     items = path.fullPath.load;
-     ^items.notNil;
+       Log(\komet).info("Loading component file %", name);
+       isLoaded = true;
+       items = path.fullPath.load();
+       ^items.notNil && items.isKindOf(Dictionary)
    }
 
    keys{

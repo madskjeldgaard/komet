@@ -49,7 +49,7 @@ KometSynthFactory : AbstractKometFactory {
       this.loadMessage;
 
       // @FIXME this is done by the KComponentManager sub classes, so maybe it isn't need here?
-      KLoad.loadAll();
+      KometComponentLoader.loadAll();
       Server.local.sync;
 
       KEnvelopes.new();
@@ -64,10 +64,9 @@ KometSynthFactory : AbstractKometFactory {
       KGrainShapes.new();
       Server.local.sync;
 
-      this.loadSourceFunctions(files);
+      initialized = this.loadSourceFunctions(files);
       Server.local.sync;
 
-      initialized = true;
     }
   }
 

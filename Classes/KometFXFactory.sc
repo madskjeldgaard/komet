@@ -37,7 +37,6 @@ KometFXFactory : AbstractKometFactory {
             result = this.loadSourceFunctions(files);
 
             if(result, {
-                Log(\komet).info("Initialized");
                 initialized = true;
             }, {
                 Log(\komet).warning("Not initialized");

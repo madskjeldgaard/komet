@@ -45,7 +45,6 @@ Komet : Singleton {
             fails = fails.add(sub.failures.any{|res| res});
         };
 
-        fails.postln;
         ^fails.any{|res| res}.not
     }
 }
