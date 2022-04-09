@@ -1,6 +1,12 @@
+General:
+- add KometOutput - a main output controller
+	- allow switching between them for different setups
+
 Test:
-- Test that all files compile
 - Test that autopan works
+
+Refactor:
+- Move componentmanager stuff into KometComponentLoader and turn it into a Singleton
 
 FXLib:
 - add synths for andromeda, musli and datorroplusplus
@@ -26,6 +32,7 @@ SynthLib:
 Dependencies:
 - Finish installation for MacOS
 
-Patterns:
+Patterns / events:
+- Add event type to control KometMain instances
 - Convenience for mapping LFO's to parameters using https://doc.sccode.org/Classes/Pproto.html
 - When that's done: A spectromorphological pattern that morphs between difference fx

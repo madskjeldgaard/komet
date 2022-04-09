@@ -1,6 +1,6 @@
-Komet : Singleton {
+Komet {
     classvar <synthFactory, <fxFactory;
-    classvar <files, <faustFiles, <allFiles;
+    classvar <files, <faustFiles, <allFiles, <mainOut, <numChannels;
 
     *initClass{
         StartUp.add{
@@ -16,10 +16,18 @@ Komet : Singleton {
         KometDependencies.installPlugins();
     }
 
-    *start{|numChannelsOut=2, rebuild=true, verbose=true|
+    //TODO
+    *compile{
+        // synthFactory = KometSynthFactory.new(numChannelsOut, rebuild: false);
+        // fxFactory = KometFXFactory.new(numChannelsOut);
+    }
+
+    *start{|numChannelsOut=2, rebuild=true|
+        numChannels = numChannelsOut;
         if(KometDependencies.check(), {
-            synthFactory = KometSynthFactory.new(numChannelsOut, rebuild, verbose);
+            synthFactory = KometSynthFactory.new(numChannelsOut, rebuild: false);
             fxFactory = KometFXFactory.new(numChannelsOut);
+            mainOut = KometMain.new();
         }, {
             Log(\komet).error("Dependencies not installed or satisfied");
         })
