@@ -8,3 +8,9 @@ Updating implies setting a new git tag and generating a changelog using `git cli
 The script will not allow an update if the test suite for this package does not pass.
 
 ## Testing
+
+All tests may be run by running:
+
+`sclang scripts/runtests.scd`
+
+Note: This will automatically be invoked when running the update script.

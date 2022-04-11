@@ -51,6 +51,7 @@ Some parts of the system's dsp library are inspired or lifted from others' open 
 
 Here are (some) of the people I'd like to thank:
 
+- Julian Rohrhuber, Alex McLean and other developers of [SuperDirt](https://github.com/musikinformatik/SuperDirt)
 - Jean-Louis Paquelin
 - Nathan Ho
 - Alejandro Olarte
