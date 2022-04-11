@@ -1,63 +1,122 @@
 // TODO: Specs and gui
-// Use addAfterNode to allow making chains / ordering
-KometMain : PersistentMainFX{
-    var <>fx, <>type;
+// Inspiration:
+// https://github.com/musikinformatik/SuperDirt/classes/DirtOrbit.sc
 
-    // TODO a method is needed to create SpawnOrder
-    *orderFX{|ordering|
-        if(
-            ordering.every{|order| order.class == Symbol } &&
-            this.all.keys.asArray.includesAll(ordering), {
-                // Order the synths
-                var previous;
-                // Put the first node after the default group
-                var firstNode = 1;
+// TODO: remove, preset
+KometMainChain : Singleton{
+    var <fxChain, <numChannels, <server, <group, <addAfter;
+    var <data;
 
-                Log(\komet).info("Setting new fx order: %", ordering);
+    init{
+        Log(\komet).debug("%, initializing Singleton", this.class.name);
 
-                ordering.do{|mainName, index|
-                    if(index == 0, {
-                        this.all[mainName].addAfterNode = firstNode;
-                    }, {
-                        this.all[mainName].addAfterNode = this.all[previous].synth
-                    });
+        data = data ?? [];
+        server = Server.local;
+        group = server.nextPermNodeID;
+        ServerTree.add(this, server); // synth node tree init
+        CmdPeriod.add(this);
 
-                    previous = mainName;
-
-                }
-
-        }, {
-            Log(\komet).error(
-                "FX ordering must be an array of symbols containing valid % singleton instances. Got: %. Available %'s: %",
-                this.name,
-                ordering,
-                this.name,
-                this.all
-            )
-        })
-        // all.
     }
 
-    set{|numChansOut, addAfter=1, fxName=\eq3, fxType=\channelized|
-        fx = fxName;
-        type = fxType;
-        addAfterNode = addAfter;
-        numChans = numChansOut ? numChans ? Server.local.options.numOutputBusChannels;
-    }
+    set{|fxchain, numchannels, addAfterNode|
+        var newChain = fxchain != fxChain;
+        addAfter = addAfterNode;
 
-    prepareResources{
+        Log(\komet).debug("%, setting Singleton", this.class.name);
+
+        fxChain = fxchain;
+        numChannels = numchannels;
+
+        // FIXME: do we want to carry over synth args from previous synths or clear them?
+        fxChain.do{|fxItem, index|
+            var name = fxItem[0];
+            var type = fxItem[1];
+            var args = fxItem[2] ? [];
+
+            if(index > (data.size - 1), {
+                Log(\komet).debug("%, adding data at index %", this.class.name, index);
+                data = data.add(IdentityDictionary.new)
+            });
+
+            //  Converting to dict ensures no duplicates when setting new args
+            data[index][\args] = args.asDict;
+            data[index][\fxName] = name;
+            data[index][\fxType] = type;
+            data[index][\node] = nil;
+        };
+
         if(KometFXFactory.initialized.not, {
-            Log(\komet).warning("KometMain: fx factory not initialized. Doing it now.");
-            KometFXFactory.new(numChans)
+            KometFXFactory.new(numChannels)
+        });
+
+        if(newChain, {
+            Log(\komet).debug("New chain detected");
+            this.initNodeTree;
+        });
+    }
+
+    at{|index|
+        ^if(index > (data.size - 1), {
+            Log(\komet).error("Index does not exist");
+        }, {
+            data[index]
         })
     }
 
-    addSynthDef{
-        synthdefName = KometFXFactory.get(basename:fx, type:type);
+    synthAt{|index|
+        ^this.at(index)[\node]
     }
 
-    // Not used
-    synthFunc{
-        ^{}
+    argsAt{|index|
+        ^this.at(index)[\args]
+    }
+
+    setArgsAt{|index ... newArgs|
+        var args;
+        data[index][\args] = data[index][\args] ++ newArgs.asDict;
+        args = data[index][\args].asKeyValuePairs;
+
+        Log(\komet).debug("Setting synth at index % with args %", index, args);
+        this.synthAt(index).set(*args)
+    }
+
+    doOnServerTree {
+        // on node tree init:
+        this.initNodeTree
+    }
+
+    cmdPeriod {
+        Log(\komet).debug("CmdPeriod called for %", this.class.name);
+    }
+
+    initNodeTree {
+        Log(\komet).debug("Initializing server tree for %", this.class.name);
+
+        // Free existing nodes (only used when reinitializing the Singleton)
+        data.do{|dataItem|
+            var thisNode = dataItem[\node];
+            if(thisNode.notNil, {thisNode.free}
+            )
+        };
+
+        server.makeBundle(nil, { // make sure they are in order
+            server.sendMsg("/g_new", group, 3, addAfter);
+
+            data.do { |dataItem, index|
+                var synthDefName = KometFXFactory.get(
+                    basename:dataItem[\fxName],
+                    type:dataItem[\fxType]
+                );
+
+                var args = dataItem[\args];
+
+                data[index][\node] = Synth(
+                    synthDefName,
+                    args,
+                    target: group,
+                    addAction: \addToTail
+                );
+            }
+        })
     }
 }

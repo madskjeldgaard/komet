@@ -21,7 +21,8 @@ KometFXFactory : AbstractKometFactory {
 
     }
 
-    *new{|channels|
+    // TODO: Use rebuild
+    *new{|channels, rebuild=false|
         initialized = false;
         synthNames = [];
 

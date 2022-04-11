@@ -10,24 +10,42 @@ Komet {
         }
     }
 
-    // TODO: Should the synthdef compilation be put in here?
     *install{
         KometDependencies.installFaustPlugins();
         KometDependencies.installPlugins();
     }
 
     //TODO
-    *compile{
-        // synthFactory = KometSynthFactory.new(numChannelsOut, rebuild: false);
-        // fxFactory = KometFXFactory.new(numChannelsOut);
+    *build{|numChannelsOut|
+        synthFactory = KometSynthFactory.new(numChannelsOut, rebuild: true);
+        fxFactory = KometFXFactory.new(numChannelsOut, rebuild: true);
     }
 
-    *start{|numChannelsOut=2, rebuild=true|
+    *start{|numChannelsOut=2, build=false|
         numChannels = numChannelsOut;
         if(KometDependencies.check(), {
-            synthFactory = KometSynthFactory.new(numChannelsOut, rebuild: false);
-            fxFactory = KometFXFactory.new(numChannelsOut);
-            mainOut = KometMain.new();
+            var addAfter = 1;
+
+            if(build, {
+                this.build(numChannels);
+            }, {
+                synthFactory = KometSynthFactory.new(numChannelsOut, rebuild: false);
+                fxFactory = KometFXFactory.new(numChannelsOut, rebuild: false);
+            });
+
+            // An empty FX chain that the user can populate if needed
+            KometMainChain(\preMain, [], numChannels, addAfter);
+
+            // The main output fx chain
+            KometMainChain(\main, [
+                [\eq3, \channelized, []]
+            ],
+            numChannels,
+            KometMainChain(\preMain).group
+        );
+
+            // TODO:
+            // KometMain(\leak, numChannels, addAfter, \eq3, \channelized);
         }, {
             Log(\komet).error("Dependencies not installed or satisfied");
         })
@@ -54,5 +72,9 @@ Komet {
         };
 
         ^fails.any{|res| res}.not
+    }
+
+    *allClasses{
+        ^Quarks.classesInPackage(KometPath.pkgName)
     }
 }

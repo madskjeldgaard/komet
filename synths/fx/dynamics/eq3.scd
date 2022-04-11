@@ -1,4 +1,3 @@
-// TODO
 (
 KometFXFactory.add(
     basename: \eq3,
