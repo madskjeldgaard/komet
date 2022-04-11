@@ -1,0 +1,28 @@
+TITLE::KometNvim
+SUMMARY::A class
+CATEGORIES::Komet
+RELATED::Classes/Class
+
+DESCRIPTION::
+Short description... TODO
+
+CLASSMETHODS::
+METHOD::send
+ARGUMENT::code
+
+METHOD::notify
+ARGUMENT::msg
+ARGUMENT::log_level
+
+METHOD::create_buf
+ARGUMENT::listed
+ARGUMENT::scratch
+
+METHOD::paste
+ARGUMENT::text
+
+EXAMPLES::
+
+CODE::
+// TODO
+::

@@ -1,0 +1,24 @@
+TITLE::KometDependencies
+SUMMARY::A class
+CATEGORIES::Komet
+RELATED::Classes/Class
+
+DESCRIPTION::
+Short description... TODO
+
+CLASSMETHODS::
+METHOD::check
+
+METHOD::installFaustPlugins
+
+METHOD::installPlugins
+
+
+
+
+
+EXAMPLES::
+
+CODE::
+// TODO
+::

@@ -1,0 +1,24 @@
+TITLE::KSynthBrowser
+SUMMARY::A class
+CATEGORIES::Komet
+RELATED::Classes/Class
+
+DESCRIPTION::
+Short description... TODO
+
+CLASSMETHODS::
+METHOD::new
+ARGUMENT::synthNames
+
+METHOD::argArrayStringFor
+ARGUMENT::synthName
+
+
+
+
+
+EXAMPLES::
+
+CODE::
+// TODO
+::

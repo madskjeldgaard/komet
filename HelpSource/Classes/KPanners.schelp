@@ -1,0 +1,39 @@
+TITLE::KPanners
+SUMMARY::A class
+CATEGORIES::Komet
+RELATED::Classes/Class
+
+DESCRIPTION::
+Short description... TODO
+
+CLASSMETHODS::
+METHOD::new
+
+
+
+INSTANCEMETHODS::
+METHOD::getWrap
+ARGUMENT::numChannelsIn
+ARGUMENT::output
+ARGUMENT::prefix
+ARGUMENT::suffix
+ARGUMENT::wrapperArgs
+
+METHOD::getFunctionForWrapper
+ARGUMENT::numChannelsIn
+ARGUMENT::output
+ARGUMENT::prefix
+ARGUMENT::suffix
+ARGUMENT::extraArgs
+
+METHOD::choosePanAlgo
+ARGUMENT::numChannelsIn
+ARGUMENT::output
+
+
+
+EXAMPLES::
+
+CODE::
+// TODO
+::

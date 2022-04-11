@@ -1,0 +1,31 @@
+TITLE::KGrainShapes
+SUMMARY::A class
+CATEGORIES::Komet
+RELATED::Classes/Class
+
+DESCRIPTION::
+Short description... TODO
+
+CLASSMETHODS::
+METHOD::new
+
+
+
+INSTANCEMETHODS::
+METHOD::buffers
+
+METHOD::getFunctionForWrapper
+
+METHOD::createShapeBuffers
+
+METHOD::getWrap
+ARGUMENT::prefix
+ARGUMENT::suffix
+
+
+
+EXAMPLES::
+
+CODE::
+// TODO
+::

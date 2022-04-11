@@ -1,0 +1,44 @@
+TITLE::KAutoPan
+SUMMARY::A class
+CATEGORIES::Komet
+RELATED::Classes/Class
+
+DESCRIPTION::
+Short description... TODO
+
+CLASSMETHODS::
+METHOD::new1
+ARGUMENT::rate
+ARGUMENT::pan
+ARGUMENT::panFreq
+ARGUMENT::autopan
+ARGUMENT::panShape
+
+METHOD::ar
+ARGUMENT::pan
+ARGUMENT::panFreq
+ARGUMENT::autopan
+ARGUMENT::panShape
+
+METHOD::kr
+ARGUMENT::pan
+ARGUMENT::panFreq
+ARGUMENT::autopan
+ARGUMENT::panShape
+
+METHOD::panner
+ARGUMENT::rate
+ARGUMENT::pan
+ARGUMENT::panFreq
+ARGUMENT::autopan
+ARGUMENT::panShape
+
+
+
+
+
+EXAMPLES::
+
+CODE::
+// TODO
+::

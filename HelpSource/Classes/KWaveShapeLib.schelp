@@ -1,0 +1,47 @@
+TITLE::KWaveShapeLib
+SUMMARY::A class
+CATEGORIES::Komet
+RELATED::Classes/Class
+
+DESCRIPTION::
+Short description... TODO
+
+CLASSMETHODS::
+METHOD::waveshapeWrappers
+
+METHOD::shapeBuffers
+
+METHOD::initialized
+
+METHOD::new
+ARGUMENT::waveshaperName
+ARGUMENT::sig
+
+METHOD::init
+
+METHOD::addWaveshapeBuffer
+ARGUMENT::name
+ARGUMENT::buffer
+
+METHOD::embedWithWaveshaper
+ARGUMENT::waveshaperName
+ARGUMENT::sig
+
+METHOD::getWaveshapeWrapper
+ARGUMENT::name
+
+METHOD::addWaveshapeWrapper
+ARGUMENT::name
+ARGUMENT::func
+
+METHOD::shapeWrapperKinds
+
+
+
+
+
+EXAMPLES::
+
+CODE::
+// TODO
+::

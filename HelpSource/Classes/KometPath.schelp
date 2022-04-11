@@ -1,0 +1,28 @@
+TITLE::KometPath
+SUMMARY::A class
+CATEGORIES::Komet
+RELATED::Classes/Class
+
+DESCRIPTION::
+Short description... TODO
+
+CLASSMETHODS::
+METHOD::fullPath
+
+METHOD::path
+
+METHOD::pkgName
+
+METHOD::sndPath
+
+METHOD::initClass
+
+
+
+
+
+EXAMPLES::
+
+CODE::
+// TODO
+::

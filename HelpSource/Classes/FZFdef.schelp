@@ -1,0 +1,38 @@
+TITLE::FZFdef
+SUMMARY::A class
+CATEGORIES::Komet
+RELATED::Classes/Class
+
+DESCRIPTION::
+Short description... TODO
+
+
+
+INSTANCEMETHODS::
+METHOD::finderName
+
+METHOD::set
+ARGUMENT::itemsCode
+ARGUMENT::callbackFunc
+
+METHOD::prCallNeoVim
+ARGUMENT::call
+
+METHOD::getFinder
+
+METHOD::callFinder
+
+METHOD::callback
+ARGUMENT::result
+
+METHOD::setFinder
+ARGUMENT::itemsCode
+ARGUMENT::callbackFunc
+
+
+
+EXAMPLES::
+
+CODE::
+// TODO
+::

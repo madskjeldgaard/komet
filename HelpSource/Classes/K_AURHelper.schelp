@@ -1,0 +1,36 @@
+TITLE::K_AURHelper
+SUMMARY::A class
+CATEGORIES::Komet
+RELATED::Classes/Class
+
+DESCRIPTION::
+Short description... TODO
+
+CLASSMETHODS::
+METHOD::install
+ARGUMENT::packages
+
+METHOD::uninstall
+ARGUMENT::packages
+
+METHOD::isInstalled
+ARGUMENT::package
+
+METHOD::areInstalled
+ARGUMENT::packages
+
+METHOD::prRunHelperWithCommand
+ARGUMENT::command
+ARGUMENT::external
+
+METHOD::prFindAurHelper
+
+
+
+
+
+EXAMPLES::
+
+CODE::
+// TODO
+::

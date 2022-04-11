@@ -1,0 +1,31 @@
+TITLE::KGenPat
+SUMMARY::A class
+CATEGORIES::Komet
+RELATED::Classes/Class
+
+DESCRIPTION::
+Short description... TODO
+
+CLASSMETHODS::
+METHOD::new
+ARGUMENT::synthDefName
+ARGUMENT::wrapInPdef
+ARGUMENT::randomize
+
+METHOD::synthDefExists
+ARGUMENT::synthDefName
+
+METHOD::postPatFor
+ARGUMENT::synthDef
+ARGUMENT::wrapInPdef
+ARGUMENT::randomize
+
+
+
+
+
+EXAMPLES::
+
+CODE::
+// TODO
+::

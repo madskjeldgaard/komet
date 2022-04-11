@@ -1,0 +1,20 @@
+TITLE::TestKometFaustFiles
+SUMMARY::A class
+CATEGORIES::Komet
+RELATED::Classes/Class
+
+DESCRIPTION::
+Short description... TODO
+
+
+
+INSTANCEMETHODS::
+METHOD::test_faustFilesCompile
+
+
+
+EXAMPLES::
+
+CODE::
+// TODO
+::

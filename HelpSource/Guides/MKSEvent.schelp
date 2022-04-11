@@ -1,5 +1,5 @@
 TITLE::KSEvent
-categories:: komet
+CATEGORIES::Komet
 summary:: Custom event types for K-syntlib
 related:: Classes/Event
 

@@ -1,0 +1,28 @@
+TITLE::TestKometComponentLoader
+SUMMARY::A class
+CATEGORIES::Komet
+RELATED::Classes/Class
+
+DESCRIPTION::
+Short description... TODO
+
+
+
+INSTANCEMETHODS::
+METHOD::setUp
+
+METHOD::tearDown
+
+METHOD::test_componentsExist
+
+METHOD::test_path
+
+METHOD::test_loadsAll
+
+
+
+EXAMPLES::
+
+CODE::
+// TODO
+::

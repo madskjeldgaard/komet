@@ -1,6 +1,6 @@
 TITLE::K_FaustInstaller
 SUMMARY::Compile and install faust files as SuperCollider plugins
-CATEGORIES::K_>Faust
+CATEGORIES::Komet
 RELATED::Classes/UGen
 
 DESCRIPTION::

@@ -1,0 +1,21 @@
+TITLE::AbstractKometFactory
+SUMMARY::A class
+CATEGORIES::Komet
+RELATED::Classes/Class
+
+DESCRIPTION::
+Short description... TODO
+
+CLASSMETHODS::
+METHOD::loadSourceFunctions
+ARGUMENT::files
+
+
+
+
+
+EXAMPLES::
+
+CODE::
+// TODO
+::

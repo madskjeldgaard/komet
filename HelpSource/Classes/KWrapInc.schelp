@@ -1,0 +1,40 @@
+TITLE::KWrapInc
+SUMMARY::A class
+CATEGORIES::Komet
+RELATED::Classes/Class
+
+DESCRIPTION::
+Short description... TODO
+
+CLASSMETHODS::
+METHOD::new1
+ARGUMENT::rate
+ARGUMENT::in
+ARGUMENT::wrapMin
+ARGUMENT::wrapMax
+
+METHOD::ar
+ARGUMENT::in
+ARGUMENT::wrapMin
+ARGUMENT::wrapMax
+
+METHOD::kr
+ARGUMENT::in
+ARGUMENT::wrapMin
+ARGUMENT::wrapMax
+
+METHOD::init
+ARGUMENT::rate
+ARGUMENT::in
+ARGUMENT::wrapMin
+ARGUMENT::wrapMax
+
+
+
+
+
+EXAMPLES::
+
+CODE::
+// TODO
+::
