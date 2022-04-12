@@ -45,17 +45,26 @@ KometMainChain : Singleton{
                 var type = fxItem[1];
                 var args = fxItem[2];
 
-                if(index > (data.size - 1), {
-                    Log(\komet).debug("%, adding data at index %", this.class.name, index);
-                    data = data.add(IdentityDictionary.new)
-                });
+                if(KometFXFactory.basenameExists(name, type), {
 
-                //  Converting to dict ensures no duplicates when setting new args
-                data[index][\args] = args.asDict;
-                data[index][\fxName] = name;
-                data[index][\fxType] = type;
-                data[index][\node] = nil;
+                    if(index > (data.size - 1), {
+                        Log(\komet).debug("%, adding data at index %", this.class.name, index);
+                        data = data.add(IdentityDictionary.new)
+                    });
 
+                    //  Converting to dict ensures no duplicates when setting new args
+                    data[index][\args] = args.asDict;
+                    data[index][\fxName] = name;
+                    data[index][\fxType] = type;
+                    data[index][\node] = nil;
+                }, {
+                    Log(\komet).error(
+                        "%: basename % / type % does not exist",
+                        this.class.name,
+                        name,
+                        type
+                    )
+                })
             }, {
                 Log(\komet).warning("FXItem at index % does not contain the correct amount of items (%). Skipping it", index, fxItemSize)
             })
