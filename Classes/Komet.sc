@@ -2,6 +2,14 @@ Komet {
     classvar <synthFactory, <fxFactory;
     classvar <files, <faustFiles, <allFiles, <mainOut, <numChannels;
 
+    *allChains{
+        ^KometMainChain.all
+    }
+
+    *logLevel{|level|
+        Log(\komet).level = level
+    }
+
     *initClass{
         StartUp.add{
             files = KometSynthFactory.files ++ KometFXFactory.files;
@@ -44,8 +52,6 @@ Komet {
             KometMainChain(\preMain).group
         );
 
-            // TODO:
-            // KometMain(\leak, numChannels, addAfter, \eq3, \channelized);
         }, {
             Log(\komet).error("Dependencies not installed or satisfied");
         })
