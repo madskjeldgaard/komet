@@ -85,17 +85,10 @@ KometFXFactory : AbstractKometFactory {
 
     *basenameExists{|basename, type|
         ^if(this.typeExists(type), {
-            var dict = fx[type][basename];
-
-            if(dict.notNil, {
-                true
-            }, {
-                false
-            })
-
+            fx[type][basename].notNil;
         }, {
             Log(\komet).error("Type % does not exist", type);
-            nil
+            false
         })
     }
 

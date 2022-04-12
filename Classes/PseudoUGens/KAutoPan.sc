@@ -2,6 +2,11 @@
 // When autopan is 0, it works as a normal pan using the pan argument
 // When autopan is on, the pan argument becomes a bias for the autopanner
 
+// A sort of enum used to specify modulator type in autopan
+KPanShape {
+    classvar <sine=0, <saw=1, <noise=2;
+}
+
 KAutoPan{
 
     *new1{ |rate, pan=1, panFreq=1, autopan=0, panShape=0.0|
@@ -55,20 +60,6 @@ KAutoPan{
             ]
         );
 
-        // panModulator = panModulator.linlin(0.0,1.0,-1.0,1.0).poll(label: \wrapped);
-
-        // panModulator = Wrap.perform(rate,
-        //     panModulator,
-        //     (-1.0),
-        //     1.0
-        // ).poll(label: \wrapped);
-        //
-        // panModulator = KWrapInc.perform(rate,
-        //     panModulator,
-        //     (-1.0),
-        //     (1.0)
-        // );
-        //
         ^panModulator;
     }
 
