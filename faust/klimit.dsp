@@ -9,7 +9,7 @@ process = co.limiter_lad_mono(LD, ceiling, attack, hold, release) with {
 	// * `attack` is the attack time in seconds
 	attack = vslider("attack",0.001,0.00000001,2,0.0001);
 	// * `hold` is the hold time in seconds
-	hold = vslider("hold",0.1,0.00000001,3,0.0001);
+	hold = vslider("hold",0.5,0.00000001,3,0.0001);
 	// * `release` is the release time in seconds
-	release = vslider("release",0.5,0.00000001,2,0.0001);
+	release = vslider("release",0.01,0.00000001,2,0.0001);
 };
