@@ -23,7 +23,27 @@ Komet {
         KometDependencies.installPlugins();
     }
 
-    //TODO
+    *uninstall{
+        Log(\komet).info("Uninstalling %", this.name);
+        this.clean();
+        KometFaustPackage.uninstall();
+    }
+
+    // TODO
+    // Remove all generated synthdefs
+    *clean{
+        PathName(
+            Platform.userAppSupportDir +/+ "synthdefs"
+        ).files.do{|file|
+            if(
+                file.fileName.beginsWith(KometSynthFactory.synthDefPrefix) ||
+                file.fileName.beginsWith(KometFXFactory.synthDefPrefix), {
+                Log(\komet).info("CLEAN: Deleting %", file.fileName);
+                // File.delete(file)
+            })
+        }
+    }
+
     *build{|numChannelsOut|
         synthFactory = KometSynthFactory.new(numChannelsOut, rebuild: true);
         fxFactory = KometFXFactory.new(numChannelsOut, rebuild: true);
