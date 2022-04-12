@@ -22,7 +22,7 @@ KometFaustPackage : AbstractFaustPackage{
         submodulePaths = cmd.unixCmdGetStdOutLines;
 
         submodulesPulled = submodulePaths.collect{|subpath|
-            var thispath = (KometPath.fullPath +/+ subpath.asPathName);
+            var thispath = (KometPath.fullPath +/+ PathName(subpath));
             Log(\komet).debug("Checking if submodule in path % is pulled", thispath);
             if(subpath.notNil, {
                 thispath.files.size > 0

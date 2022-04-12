@@ -9,6 +9,12 @@ var outfolder = Main.packages.asDict[pkgName].asPathName +/+ "HelpSource" +/+ "C
 Quarks.classesInPackage(pkgName).do{|class|
     K_SCDocGen.new(class, outfolder.fullPath);
 };
+(
+SCDoc.documents.select{|doc|
+    doc.isUndocumentedClass()
+}.collect{|doc| doc.klass }.asArray.size.postln
+)
+)
 )
 
 */
@@ -32,8 +38,8 @@ K_SCDocGen{
             var thefolder = PathName(
                 inclass.filenameSymbol.asString
             )
-            .parentPath.asPathName
-            .parentPath.asPathName
+            .parentPath
+            .parentPath
             .pathOnly
             +/+ "HelpSource"
             +/+ "Classes";
@@ -70,7 +76,7 @@ K_SCDocGen{
         helpFileString =
         "TITLE::%
 SUMMARY::A class
-CATEGORIES::TODO
+CATEGORIES::Komet
 RELATED::Classes/Class
 
 DESCRIPTION::
