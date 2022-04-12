@@ -30,7 +30,7 @@ envs.adsr = { |prefix, suffix|
 			levelBias: 0,
 			levelScale: 1.0,
 			doneAction: envDone
-		).poll
+		)
 	}
 };
 
