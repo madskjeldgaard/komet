@@ -6,8 +6,6 @@ RELATED::Classes/Class
 DESCRIPTION::
 Short description... TODO
 
-
-
 INSTANCEMETHODS::
 METHOD::finderName
 
@@ -28,8 +26,6 @@ ARGUMENT::result
 METHOD::setFinder
 ARGUMENT::itemsCode
 ARGUMENT::callbackFunc
-
-
 
 EXAMPLES::
 
