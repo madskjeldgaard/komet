@@ -1,0 +1,124 @@
+TITLE::Komet cookbook
+SUMMARY:: Different recipes for different things in Komet
+CATEGORIES::Komet>Guides
+
+SECTION:: Patterns
+
+SUBSECTION:: Complex drones
+
+code::
+// Setup
+(
+s.boot;
+Komet.start(numChannelsOut:2, build:false);
+)
+(
+Pbind(
+    \type, \k,
+
+    \base, \complex,
+    \env, \adsr,
+    \filter, \none,
+
+    \freq, Pwhite(100, 520),
+    \freqOffset, 0.0,
+
+    \dur, 8.0,
+    \lagTime, 0.0,
+    \legato, 2,
+
+    \amp, 0.025,
+
+    \modFreq, 100.0,
+    \amMod, Pwhite(0.0,0.25),
+    \fmMod, 0.2,
+    \timbreMod, Pwhite(0.0,0.25),
+
+    \modclip, 0.0,
+    \modskew, 0.0,
+    \modphase, 0.25,
+    \mainclip, 0.5,
+    \mainskew, 0.9,
+    \mainphase, 1.25,
+
+    \pan, Pwhite(-0.5,0.5),
+    \panFreq, 1.0,
+    \autopan, 0.0,
+    \panShape, 1.0,
+
+    \gate, 1.0,
+    \atk, 0.5,
+    \sus, 1,
+    \rel, 0.5,
+    \curve, Pwhite(-5,5),
+
+).play;
+)
+::
+
+SUBSECTION:: Complex drones through a filter
+
+Same as above but using LINK::Classes/POutFX:: to route all the voices through a
+filter. Change it to LINK::Classes/PparOutFX:: if you are on SuperNova.
+
+code::
+// Setup
+(
+s.boot;
+Komet.start(numChannelsOut:2, build:false);
+)
+(
+var sourcePattern = Pbind(
+    \type, \k,
+
+    \base, \complex,
+    \env, \adsr,
+    \filter, \none,
+
+    \freq, Pwhite(100, 520),
+    \freqOffset, 0.0,
+
+    \dur, 8.0,
+    \lagTime, 0.0,
+    \legato, 2,
+
+    \amp, 0.025,
+
+    \modFreq, 100.0,
+    \amMod, Pwhite(0.0,0.25),
+    \fmMod, 0.2,
+    \timbreMod, Pwhite(0.0,0.25),
+
+    \modclip, 0.0,
+    \modskew, 0.0,
+    \modphase, 0.25,
+    \mainclip, 0.5,
+    \mainskew, 0.9,
+    \mainphase, 1.25,
+
+    \pan, Pwhite(-0.5,0.5),
+    \panFreq, 1.0,
+    \autopan, 0.0,
+    \panShape, 1.0,
+
+    \gate, 1.0,
+    \atk, 0.5,
+    \sus, 1,
+    \rel, 0.5,
+    \curve, Pwhite(-5,5),
+
+);
+
+POutFX(
+    sourcePattern: sourcePattern,
+    fxDefName: KometFXFactory.get(\vadim, \channelized),
+    fxArgPairs: [
+        \dur, 10,
+        \cutoff, Pwhite(100,250),
+        \res, 0.5,
+        \lagTime, Pkey(\dur),
+    ],
+    releaseTime: 10
+).play;
+)
+::
