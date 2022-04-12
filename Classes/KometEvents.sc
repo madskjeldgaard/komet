@@ -30,25 +30,25 @@ KometEvents{
       ~release = ~release ? ~rel;
       ~decay = ~decay ? ~dec;
       ~sustainLevel = ~sustainLevel ? ~sus;
-      ~envCurve = ~envCurve ? ~curve;
+      ~envcurve = ~envcurve ? ~curve;
 
       ~vcaattack = ~vcaattack  ? ~attack;
       ~vcarelease = ~vcarelease  ? ~release;
       ~vcadecay = ~vcadecay  ? ~decay;
       ~vcasustainLevel = ~vcasustainLevel  ? ~sustainLevel;
-      ~vcaenvCurve = ~vcaenvCurve ? ~envCurve;
+      ~vcaenvcurve = ~vcaenvcurve ? ~envcurve;
 
       ~pitchattack = ~pitchattack ? ~vcaattack;
       ~pitchrelease = ~pitchrelease ? ~vcarelease;
       ~pitchdecay = ~pitchdecay ? ~vcadecay;
       ~pitchsustainLevel = ~pitchsustainLevel ? ~vcasustainLevel;
-      ~pitchenvCurve = ~pitchenvCurve ? ~envCurve;
+      ~pitchenvcurve = ~pitchenvcurve ? ~envcurve;
 
       ~fattack = ~fattack ? ~vcaattack;
       ~frelease = ~frelease ? ~vcarelease;
       ~fdecay = ~fdecay ? ~vcadecay;
       ~fsustainLevel = ~fsustainLevel ? ~vcasustainLevel;
-      ~fenvCurve = ~fenvCurve ? ~envCurve;
+      ~fenvcurve = ~fenvcurve ? ~envcurve;
 
       // Filter specific stuff
       ~res = ~res ? 0.1;
