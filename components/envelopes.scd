@@ -9,25 +9,28 @@ envs.adsr = { |prefix, suffix|
 		gate=K_NC.kr("gate", 1),
 		legato = K_NC.kr("legato", 1),
 		decay=K_NC.kr("decay", 0.3, suffix: suffix, prefix: prefix),
-		peakLevel=K_NC.kr("peakLevel", 1.0, suffix: suffix, prefix: prefix),
+
 		bias=0,
 		sustainLevel = K_NC.kr("sustainLevel", 0.95, suffix: suffix, prefix: prefix);
 
 		dur = legato * dur;
 
 		EnvGen.kr(
-			Env.new(
-				levels: [0, peakLevel, peakLevel * sustainLevel, 0] + bias,
-				times: [attack, decay, release],
-				curve: envcurve,
-				releaseNode: 2
-			),
+            Env.adsr(
+                attackTime:attack,
+                decayTime:decay,
+                sustainLevel:sustainLevel,
+                releaseTime:release,
+                peakLevel:1,
+                curve:envcurve,
+                bias:bias
+            ),
 			gate: gate,
 			timeScale: dur,
 			levelBias: 0,
 			levelScale: 1.0,
 			doneAction: envDone
-		)
+		).poll
 	}
 };
 

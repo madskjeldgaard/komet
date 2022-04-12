@@ -29,13 +29,13 @@ KometEvents{
       ~attack = ~attack ? ~atk;
       ~release = ~release ? ~rel;
       ~decay = ~decay ? ~dec;
-      ~sustain = ~sustain ? ~sus;
+      ~sustainLevel = ~sustainLevel ? ~sus;
       ~envCurve = ~envCurve ? ~curve;
 
       ~vcaattack = ~vcaattack  ? ~attack;
       ~vcarelease = ~vcarelease  ? ~release;
       ~vcadecay = ~vcadecay  ? ~decay;
-      ~vcasustainLevel = ~vcasustainLevel  ? ~sustain;
+      ~vcasustainLevel = ~vcasustainLevel  ? ~sustainLevel;
       ~vcaenvCurve = ~vcaenvCurve ? ~envCurve;
 
       ~pitchattack = ~pitchattack ? ~vcaattack;
