@@ -8,7 +8,13 @@ KometFXFactory.add(
             var lagTime = \lagTime.kr(1);
             Array.fill(numChannels, {|chanNum|
                 var sig = in[chanNum];
-                VAKorg35.ar(input:sig, freq:\cutoff.ar(500).klag(lagTime), res:\res.ar(0.1).klag(lagTime), overdrive:\overdrive.kr(0.1).klag(lagTime), type:\type.ir(0))
+
+                var cutoff;
+                var spread = \spread.kr(0.1).klag(lagTime);
+                spread = (1 + (chanNum/numChannels * spread));
+                cutoff = \cutoff.ar(500).klag(lagTime) * spread;
+
+                VAKorg35.ar(input:sig, freq:cutoff, res:\res.ar(0.1).klag(lagTime), overdrive:\overdrive.kr(0.1).klag(lagTime), type:\type.ir(0))
             })
         }
     },
@@ -30,9 +36,13 @@ KometFXFactory.add(
             var lagTime = \lagTime.kr(1);
             Array.fill(numChannels, {|chanNum|
                 var sig = in[chanNum];
+                var cutoff;
+                var spread = \spread.kr(0.1).klag(lagTime);
+                spread = (1 + (chanNum/numChannels * spread));
+                cutoff = \cutoff.ar(500).klag(lagTime) * spread;
                 VALadder.ar(
                     input:sig,
-                    freq:\cutoff.ar(500).klag(lagTime),
+                    freq:cutoff,
                     res:\res.ar(0.1).klag(lagTime),
                     overdrive:\overdrive.kr(0.1).klag(lagTime),
                     type:\type.ir(0)
@@ -57,9 +67,13 @@ KometFXFactory.add(
             var lagTime = \lagTime.kr(1);
             Array.fill(numChannels, {|chanNum|
                 var sig = in[chanNum];
+                var cutoff;
+                var spread = \spread.kr(0.1).klag(lagTime);
+                spread = (1 + (chanNum/numChannels * spread));
+                cutoff = \cutoff.ar(500).klag(lagTime) * spread;
                 VADiodeFilter.ar(
                     input:sig,
-                    freq:\cutoff.ar(500).klag(lagTime),
+                    freq:cutoff,
                     res:\res.ar(0.1).klag(lagTime),
                     overdrive:\overdrive.kr(0.1)
                 )
@@ -81,10 +95,14 @@ KometFXFactory.add(
     synthfunc: {|numChannels|
         {|in|
 
-        var lagTime = \lagTime.kr(1);
+            var lagTime = \lagTime.kr(1);
             Array.fill(numChannels, {|chanNum|
                 var sig = in[chanNum];
-                VASEM12.ar(input:sig, freq:\cutoff.ar(500).klag(lagTime), res:\res.ar(0.1).klag(lagTime), transition:\transition.kr(0))
+                var cutoff;
+                var spread = \spread.kr(0.1).klag(lagTime);
+                spread = (1 + (chanNum/numChannels * spread));
+                cutoff = \cutoff.ar(500).klag(lagTime) * spread;
+                VASEM12.ar(input:sig, freq:cutoff, res:\res.ar(0.1).klag(lagTime), transition:\transition.kr(0))
             })
         }
     },
