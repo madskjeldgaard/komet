@@ -21,21 +21,23 @@ KAutoPan{
 
         var sine = SinOsc.perform(rate,
             panFreq,
+            pan.wrap2(2pi),
             mul: autopan,
-            add: pan
+            // add: pan
         );
 
+        // FIXME: The pan value does not translate to the correct phase
         var saw = LFSaw.perform(rate,
             freq:panFreq,
-            iphase:0.0,
+            iphase:pan.linlin(-1.0,1.0,0.0,2.0),
             mul:autopan,
-            add:pan
+            // add:pan
         );
 
         var noise = LFNoise2.perform(rate,
             panFreq,
             mul:autopan,
-            add:pan
+            // add:pan.poll(label:\pan)
         );
 
         var shapes = [sine, saw, noise];
@@ -43,14 +45,30 @@ KAutoPan{
         panModulator = Select.perform(rate,
             panShape.clip(0, shapes.size),
             shapes
+        ).poll(label: \modulated);
+
+        panModulator = Select.perform(rate,
+            (autopan > 0.0),
+            [
+                DC.perform(rate, pan),
+                panModulator
+            ]
         );
 
-        panModulator = KWrapInc.perform(rate,
-            panModulator,
-            (-1.0),
-            (1.0)
-        );
+        // panModulator = panModulator.linlin(0.0,1.0,-1.0,1.0).poll(label: \wrapped);
 
+        // panModulator = Wrap.perform(rate,
+        //     panModulator,
+        //     (-1.0),
+        //     1.0
+        // ).poll(label: \wrapped);
+        //
+        // panModulator = KWrapInc.perform(rate,
+        //     panModulator,
+        //     (-1.0),
+        //     (1.0)
+        // );
+        //
         ^panModulator;
     }
 
