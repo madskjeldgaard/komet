@@ -1,0 +1,81 @@
+TITLE::AbstractKometChain
+SUMMARY::Abstract interface for KometChain types
+CATEGORIES::Komet
+RELATED::Classes/KometMainChain,Classes/KometChain, Classes/Singleton
+
+DESCRIPTION::
+This class provides the general interface of the FX chain types in Komet. It is
+not used directly but inherited by it's subclasses who then implement the
+interface.
+
+Note that this is a Singleton class. See LINK::Classes/Singleton:: for more
+information.
+
+INSTANCEMETHODS::
+METHOD::fxChain
+Get the enclosed fxchain
+
+METHOD::numChannels
+Get number of channels
+
+METHOD::server
+Get server
+
+METHOD::group
+Get group used
+
+METHOD::addAfter
+Get add message used when playing the chain
+
+METHOD::data
+The enclosed data
+
+METHOD::initialized
+
+METHOD::init
+Initialize the class. Not used directly.
+
+METHOD::free
+Free all synths in the chain
+
+METHOD::clear
+Remove all data in the chain
+
+METHOD::setFXChain
+ARGUMENT::newChain
+Set a new fx chain. code::newChain:: must be an array of
+LINK::Classes/KometFXItem::'s.
+
+METHOD::set
+ARGUMENT::fxchain
+ARGUMENT::numchannels
+ARGUMENT::addAfterNode
+Not used directly. This method is called when initializing the Singleton object. See LINK::Classes/Singleton:: for more information.
+
+METHOD::at
+ARGUMENT::index
+Get the data at index
+
+METHOD::synthAt
+ARGUMENT::index
+Get the synth at the index
+
+METHOD::argsAt
+ARGUMENT::index
+Get the synth arguments of the synth at the index
+
+METHOD::setArgsAt
+ARGUMENT::index
+ARGUMENT::newArgs
+Set the synth arguments of the synth at the index
+
+METHOD::play
+
+METHOD::initializeAllNodes
+Not used directly. Called by play.
+
+EXAMPLES::
+
+CODE::
+// See subclasses
+::

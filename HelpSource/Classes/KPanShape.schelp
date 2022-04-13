@@ -1,0 +1,21 @@
+TITLE::KPanShape
+SUMMARY::A pan shape convenience class
+CATEGORIES::Komet
+RELATED::Classes/KAutoPan
+
+DESCRIPTION::
+A convenience class used in the code::\panShape:: argument of the code::\k::
+event type to specify a type of modulation to be used.
+
+CLASSMETHODS::
+METHOD::sine
+
+METHOD::saw
+
+METHOD::noise
+
+EXAMPLES::
+
+CODE::
+Pbind(\type, \k, \panShape, KPanShape.sine, \autopan, 1).play;
+::

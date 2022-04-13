@@ -1,29 +1,31 @@
-TITLE::KometMainChain
-SUMMARY::A main output FX chain
+TITLE::KometChain
+SUMMARY::An FX chain
 CATEGORIES::Komet
-RELATED::Classes/KometChain,Classes/AbstractKometChain,Classes/KometFXItem
+RELATED::Classes/KometMainChain,Classes/AbstractKometChain,Classes/KometFXItem
 
 DESCRIPTION::
-This class is a convenience class for generating and managing fx chains at the
-main output.
+This class is a convenience class for generating and managing fx chains.
 
 Most of it's interface is inherited from LINK::Classes/AbstractKometChain::, see
 that help file for more information.
 
-This class spawns a permanent group after the main group (1) and it's synths are
-respawned at cmdPeriod with the correct arguments.
+It spawns it's group after the main group (1) and frees it's nodes on cmdPeriod.
+This is opposed to LINK::Classes/KometMainChain:: which does things in a
+more permanent fashion.
+
+CLASSMETHODS::
+METHOD::addAction
+
+METHOD::freeBeforePlay
 
 INSTANCEMETHODS::
 METHOD::init
-
-METHOD::doOnServerTree
 
 METHOD::play
 
 EXAMPLES::
 
 CODE::
-
 // Make some noise
 Ndef(\nnn, { WhiteNoise.ar()}).play;
 
@@ -37,13 +39,13 @@ var fxchain = [
 ];
 
 // The main output fx chain
-KometMainChain(\main, fxchain, numChannels, addAfter);
+KometChain(\somechain, fxchain, numChannels, addAfter);
 )
 
 // Now, let's be silly: Control the chain using a pattern
 Pbind(
 	\type, \kometchain,
-	\chain, KometMainChain(\main),
+	\chain, KometChain(\somechain),
 	// Set the eq
 	\lowlevel, Pwhite(-10,10)
 	\highlevel, Pwhite(-10,10)

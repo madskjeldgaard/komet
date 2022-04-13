@@ -1,0 +1,40 @@
+TITLE::KometFXItem
+SUMMARY::An item for an FX chain
+CATEGORIES::Komet
+RELATED::Classes/KometChain,Classes/AbstractKometChain,Classes/KometMainChain
+
+DESCRIPTION::
+This is a simple convenience function for making an item for an fx chain to be
+set in one of LINK::Classes/AbstractKometChain::'s subclasses.
+
+An item corresponds to a synth found in LINK::Classes/KometFXFactory:: and is
+just a convenient way to ensure type safety when spawning a synth.
+
+CLASSMETHODS::
+METHOD::new
+ARGUMENT::fxName
+ARGUMENT::fxType
+ARGUMENT::fxArgs
+
+INSTANCEMETHODS::
+METHOD::data
+
+METHOD::init
+ARGUMENT::fxName
+ARGUMENT::fxType
+ARGUMENT::fxArgs
+
+METHOD::at
+ARGUMENT::index
+
+METHOD::name
+
+METHOD::type
+
+METHOD::args
+
+EXAMPLES::
+
+CODE::
+// See elsewhere
+::
