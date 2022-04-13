@@ -66,6 +66,27 @@ KometEvents{
       currentEnvironment.play;
     });
 
+    Event.addEventType(\kometchain, {
+        if(~chain.isNil, {
+            Log(\komet).error("No chain specified");
+        }, {
+            var rejectKeys = [\type, \node, \chain];
+            var args = currentEnvironment
+            .collect{|key, value| [value,key] }
+            .reject{|key, value| rejectKeys.includes(key[0])}
+            .asArray.flatten;
+
+            ~type = \set;
+            ~node = ~chain.group;
+
+            // KometMainChain's "group" is just a raw group number, while other chain types are Group
+            if(~node.isKindOf(Group), {
+                ~node.set(*args)
+            }, {
+                ~node.asGroup.set(*args)
+            })
+        })
+    });
   }
 
 }

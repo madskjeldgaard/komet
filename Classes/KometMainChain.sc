@@ -2,9 +2,52 @@
 // Inspiration:
 // https://github.com/musikinformatik/SuperDirt/classes/DirtOrbit.sc
 
-// TODO: remove, preset
-KometMainChain : Singleton{
+// A convenience function to make sure the correct arguments are passed to fx chains
+KometFXItem[slot] {
+    var <data;
+
+    *new{|fxName, fxType, fxArgs|
+        ^super.new.init(fxName, fxType, fxArgs)
+    }
+
+    init{|fxName, fxType, fxArgs|
+        ^if(
+            fxName.isKindOf(Symbol) &&
+            fxType.isKindOf(Symbol) &&
+            fxArgs.isKindOf(SequenceableCollection), {
+                data = Array.newClear(3);
+                data.put(0, fxName);
+                data.put(1, fxType);
+                data.put(2, fxArgs);
+                this
+            }, {
+                Log(\komet).error("Could not make % instance", this.class.name);
+                nil
+            }
+        );
+
+    }
+
+    at{|index|
+        ^data[index]
+    }
+
+    name{
+        ^this.at(0)
+    }
+
+    type{
+        ^this.at(1)
+    }
+
+    args{
+        ^this.at(2)
+    }
+}
+
+AbstractKometChain : Singleton{
     classvar fxItemSize=3;
+    classvar freeBeforePlay=true;
     var <fxChain, <numChannels, <server, <group, <addAfter;
     var <data;
     var <initialized;
@@ -13,14 +56,15 @@ KometMainChain : Singleton{
         Log(\komet).debug("%, initializing Singleton", this.class.name);
         initialized = false;
         data = data ?? [];
+
         server = Server.local;
         group = server.nextPermNodeID;
+
         ServerTree.add(this, server); // synth node tree init
         CmdPeriod.add(this);
-
     }
 
-    freeAllInChain{
+    free{
         data.do{|dataItem, index|
             var thisNode = dataItem[\node];
             if(thisNode.notNil, {
@@ -40,10 +84,10 @@ KometMainChain : Singleton{
 
         // FIXME: do we want to carry over synth args from previous synths or clear them?
         newChain.do{|fxItem, index|
-            if(fxItem.size == fxItemSize, {
-                var name = fxItem[0];
-                var type = fxItem[1];
-                var args = fxItem[2];
+            if(fxItem.class == KometFXItem, {
+                var name = fxItem.name;
+                var type = fxItem.type;
+                var args = fxItem.args;
 
                 if(KometFXFactory.basenameExists(name, type), {
 
@@ -90,25 +134,16 @@ KometMainChain : Singleton{
                 KometFXFactory.new(numChannels)
             });
 
-            this.freeAllInChain();
+            if(freeBeforePlay, {
+                this.free();
+            });
             this.setFXChain(fxchain);
-            this.initNodeTree;
+            this.play;
             initialized = true;
         }, {
             Log(\komet).error("Incorrect arguments in set in %. Skipping...", this.class.name)
         })
 
-        // if(newChain, {
-        //     Log(\komet).debug("New chain detected");
-        //     // Free existing nodes (only used when reinitializing the Singleton)
-        //     data.do{|dataItem|
-        //         var thisNode = dataItem[\node];
-        //         if(thisNode.notNil, {thisNode.free}
-        //     )
-        // };
-        //
-        //     this.initNodeTree;
-        // });
     }
 
     at{|index|
@@ -137,35 +172,86 @@ KometMainChain : Singleton{
     }
 
     doOnServerTree {
-        // on node tree init:
-        this.initNodeTree
+        Log(\komet).debug("ServerTree init called for %", this.class.name);
     }
 
     cmdPeriod {
         Log(\komet).debug("CmdPeriod called for %", this.class.name);
     }
 
-    initNodeTree {
+    play {
+        this.subclassResponsibility(thisMethod);
+    }
+
+    initializeAllNodes{
+        data.do { |dataItem, index|
+            var synthDefName = KometFXFactory.get(
+                basename:dataItem[\fxName],
+                type:dataItem[\fxType]
+            );
+
+            var args = dataItem[\args];
+
+            data[index][\node] = Synth(
+                synthDefName,
+                args,
+                target: group,
+                addAction: \addToTail
+            );
+        }
+    }
+}
+
+KometChain : AbstractKometChain {
+    classvar <>addAction=\addAfter;
+    classvar <>freeBeforePlay=false;
+
+    init{
+        Log(\komet).debug("%, initializing Singleton", this.class.name);
+        initialized = false;
+        data = data ?? [];
+
+        server = Server.local;
+
+        ServerTree.add(this, server); // synth node tree init
+        CmdPeriod.add(this);
+    }
+
+    play {
+        Log(\komet).debug("Initializing server tree for %", this.class.name);
+
+        server.makeBundle(nil, {
+            group = Group.new(target: addAfter, addAction: addAction);
+            this.initializeAllNodes();
+        })
+    }
+}
+
+// Spawns synths in a permanent group node, respawned when ServerTree is initialized.
+KometMainChain : AbstractKometChain {
+    classvar freeBeforePlay=true;
+    init{
+        Log(\komet).debug("%, initializing Singleton", this.class.name);
+        initialized = false;
+        data = data ?? [];
+
+        server = Server.local;
+        group = server.nextPermNodeID;
+
+        ServerTree.add(this, server); // synth node tree init
+        CmdPeriod.add(this);
+    }
+
+    doOnServerTree {
+        this.play
+    }
+
+    play {
         Log(\komet).debug("Initializing server tree for %", this.class.name);
 
         server.makeBundle(nil, { // make sure they are in order
             server.sendMsg("/g_new", group, 3, addAfter);
-
-            data.do { |dataItem, index|
-                var synthDefName = KometFXFactory.get(
-                    basename:dataItem[\fxName],
-                    type:dataItem[\fxType]
-                );
-
-                var args = dataItem[\args];
-
-                data[index][\node] = Synth(
-                    synthDefName,
-                    args,
-                    target: group,
-                    addAction: \addToTail
-                );
-            }
+            this.initializeAllNodes();
         })
     }
 }
