@@ -1,6 +1,7 @@
 Komet {
+    classvar <testBuffers;
     classvar <synthFactory, <fxFactory;
-    classvar <files, <faustFiles, <allFiles, <mainOut, <numChannels;
+    classvar <mainOut, <numChannels;
 
     *allChains{
         ^KometMainChain.all
@@ -11,10 +12,8 @@ Komet {
     }
 
     *initClass{
-        StartUp.add{
-            files = KometSynthFactory.files ++ KometFXFactory.files;
-            faustFiles = KometSynthFactory.faustFiles;
-            allFiles = files ++ faustFiles;
+        ServerBoot.add{
+            testBuffers = BufFiles.new(Server.local, KometPath.sndPath)
         }
     }
 
