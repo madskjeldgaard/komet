@@ -1,7 +1,6 @@
 (
-KometFXFactory.add(
-    basename: \analogphaser,
-    synthfunc: {|numChannels|
+var desc = "A virtual analog phaser",
+    func = {|numChannels|
         {|in|
 
             var lagTime = \lagTime.kr(1);
@@ -22,15 +21,26 @@ KometFXFactory.add(
             })
         }
     },
-    type: \channelized,
-    specs:(
+    type = \fx,
+    category = \channelized,
+    basename = \analogphaser,
+    numChans = nil, // TODO: Not used
+    specs = (
         lfoFreq: [0.0000001, 5500.0, \exp],
         skew: [-1.0, 1.0],
         feedback: [0.0, 0.95],
         modulation: [0.0,1.0],
         stages: [1,50],
-    ),
-    check: { \AnalogPhaser.asClass.notNil }
+    );
 
-);
+KometSynthFuncDef(
+    basename,
+    func,
+    type,
+    category,
+    numChans,
+    desc,
+    specs,
+).add();
+
 )

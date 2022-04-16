@@ -1,7 +1,6 @@
 (
-KometFXFactory.add(
-    basename: \timemachine,
-    synthfunc: {|numChannels|
+var desc = "A tape loop inspired effect",
+    func = {|numChannels|
             {|in, offset=0, reclvl=0.5, prelvl=0.5, timerate=2.0, fb=0.25, record=1, jumpToStart=1, damp=0.25|
 
                 var lagTime = \lagTime.kr(1);
@@ -22,8 +21,11 @@ KometFXFactory.add(
                 sig
             }
     },
-    type: \channelized, // channelized, stereo or ambisonic
-    specs: (
+    type = \fx,
+    category = \channelized,
+    basename = \timemachine,
+    numChans = nil, // TODO: Not used
+    specs = (
         tapeLength: [0.1,1000],
         offset: [0.0, 1.0],
         reclvl: [0.0, 1.0],
@@ -33,6 +35,16 @@ KometFXFactory.add(
         record: [0.0, 1.0],
         jumpToStart: [0.0, 1.0],
         damp: [0.0, 1.0]
-    )
-);
+    );
+
+KometSynthFuncDef(
+    basename,
+    func,
+    type,
+    category,
+    numChans,
+    desc,
+    specs,
+).add();
+
 )

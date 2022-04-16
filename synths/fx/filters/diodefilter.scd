@@ -1,27 +1,32 @@
 (
-var desc = "A frequency shifter",
+var desc = "Virtual analog diode filter",
     func = {|numChannels|
         {|in|
-
             var lagTime = \lagTime.kr(1);
             Array.fill(numChannels, {|chanNum|
                 var sig = in[chanNum];
+                var cutoff;
                 var spread = \spread.kr(0.1).klag(lagTime);
                 spread = (1 + (chanNum/numChannels * spread));
-
-                FreqShift.ar(in:sig, freq:\shiftfreq.ar(1).klag(lagTime) * spread, phase:\shiftphase.kr(0))
-
+                cutoff = \cutoff.ar(500).klag(lagTime) * spread;
+                VADiodeFilter.ar(
+                    input:sig,
+                    freq:cutoff,
+                    res:\res.ar(0.1).klag(lagTime),
+                    overdrive:\overdrive.kr(0.1)
+                )
             })
         }
     },
     type = \fx,
     category = \channelized,
-    basename = \freqshift,
+    basename = \diodefilter,
     numChans = nil, // TODO: Not used
     specs = (
-        shiftfreq: Spec.specs[\widefreq],
-        shiftphase: Spec.specs[\phase],
-        spread: [0,1]
+        cutoff: Spec.specs[\freq],
+        res: [0.0,1.96],
+        overdrive: [0.0,1.0],
+        type: [0,1]
     );
 
 KometSynthFuncDef(

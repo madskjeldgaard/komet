@@ -4,7 +4,6 @@ this will auto generate a help file for a class. If no outputfolder path is give
 
 (
 var pkgName = 'Faust';
-// var outfolder = Quarks.at(pkgName);//.localPath.asPathName +/+ "HelpSource" +/+ "Classes";
 var outfolder = Main.packages.asDict[pkgName].asPathName +/+ "HelpSource" +/+ "Classes";
 Quarks.classesInPackage(pkgName).do{|class|
     K_SCDocGen.new(class, outfolder.fullPath);

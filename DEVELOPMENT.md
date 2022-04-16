@@ -18,9 +18,11 @@ Note: This will automatically be invoked when running the update script.
 ### Adding synths
 
 **specs:**
-- Pitched source sounds: Implement a pitch envelope.
-- freqOffset
-- lag
+- First argument must always be `dur`
+- Pitched source sounds: 
+	- Implement a pitch envelope.
+	- add freqOffset or pitchOffset or rateOffset parameter
+- lag on all relevant params
 
 ### Adding effects
 

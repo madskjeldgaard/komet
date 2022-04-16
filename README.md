@@ -5,6 +5,31 @@ Komet is a computer music / sound system by Mads Kjeldgaard written in [supercol
 
 It is currently not intended for use by others, but feel free to check it out.
 
+## About the system
+
+Komet is both a library and a factory. 
+
+### Features
+
+The main principle is to modularize the synth components into simple source functions and components that are then combined in all sorts of combinations. This way, a sound process only needs to be defined once to be built using all combinations of those components. This leads to more predictable naming schemes that makes it easier to compose with.
+
+In addition, the system contains many convenience functions, custom types and shortcuts to help avoid common mistakes when composing with SynthDefs in patterns in SuperCollider. As an example - a piece of music can be written using this package for a stereo setup, but then if you want to work on it in high order ambisonics, you simply change the number of channels in the setup. The arguments of the SynthDefs produced are predictable (and aliased in the custom event types) to avoid embarrassing mistakes like setting the `\atk` of a Synth in a pattern when in fact it was defined with the name `\attack`, instead of hard coding this in a bunch of SynthDefs (leading to errors and discrepancies), you only need to define this once and it is propagated into all the SynthDefs produced. 
+
+- Define one source sound function, get a plethora of SynthDefs - each source function is combined with every envelope, filter and panning function in the library automatically.
+- Consistent argument names in SynthDefs
+- Strict typing to ensure data is initialized correctly
+- An FX library organized into stereo, channelized and high order ambisonics versions.
+	- Includes a framework for generating "parallel processing" fx SynthDefs from all defined fx source functions
+- Multichannel support:
+	- Azimuth-based multichannel panning
+	- High order ambisonics
+	- Stereo output
+	- Mono output
+- Shipped with custom Faust plugins that are automatically compiled and installed.
+- JITlib-style FX chain as well as a "main output" effect system
+- Event types to make it easier and less errorprone to write patterns
+- Pattern types to easily manipulate fx chains or the main output effects
+
 ## Dependencies
 
 - Faust => v2.40

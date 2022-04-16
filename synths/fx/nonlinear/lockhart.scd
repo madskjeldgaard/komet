@@ -1,7 +1,6 @@
 (
-KometFXFactory.add(
-    basename: \lockhart,
-    synthfunc: {|numChannels|
+var desc = "A wavefolder",
+    func = {|numChannels|
         {|in|
 
             var lagTime = \lagTime.kr(1);
@@ -15,12 +14,23 @@ KometFXFactory.add(
             })
         }
     },
-    type: \channelized,
-    specs:(
+    type = \fx,
+    category = \channelized,
+    basename = \lockwart,
+    numChans = nil, // TODO: Not used
+    specs = (
         gain: [0.0, 1.0],
         cells: [1, 10],
-    ),
-    check: { \LockhartWavefolder.asClass.notNil }
+    );
 
-);
+KometSynthFuncDef(
+    basename,
+    func,
+    type,
+    category,
+    numChans,
+    desc,
+    specs,
+).add();
+
 )

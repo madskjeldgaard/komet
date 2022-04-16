@@ -1,7 +1,6 @@
 (
-KometFXFactory.add(
-    basename: \eq3,
-    synthfunc: {|numChannels|
+var desc = "An equalizer with low- and highshelf + 3 bell curves",
+    func = {|numChannels|
         {|in|
             Array.fill(numChannels, {|chanNum|
                 var sig = in[chanNum];
@@ -24,13 +23,35 @@ KometFXFactory.add(
             })
         }
     },
-    type: \channelized,
-    //TODO
-    specs:(
-        // maxdelay: [0.01,100],
-        // delaytime: [0.001,10, \exp],
-        // decaytime: [0,10],
-        // spread: 0.1,
-    ),
-);
+    type = \fx,
+    category = \channelized,
+    basename = \eq3,
+    numChans = nil, // TODO: Not used
+    specs = (
+        bw1: Spec.specs[\freq],
+        bw2: Spec.specs[\freq],
+        bw3: Spec.specs[\freq],
+        bellfreq1: Spec.specs[\freq],
+        bellfreq2: Spec.specs[\freq],
+        bellfreq3: Spec.specs[\freq],
+        highfreq: Spec.specs[\freq],
+        lowfreq: Spec.specs[\freq],
+        belllevel1: Spec.specs[\db],
+        belllevel2: Spec.specs[\db],
+        belllevel3: Spec.specs[\db],
+        highlevel: Spec.specs[\db],
+        lowlevel: Spec.specs[\db]
+
+    );
+
+KometSynthFuncDef(
+    basename,
+    func,
+    type,
+    category,
+    numChans,
+    desc,
+    specs,
+).add();
+
 )

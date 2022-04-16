@@ -1,7 +1,6 @@
 (
-KometFXFactory.add(
-    basename: \analogvintagedistortion,
-    synthfunc: {|numChannels|
+var desc = "An analog vintage distortion and equalizer",
+    func = {|numChannels|
         {|in|
             var lagTime = \lagTime.kr(1);
             Array.fill(numChannels, {|chanNum|
@@ -19,16 +18,27 @@ KometFXFactory.add(
             })
         }
     },
-    type: \channelized,
-    specs:(
+    type = \fx,
+    category = \channelized,
+    basename = \analogvintagedistortion,
+    numChans = nil, // TODO: Not used
+    specs = (
         drivegain: [0.0, 1.0],
         bias: [0.0, 2.5],
         lowgain: Spec.specs[\db],
         highgain: Spec.specs[\db],
         shelvingfreq: Spec.specs[\freq],
         oversample: [0,4]
-    ),
-    check: { \AnalogVintageDistortion.asClass.notNil }
+    );
 
-);
+KometSynthFuncDef(
+    basename,
+    func,
+    type,
+    category,
+    numChans,
+    desc,
+    specs,
+).add();
+
 )

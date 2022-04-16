@@ -1,8 +1,6 @@
-// TODO
 (
-KometFXFactory.add(
-    basename: \multicomp3,
-    synthfunc: {|numChannels|
+var desc = "A 3 band multiband compressor",
+    func = {|numChannels|
         {|in|
             Array.fill(numChannels, {|chanNum|
                 var sig = in[chanNum];
@@ -29,13 +27,38 @@ KometFXFactory.add(
             })
         }
     },
-    type: \channelized,
-    //TODO
-    specs:(
-        // maxdelay: [0.01,100],
-        // delaytime: [0.001,10, \exp],
-        // decaytime: [0,10],
-        // spread: 0.1,
-    ),
-);
+    type = \fx,
+    category = \channelized,
+    basename = \multicomp3,
+    numChans = nil, // TODO: Not used
+    specs = (
+        attack1: [0.0,10.0,\exp],
+        attack2: [0.0,10.0,\exp],
+        attack3: [0.0,10.0,\exp],
+        crossoverfreq1: Spec.specs[\freq],
+        crossoverfreq2: Spec.specs[\freq],
+        makeup1: [-96,96,\lin],
+        makeup2: [-96,96,\lin],
+        makeup3: [-96,96,\lin],
+        ratio1: [1.0,40.0],
+        ratio2: [1.0,40.0],
+        ratio3: [1.0,40.0],
+        release1: [0.0,10.0,\exp],
+        release2: [0.0,10.0,\exp],
+        release3: [0.0,10.0,\exp],
+        thresh1: Spec.specs[\db],
+        thresh2: Spec.specs[\db],
+        thresh3: Spec.specs[\db],
+    );
+
+KometSynthFuncDef(
+    basename,
+    func,
+    type,
+    category,
+    numChans,
+    desc,
+    specs,
+).add();
+
 )

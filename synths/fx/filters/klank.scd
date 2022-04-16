@@ -1,7 +1,6 @@
 (
-KometFXFactory.add(
-    basename: \klank,
-    synthfunc: {|numChannels|
+var desc = "A resonant filter bank",
+    func = {|numChannels|
         {|in|
 
             var lagTime = \lagTime.kr(1);
@@ -27,9 +26,24 @@ KometFXFactory.add(
             Klimit.ar(output)
         }
     },
-    type: \channelized,
-    specs:(
-        freqscale: [0.001,4.0, \lin]
-    ),
-)
+    type = \fx,
+    category = \channelized,
+    basename = \klank,
+    numChans = nil, // TODO: Not used
+    specs = (
+        freqscale: [0.001,4.0, \lin],
+        decayscale: [0.001,4.0, \lin],
+        freqoffset: [0.0,1.0, \lin],
+    );
+
+KometSynthFuncDef(
+    basename,
+    func,
+    type,
+    category,
+    numChans,
+    desc,
+    specs,
+).add();
+
 )

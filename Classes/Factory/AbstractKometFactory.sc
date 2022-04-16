@@ -31,4 +31,27 @@ AbstractKometFactory{
 
         ^result
     }
+
+    *load{|kometSynthFuncDef|
+        if(kometSynthFuncDef.class == KometSynthFuncDef, {
+            if(kometSynthFuncDef.check(), {
+
+                Log(\komet).info("Adding synthdef: %".format(kometSynthFuncDef.synthdefName()));
+
+                this.prAddSynthDef(
+                    kometSynthFuncDef
+                );
+
+            }, {
+                Log(\komet).info("%: Check failed for basename %. Ignoring it.".format(this.name, kometSynthFuncDef.name))
+            })
+        }, {
+            Log(\komet).error("%: Could not add synth. It is not the correct type:%".format(this.name, kometSynthFuncDef))
+        })
+
+    }
+
+    *prAddSynthDef{|kometSynthFuncDef|
+        this.subclassResponsibility(thisMethod);
+    }
 }

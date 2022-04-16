@@ -1,7 +1,6 @@
 (
-KometFXFactory.add(
-    basename: \klimit,
-    synthfunc: {|numChannels|
+var desc = "A faust based limiter",
+    func = {|numChannels|
         {|in|
             Array.fill(numChannels, {|chanNum|
                 var sig = in[chanNum];
@@ -17,13 +16,25 @@ KometFXFactory.add(
             })
         }
     },
-    type: \channelized,
-    //TODO
-    specs:(
-        // maxdelay: [0.01,100],
-        // delaytime: [0.001,10, \exp],
-        // decaytime: [0,10],
-        // spread: 0.1,
-    ),
-);
+    type = \fx,
+    category = \channelized,
+    basename = \klimit,
+    numChans = nil, // TODO: Not used
+    specs = (
+        attack:[0.00000001,2],
+        ceiling:[0.00001,1],
+        hold:[0.00000001,3],
+        release:[0.00000001,2],
+    );
+
+KometSynthFuncDef(
+    basename,
+    func,
+    type,
+    category,
+    numChans,
+    desc,
+    specs,
+).add();
+
 )
