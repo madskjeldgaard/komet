@@ -50,7 +50,7 @@ KAutoPan{
         panModulator = Select.perform(rate,
             panShape.clip(0, shapes.size),
             shapes
-        ).poll(label: \modulated);
+        );
 
         panModulator = Select.perform(rate,
             (autopan > 0.0),
