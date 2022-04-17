@@ -33,10 +33,10 @@ var desc = "A super lush stereo reverb",
     },
     type = \fx,
     category = \stereo,
-    basename = \name,
+    basename = \jpverb,
     numChans = nil, // TODO: Not used
     specs = (
-        time: [0.0001, 100.0, \exp],
+        t60: [0.0001, 100.0, \exp],
         damp: [0.0, 1.0, \lin],
         size: [0.0001, 5.0, \exp],
         earlyDiff: [0.0, 1.0, \lin],
