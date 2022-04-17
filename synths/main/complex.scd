@@ -1,16 +1,25 @@
 // Buchla 261 Complex Waveform Generator inspired
 (
 ["", "_lpg", "_folded", "_lpg_folded"].do{|version|
+    var desc = "A Buchla 261 Complex Waveform Generator inspired synth";
     var addWavefolder = version.contains("folded");
     var addLPG = version.contains("lpg");
-
-	KometSynthFactory.add("complex" ++ version,  {|dur, freq=440, freqOffset=0, modFreq=100, amMod=0, fmMod=0|
-		// var modulator = SinOsc.ar(freq: modulatorFreq,  phase: 0.0);
+    var name = ("complex" ++ version).asSymbol;
+	var func =  {|dur, freq=440, freqOffset=0, modFreq=100, amMod=0, fmMod=0|
         var am, fm, sig, modulator, timbreMod;
 
         var lagTime = \lagTime.kr(1);
-        freq = (freq + freqOffset).klag(lagTime);
-
+        freq = freq + freqOffset.klag(lagTime);
+        freq = freq.kWithPitchEnv(
+                dur,
+                K_NC.kr("pitchEnvAmount", 0).klag(lagTime),
+                envType:\adsr
+            );
+        freq = freq.kWithWow(
+            K_NC.kr("wow", 0.0),
+            wowMinFreq:0.01,
+            wowMaxFreq: 10.0
+        );
         timbreMod=K_NC.ar("timbreMod", 0).klag(lagTime);
 
 		modulator = Squine.ar(
@@ -76,6 +85,46 @@
 
 		sig
 
-	},  numChannelsIn: 1);
+	};
+    var type = \synth;
+    var category = \synthetic;
+    var basename = name;
+    var numChans = 1;
+    var specs = (
+        freq: Spec.specs[\freq],
+        freqOffset:\freqOffset,
+        modFreq:\lfofreq,
+        amMod:[0.0,1.0],
+        fmMod:[0.0,1.0],
+        timbreMod:[0.0,1.0],
+        mainclip:[0.0,1.0],
+        mainskew: [-1.0,1.0],
+        mainphase: [0.0,2.0],
+        modclip:[0.0,1.0],
+        modskew: [-1.0,1.0],
+        modphase: [0.0,2.0],
+        wavefold: [0.0,1.0],
+        cells: [1,8],
+        lpgattack: [0.00001,1.0],
+        lpgrelease: [0.00001,1.0],
+        lpgenvcurve: [-10,10],
+        lpgoffset:[0.0,1.0],
+        lpgcontrolscale:[0.0,1.0],
+        lpgvca: [0.0,1.0],
+        lpgresonance: [0.0,1.8],
+        lpglowpassmode: [0,1],
+        lpglinearity: [0,1]
+
+    );
+    KometSynthFuncDef(
+        basename,
+        func,
+        type,
+        category,
+        numChans,
+        desc,
+        specs,
+    ).add();
+
 }
 )
