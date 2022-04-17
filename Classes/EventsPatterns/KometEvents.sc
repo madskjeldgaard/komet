@@ -1,4 +1,5 @@
 KometEvents{
+    classvar <types;
 
   *initClass{
     Class.initClassTree(Event);
@@ -8,8 +9,10 @@ KometEvents{
   }
 
   *addEventTypes{
+      types = [];
 
     // This is an expanded version of \note but where you dont set the \instrument key but rather the base, env type and filter used in KS
+    types = types.add(\k);
     Event.addEventType(\k, { |server|
         var type = \synth;
 
@@ -95,6 +98,7 @@ KometEvents{
       currentEnvironment.play;
     });
 
+    types = types.add(\kometchain);
     Event.addEventType(\kometchain, {
         if(~chain.isNil, {
             Log(\komet).error("No chain specified");
