@@ -1,4 +1,4 @@
-TITLE::KSEvent
+TITLE::KometEvents
 CATEGORIES::Komet
 summary:: Custom event types for K-syntlib
 related:: Classes/Event
@@ -14,12 +14,29 @@ INSTANCEMETHODS::
 EXAMPLES::
 
 CODE::
-KometSynthFactory.new(2, rebuild: true);
+Komet.start(2);
 
 (
+
 Pbind(
-	\type, \Ks,
+	\type, \k,
 	\base, \complex,
+	\envType, \adsr,
+	\filter, \vadim,
+	\category, \synthetic,
+	\atk, 0.95,
+	\rel, 2.5,
+	\dur, 0.25,
+	\amp, 0.5,
+	\freq, Pwhite(100,1500),
+	\filterType, Pwhite(0,1),
+	\fcutoff, Pkey(\freq) * 2
+).play;
+
+// Alternatively use a KometSynthFuncDef
+Pbind(
+	\type, \k,
+	\synthfuncdef, KometSynthFuncDef(\complex),
 	\envType, \adsr,
 	\filter, \vadim,
 	\atk, 0.95,

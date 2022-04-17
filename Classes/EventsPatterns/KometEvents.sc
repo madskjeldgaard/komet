@@ -11,12 +11,41 @@ KometEvents{
 
     // This is an expanded version of \note but where you dont set the \instrument key but rather the base, env type and filter used in KS
     Event.addEventType(\k, { |server|
+        var type = \synth;
 
-      ~base = ~base ? \complex;
-      ~env = ~env ? \adsr;
-      ~filter = ~filter ? \vadim;
-      ~instrument = KometSynthFactory.get(~base, ~env, ~filter);
-      if(~instrument.isNil, { "%: instrument is nil".format(this.name).error; ~instrument = \default});
+        if(~synthfuncdef.notNil, {
+            ~base = ~synthfuncdef.name;
+            ~category = ~synthfuncdef.category;
+        }, {
+            ~base = ~base ? ~name ? \complex;
+            ~category = ~category ? \synthetic;
+        });
+
+        ~env = ~env ? \adsr;
+        ~filter = ~filter ? \vadim;
+
+      ~instrument = KometSynthLib.at(
+          type,
+          ~category,
+          ~env,
+          ~filter,
+          ~base,
+          \synthDefName
+      );
+
+      if(~instrument.isNil, {
+
+          "%: instrument is nil. Could not find at %, %, %, %, %".format(
+              this.name,
+              type,
+              ~category,
+              ~env,
+              ~filter,
+              ~base
+          ).error;
+
+          ~instrument = \default}
+      );
 
       // This is basically a bunch of aliases and default settings for the envelopes
       // If nothing specific is set in eg the filter and pitch envelopes, the main aka vca envelope's values are used

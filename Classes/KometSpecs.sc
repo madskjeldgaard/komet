@@ -26,7 +26,9 @@ KometSpecs {
             decay: [0.00001,100.0],
             envcurve: [-10.0,10.0],
             sustainLevel: [0.0,1.0]
-        ).collect{|spec| spec.asSpec };
+        ).collect{|spec|
+            spec.asSpec
+        };
 
         specs.keysValuesDo{|specName, spec|
             Log(\komet).debug("Adding spec % to global Spec.specs", specName);
