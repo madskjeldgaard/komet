@@ -2,13 +2,27 @@
 var desc = "A physical model of a guitar string",
     func = {|dur, freq=440, freqOffset=0, pluckgate=1, pluckposition=0.75,  gain=0.99, sustained=0|
 		var trig = pluckgate;
-		var sig = GuitarStreng.ar(gate: trig, freq:freqOffset+freq, gain: gain,  pluckposition: pluckposition, sustain: sustained*trig);
+        var sig;
+        var pitchenvAmount;
+        var lagTime = \lagTime.kr(1);
+            freq = freqOffset+freq;
+            freq = freq.kWithPitchEnv(
+                dur,
+                K_NC.kr("pitchEnvAmount", 0).klag(lagTime),
+                envType:\adsr
+            );
+            freq = freq.kWithWow(
+                K_NC.kr("wow", 0.0),
+                wowMinFreq:0.01,
+                wowMaxFreq: 10.0
+            );
+		sig = GuitarStreng.ar(gate: trig, freq:freq, gain: gain,  pluckposition: pluckposition, sustain: sustained*trig);
 
         sig
 	},
     type = \synth,
     category = \physical,
-    basename = \nylonstreng,
+    basename = \guitarstreng,
     numChans = 1,
     specs = (
         freq: Spec.specs[\freq],

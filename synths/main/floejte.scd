@@ -10,10 +10,22 @@ var desc = "A physical model of a flute",
         sustained=0,
         vibratofreq=5,
         vibratogain=0.5|
-
+        var sig;
+        var lagTime = \lagTime.kr(1);
+            freq = freqOffset+freq;
+            freq = freq.kWithPitchEnv(
+                dur,
+                K_NC.kr("pitchEnvAmount", 0).klag(lagTime),
+                envType:\adsr
+            );
+            freq = freq.kWithWow(
+                K_NC.kr("wow", 0.0),
+                wowMinFreq:0.01,
+                wowMaxFreq: 10.0
+            );
         Floejte.ar(
             envattack,
-            freq+freqOffset,
+            freq,
             gain,
             flutegate,
             mouthposition,
