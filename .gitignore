@@ -4,3 +4,4 @@ faust/*.json
 faust/*.cpp
 scratch*
 sketch*
+[sclang]
