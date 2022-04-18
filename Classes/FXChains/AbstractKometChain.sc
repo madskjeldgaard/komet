@@ -42,7 +42,7 @@ AbstractKometChain : Singleton{
                 var type = fxItem.type;
                 var args = fxItem.args;
 
-                if(KometFXFactory.basenameExists(name, type), {
+                if(KometSynthLib.at(\fx, type, name).isNil.not, {
 
                     if(index > (data.size - 1), {
                         Log(\komet).debug("%, adding data at index %", this.class.name, index);
@@ -138,9 +138,11 @@ AbstractKometChain : Singleton{
 
     initializeAllNodes{
         data.do { |dataItem, index|
-            var synthDefName = KometFXFactory.get(
-                basename:dataItem[\fxName],
-                type:dataItem[\fxType]
+            var synthDefName = KometSynthLib.at(
+                \fx,
+                dataItem[\fxType],
+                dataItem[\fxName],
+                \synthDefName
             );
 
             var args = dataItem[\args];

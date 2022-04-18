@@ -7,6 +7,21 @@ KometSynthLib : LibraryBase {
 
     }
 
+    // TODO: Untested
+    *guessCategory{|type, name|
+        // If category is nil, try and see if we can guess it
+        var category;
+        var allAt = this.at(type);
+        allAt.keysValuesDo{|key, dict|
+            if(dict.keys.contains(name), {
+                Log(\komet).debug("Guessed the category of %,%: %", name, type, key);
+                category = key
+            })
+        }
+
+        ^category
+    }
+
     *initClass {
         global = this.new;
         files = MultiLevelIdentityDictionary.new;
