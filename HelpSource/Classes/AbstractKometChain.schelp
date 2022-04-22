@@ -64,7 +64,7 @@ METHOD::argsAt
 ARGUMENT::index
 Get the synth arguments of the synth at the index
 
-METHOD::setArgsAt
+METHOD::setSynthAt
 ARGUMENT::index
 ARGUMENT::newArgs
 Set the synth arguments of the synth at the index
