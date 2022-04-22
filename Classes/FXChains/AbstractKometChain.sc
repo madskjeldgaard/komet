@@ -92,6 +92,10 @@ AbstractKometChain : Singleton{
             });
             this.setFXChain(fxchain);
             this.play;
+            fxchain.do{|fx, thisindex|
+                this.setSynthAt(thisindex, *fx.args)
+            };
+
             initialized = true;
         }, {
             Log(\komet).error("Incorrect arguments in set in %. Skipping...", this.class.name)
