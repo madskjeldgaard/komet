@@ -115,7 +115,7 @@ AbstractKometChain : Singleton{
         ^this.at(index)[\args]
     }
 
-    setArgsAt{|index ... newArgs|
+    setSynthAt{|index ... newArgs|
         var args;
         data[index][\args] = data[index][\args] ++ newArgs.asDict;
         args = data[index][\args].asKeyValuePairs;
