@@ -29,7 +29,7 @@ CODE::
 // Make some noise
 Ndef(\nnn, { WhiteNoise.ar()}).play;
 
-// Set up a main fx chain
+// Set up an fx chain
 (
 var addAfter = 1; // Always add after this node.
 var numChannels = 2;
