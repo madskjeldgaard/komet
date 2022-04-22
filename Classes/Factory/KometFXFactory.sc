@@ -49,17 +49,20 @@ KometFXFactory : AbstractKometFactory {
                 doneAction:\doneAction.ir(0)
             );
 
-            var sig = fadeIn * In.ar(
+            var clean = fadeIn * In.ar(
                 bus:out,
                 numChannels:numChannels
             );
+
+            var sig = clean;
 
             sig = SynthDef.wrap(
                 if(category == \channelized, {kometSynthFuncDef.func.value(numChannels)}, { kometSynthFuncDef.func }),
                 prependArgs: [sig]
             );
 
-            XOut.ar(out, fadeIn * drywet, sig)
+            sig = XFade2.ar(clean, sig, drywet.linlin(0.0,1.0,-1.0,1.0));
+            ReplaceOut.ar(out, sig * fadeIn);
         };
 
         var synthdef = SynthDef(synthdefname, builtFunc);
