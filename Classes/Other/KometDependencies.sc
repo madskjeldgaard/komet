@@ -1,4 +1,4 @@
-KometDependencies : Singleton {
+KometDependencies {
 
     *check{
         var checked = IdentityDictionary.new;
@@ -18,6 +18,9 @@ KometDependencies : Singleton {
 
         // Gutter Synth
         checked.put(\gutterSynthInstalled, \GutterSynth.asClass.notNil);
+
+        // VSTPlugin
+        checked.put(\vstpluginInstalled, \VSTPlugin.asClass.notNil);
 
         checked.keysValuesDo{|check, result|
             Log(\komet).debug("Dependency check: %, result: %", check, result);

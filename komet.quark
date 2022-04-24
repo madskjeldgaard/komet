@@ -13,6 +13,7 @@
   ],
   aur_dependencies: [
       "faust",
+      "supercollider-vstplugin",
       "supercollider-xplaybuf-git",
       "supercollider-guttersynth-git",
       "supercollider-squinewave-git",

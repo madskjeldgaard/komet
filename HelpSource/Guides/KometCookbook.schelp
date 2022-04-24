@@ -4,6 +4,173 @@ CATEGORIES::Komet>Guides
 
 SECTION:: Effect processing
 
+SUBSECTION:: VST Plugin as main output fx
+
+Put vst plugins in main fx chain and restore their state after cmd period
+
+code::
+// May be necessary
+VSTPlugin.search();
+(
+s.boot;
+Komet.start(numChannelsOut:2, build:true);
+)
+(
+var pluginNames = [
+    "TEOTE.vst3",
+    "Elephant.vst3",
+];
+
+~pluginControllers = Array.newClear(pluginNames.size);
+~pluginControllersParams = ~pluginControllersParams ?? {IdentityDictionary.new};
+
+KometMainChain(\preMain,
+    pluginNames.collect{
+        KometFXItem.new(fxName:\vstpluginstereo, fxType:\stereo, fxArgs:[])
+    }
+, 2, 1);
+
+~savePluginParams = {
+    ~pluginControllers.do{|pgc|
+        var name = pgc.info.key;
+
+        "Saving params for %".format(name).postln;
+        ~pluginControllersParams.put(name, Array.newClear(pgc.numParameters));
+        pgc.numParameters.do{|ind|
+            pgc.get(ind, {|val|
+                ~pluginControllersParams[name][ind] = val;
+            })
+        }
+    }
+};
+
+~autosaveSeconds = 30;
+
+Tdef(\vst_param_saver, {
+    loop {
+        ~autosaveSeconds.wait;
+        ~savePluginParams.value();
+    }
+});
+
+~initVSTPlugins = {
+    pluginNames.do{|vstname, fxIndex|
+        var savedParams = ~pluginControllersParams[vstname.asSymbol] ?? [];
+
+        "Adding vstplugin % to servertree".format(vstname).postln;
+
+        ~pluginControllers[fxIndex] = VSTPluginController(
+            KometMainChain(\preMain).data[fxIndex][\node]
+        );
+
+        // Tell the server to open this plugin in the synth
+        ~pluginControllers[fxIndex].open(vstname, action: {
+            var setArgs = savedParams.collect{|paramval, index| [index, paramval] }.flatten;
+
+            // Open plugin gui
+            ~pluginControllers[fxIndex].editor;
+
+            // Set parameters to old values
+            ~pluginControllers[fxIndex].set(*setArgs.postln);
+
+            // Restart autosaver
+            Tdef(\vst_param_saver).play;
+        }, verbose: true);
+
+    }
+};
+
+~initVSTPlugins.value();
+
+ServerTree.add(~initVSTPlugins);
+
+)
+::
+
+SUBSECTION:: VST plugin as main output fx with auto save of presets
+Same as above but using presets instead (making them persistent between
+reboots).
+
+code::
+// May be necessary
+VSTPlugin.search();
+(
+s.boot;
+Komet.start(numChannelsOut:2, build:true);
+)
+(
+var pluginNames = [
+    "TEOTE.vst3",
+    "Elephant.vst3",
+];
+
+~sessionName = "myFunkysession";
+~autosaveSeconds = 10; // Interval between autosaves
+
+~pluginControllers = Array.newClear(pluginNames.size);
+
+KometMainChain(\preMain,
+    pluginNames.collect{
+        KometFXItem.new(fxName:\vstpluginstereo, fxType:\stereo, fxArgs:[])
+    }
+, 2, 1);
+
+~savePluginParams = {
+    ~pluginControllers.do{|pgc|
+        var vstname = pgc.info.key;
+        var savePreset = ~sessionName ++ vstname;
+
+        "Saving preset for %".format(vstname).postln;
+        pgc.savePreset(savePreset);
+
+    }
+};
+
+~autosaveSeconds = 30;
+
+Tdef(\vst_param_saver, {
+    loop {
+        ~autosaveSeconds.wait;
+        ~savePluginParams.value();
+    }
+});
+
+~initVSTPlugins = {
+    pluginNames.do{|vstname, fxIndex|
+        var savedParams = ~pluginControllersParams[vstname.asSymbol] ?? [];
+
+        "Adding vstplugin % to servertree".format(vstname).postln;
+
+        ~pluginControllers[fxIndex] = VSTPluginController(
+            KometMainChain(\preMain).data[fxIndex][\node]
+        );
+
+        // Tell the server to open this plugin in the synth
+        ~pluginControllers[fxIndex].open(vstname, action: {
+            var loadPreset = ~sessionName ++ vstname;
+
+            // Open plugin gui
+            ~pluginControllers[fxIndex].editor;
+
+            if(~pluginControllers[fxIndex].info.findPreset(loadPreset).isNil.not, {
+                // Set parameters to old values
+                ~pluginControllers[fxIndex].loadPreset(loadPreset);
+            });
+
+            // Restart autosaver
+            Tdef(\vst_param_saver).play;
+        }, verbose: true);
+
+    }
+};
+
+~initVSTPlugins.value();
+
+ServerTree.add(~initVSTPlugins);
+
+)
+::
+
 SECTION:: Patterns
 
 SUBSECTION:: Complex drones
@@ -21,6 +188,7 @@ Pbind(
     \base, \complex,
     \env, \adsr,
     \filter, \none,
+    \category, \synthetic,
 
     \freq, Pwhite(100, 520),
     \freqOffset, 0.0,
@@ -76,6 +244,7 @@ var sourcePattern = Pbind(
     \base, \complex,
     \env, \adsr,
     \filter, \none,
+    \category, \synthetic,
 
     \freq, Pwhite(100, 520),
     \freqOffset, 0.0,

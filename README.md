@@ -56,6 +56,7 @@ If they're not installed, you can force the installation by running `KometDepend
 Some external plugins written in C++ are necessary as well.
 
 These are:
+- [vstplugin](https://git.iem.at/pd/vstplugin)
 - [xplaybuf](https://github.com/elgiano/XPlayBuf) 
 - [guttersynth-sc](https://github.com/madskjeldgaard/guttersynth-sc)
 - [squinewave](https://github.com/required-field/squinewave)
