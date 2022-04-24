@@ -1,13 +1,16 @@
+// TODO: The gain in this seems useless?
 (
 var desc = "An analog vintage distortion and equalizer",
     func = {|numChannels|
         {|in|
+
+            var preGain = \preGain.kr(0.01);
             var lagTime = \lagTime.kr(1);
             Array.fill(numChannels, {|chanNum|
                 var sig = in[chanNum];
                 \AnalogVintageDistortion.asClass.perform(
                     \ar,
-                    input:sig,
+                    input:sig * preGain,
                     drivegain:\drivegain.kr(0.5).klag(lagTime),
                     bias:\drivebias.kr(0.0).klag(lagTime),
                     lowgain:\lowgain.kr(-10).dbamp.klag(lagTime),
@@ -23,6 +26,7 @@ var desc = "An analog vintage distortion and equalizer",
     basename = \analogvintagedistortion,
     numChans = nil, // TODO: Not used
     specs = (
+        preGain: [0.0, 1.0],
         drivegain: [0.0, 1.0],
         bias: [0.0, 2.5],
         lowgain: Spec.specs[\db],
