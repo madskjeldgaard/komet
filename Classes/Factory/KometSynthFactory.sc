@@ -21,6 +21,7 @@ KometSynthFactory : AbstractKometFactory {
     if(forceRebuild.not, {
         "Not rebuilding %. Reading defaults from SynthDescLib.".format(this.name).warn;
         SynthDescLib.read();
+        initialized = true;
     }, {
         initialized = this.loadSourceFunctions(KometSynthLib.files[\synths]);
     });
