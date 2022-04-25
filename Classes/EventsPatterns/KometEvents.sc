@@ -45,13 +45,13 @@ KometEvents{
               ~env,
               ~filter,
               ~base
-          ).error;
+          ).warn;
 
           ~instrument = \default}
       );
 
-      // This is basically a bunch of aliases and default settings for the envelopes
-      // If nothing specific is set in eg the filter and pitch envelopes, the main aka vca envelope's values are used
+      // this is basically a bunch of aliases and default settings for the envelopes
+      // if nothing specific is set in eg the filter and pitch envelopes, the main aka vca envelope's values are used
       ~atk = ~atk ? 0.25;
       ~rel = ~rel ? 0.25;
       ~dec = ~dec ? 0.25;
@@ -61,28 +61,28 @@ KometEvents{
       ~attack = ~attack ? ~atk;
       ~release = ~release ? ~rel;
       ~decay = ~decay ? ~dec;
-      ~sustainLevel = ~sustainLevel ? ~sus;
+      ~sustainlevel = ~sustainlevel ? ~sus;
       ~envcurve = ~envcurve ? ~curve;
 
       ~vcaattack = ~vcaattack  ? ~attack;
       ~vcarelease = ~vcarelease  ? ~release;
       ~vcadecay = ~vcadecay  ? ~decay;
-      ~vcasustainLevel = ~vcasustainLevel  ? ~sustainLevel;
+      ~vcasustainlevel = ~vcasustainlevel  ? ~sustainlevel;
       ~vcaenvcurve = ~vcaenvcurve ? ~envcurve;
 
       ~pitchattack = ~pitchattack ? ~vcaattack;
       ~pitchrelease = ~pitchrelease ? ~vcarelease;
       ~pitchdecay = ~pitchdecay ? ~vcadecay;
-      ~pitchsustainLevel = ~pitchsustainLevel ? ~vcasustainLevel;
+      ~pitchsustainlevel = ~pitchsustainlevel ? ~vcasustainlevel;
       ~pitchenvcurve = ~pitchenvcurve ? ~envcurve;
 
       ~fattack = ~fattack ? ~vcaattack;
       ~frelease = ~frelease ? ~vcarelease;
       ~fdecay = ~fdecay ? ~vcadecay;
-      ~fsustainLevel = ~fsustainLevel ? ~vcasustainLevel;
+      ~fsustainlevel = ~fsustainlevel ? ~vcasustainlevel;
       ~fenvcurve = ~fenvcurve ? ~envcurve;
 
-      // Filter specific stuff
+      // filter specific stuff
       ~res = ~res ? 0.1;
       ~resonance = ~resonance ? ~res;
       ~fresonance = ~fresonance ? ~resonance;
