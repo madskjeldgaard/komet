@@ -293,3 +293,7 @@ POutFX(
 ).play;
 )
 ::
+
+SUBSECTION:: Control FX Chains using patterns
+
+TODO
