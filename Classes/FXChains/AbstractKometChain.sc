@@ -32,6 +32,21 @@ AbstractKometChain : Singleton{
         data = [];
     }
 
+    psetAt{|index ... pbindPairs|
+        data[index][\pattern] = data[index][\pattern] ?? { PatternProxy.new };
+        data[index][\pattern].source = PChainSynthSet(
+            this,
+            index,
+            pbindPairs
+        );
+
+        data[index][\pattern].play
+    }
+
+    pstopAt{|index|
+        data[index][\pattern].stop()
+    }
+
     setFXChain{|newChain|
         this.clear();
 

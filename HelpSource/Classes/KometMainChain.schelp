@@ -32,7 +32,7 @@ Ndef(\nnn, { WhiteNoise.ar()}).play;
 var addAfter = 1; // Always add after this node.
 var numChannels = 2;
 var fxchain = [
-	KometFXItem.new(\jpverb, \stereo, [])
+	KometFXItem.new(\jpverb, \stereo, []),
 	KometFXItem.new(\eq3, \channelized, [])
 ];
 

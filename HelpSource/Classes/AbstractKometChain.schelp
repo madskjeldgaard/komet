@@ -74,6 +74,36 @@ METHOD::play
 METHOD::initializeAllNodes
 Not used directly. Called by play.
 
+METHOD::psetAt
+This method will attach a Pbind to an fx in the chain and control the supplied
+arguments with it. The pattern is wrapped in a LINK::Classes/PatternProxy:: for
+convenience.
+
+Here's an example of controlling a strong::\jpverb:: which is at index 0 of a
+main chain:
+
+code::
+KometMainChain(\main).psetAt(0, \dur, 1, \size, Pwhite(1.0,5.0))
+::
+
+And then to stop it:
+
+code::
+KometMainChain(\main).pstopAt(0)
+::
+
+ARGUMENT::index
+The index of the synth whose arguments you would like to control using a pattern
+
+ARGUMENT::pbindPairs
+Argument pairs that will be supplied to the pattern
+
+METHOD::pstopAt
+ARGUMENT::index
+The index of the synth whose pattern you want to stop.
+
+This stops the pattern at the index
+
 EXAMPLES::
 
 CODE::

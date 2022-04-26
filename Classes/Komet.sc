@@ -65,9 +65,9 @@ Komet {
 
             // The main output fx chain
             KometMainChain(\main, [
-                // TODO:
                 KometFXItem.new(\eq3, \channelized, []),
-                KometFXItem.new(\klimit, \channelized, [])
+                // TODO:
+                // KometFXItem.new(\klimit, \channelized, [])
             ],
             numChannels,
             KometMainChain(\preMain).group

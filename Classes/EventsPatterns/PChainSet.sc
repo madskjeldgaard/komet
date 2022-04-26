@@ -11,18 +11,3 @@ PChainSynthSet {
         ^Pbind(*pbindPairs)
     }
 }
-
-+AbstractKometChain{
-    psetAt{|index ... pbindPairs|
-        var pdefname = this.name.asString ++ "_pchainsynthset_" ++ index;
-        // TODO: Rewrite to use PatternProxy instead as to not pollute Pdef namespace
-        data[index][\pattern] = data[index][\pattern] ?? { PatternProxy.new };
-        data[index][\pattern].source = PChainSynthSet(
-            this,
-            index,
-            pbindPairs
-        );
-
-        data[index][\pattern].play
-    }
-}
