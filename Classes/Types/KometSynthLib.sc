@@ -7,6 +7,21 @@ KometSynthLib : LibraryBase {
 
     }
 
+    // FIXME: This is stupidly simple and frail
+    *allSynthDefNames{
+        var allNames = [];
+
+        // Add FX
+        global[\fx].do{|type| type.do{|synthfuncdef| allNames = allNames ++ synthfuncdef[\synthDefName] }};
+
+        // Add synths
+        global[\synth].do{|cat| cat.do{|envType| envType.do{|env| env.do{|synthfuncdef|
+            allNames = allNames ++ synthfuncdef[\synthDefName]
+        }}}};
+
+        ^allNames
+    }
+
     // TODO: Untested
     *guessCategory{|type, name|
         // If category is nil, try and see if we can guess it

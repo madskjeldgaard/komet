@@ -66,6 +66,7 @@ Komet {
             // The main output fx chain
             KometMainChain(\main, [
                 KometFXItem.new(\eq3, \channelized, []),
+                KometFXItem.new(\leakdc, \channelized, []),
                 // TODO:
                 // KometFXItem.new(\klimit, \channelized, [])
             ],
@@ -79,8 +80,9 @@ Komet {
 
     }
 
+    // FIXME:
     *browse{
-        KSynthBrowser.new(KometSynthFactory.synthNames ++ KometFXFactory.synthNames);
+        KSynthBrowser.new(KometSynthLib.allSynthDefNames());
     }
 
     // TODO
