@@ -1,4 +1,5 @@
 Komet {
+    classvar <recorder;
     classvar <testBuffers;
     classvar <synthFactory, <fxFactory;
     classvar <mainOut, <numChannels;
@@ -105,5 +106,29 @@ Komet {
 
     *allClasses{
         ^Quarks.classesInPackage(KometPath.pkgName)
+    }
+
+    *record{
+        recorder = Recorder.new(server:Server.local);
+        recorder.filePrefix = "komet_";
+        recorder.recHeaderFormat = "wav";
+        recorder.record(
+            path:"~/%_%channels.wav".format( Date.getDate.stamp, numChannels).asAbsolutePath,
+            bus:0,
+            numChannels: numChannels,
+            node: KometMainChain(\main).group
+        )
+    }
+
+    *stopRecording{
+        recorder.stopRecording;
+    }
+
+    *pauseRecording{
+        recorder.pauseRecording
+    }
+
+    *resumeRecording{
+        recorder.pauseRecording
     }
 }
