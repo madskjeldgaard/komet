@@ -1,5 +1,4 @@
 Komet {
-    classvar <recorder;
     classvar <testBuffers;
     classvar <synthFactory, <fxFactory;
     classvar <mainOut, <numChannels;
@@ -45,45 +44,50 @@ Komet {
     }
 
     *build{|numChannelsOut|
-        synthFactory = KometSynthFactory.new(numChannelsOut, rebuild: true);
-        fxFactory = KometFXFactory.new(numChannelsOut, rebuild: true);
+        var kometChans = KometChannels.new(numChannelsOut);
+        // TODO
+        synthFactory = KometSynthFactory.new(kometChans, rebuild: true);
+        fxFactory = KometFXFactory.new(kometChans, rebuild: true);
     }
 
     *start{|numChannelsOut=2, build=false|
-        numChannels = numChannelsOut;
-        if(KometDependencies.check(), {
-            var addAfter = 1;
+        var kometChans = KometChannels.new(numChannelsOut);
+        if(kometChans.check(),{
+            numChannels = kometChans.numChannels();
+            if(KometDependencies.check(), {
+                var addAfter = 1;
 
-            if(build, {
-                this.build(numChannels);
-            }, {
-                synthFactory = KometSynthFactory.new(numChannelsOut, rebuild: false);
-                fxFactory = KometFXFactory.new(numChannelsOut, rebuild: false);
-            });
+                if(build, {
+                    this.build(numChannels);
+                }, {
+                    synthFactory = KometSynthFactory.new(numChannelsOut, rebuild: false);
+                    fxFactory = KometFXFactory.new(numChannelsOut, rebuild: false);
+                });
 
-            // An empty FX chain that the user can populate if needed
-            KometMainChain(\preMain, [], numChannels, addAfter);
+                // An empty FX chain that the user can populate if needed
+                KometMainChain(\preMain, [], numChannels, addAfter);
 
-            // The main output fx chain
-            KometMainChain(\main, [
-                KometFXItem.new(\eq3, \channelized, []),
-                KometFXItem.new(\leakdc, \channelized, []),
-                // TODO:
-                // KometFXItem.new(\klimit, \channelized, [])
-            ],
-            numChannels,
-            KometMainChain(\preMain).group
-        );
+                // The main output fx chain
+                KometMainChain(\main, [
+                    KometFXItem.new(\eq3, \channelized, []),
+                    // TODO:
+                    // KometFXItem.new(\klimit, \channelized, [])
+                ],
+                numChannels,
+                KometMainChain(\preMain).group
+            );
 
         }, {
             Log(\komet).error("Dependencies not installed or satisfied");
         })
+    },{
+        Log(\komet).error("%: Invalid KometChannels. Doing nothing".format(this.class.name));
+    })
 
     }
 
-    // FIXME:
     *browse{
-        KSynthBrowser.new(KometSynthLib.allSynthDefNames());
+        KSynthBrowser.new(KometSynthLib.get);
     }
 
     // TODO
@@ -106,29 +110,5 @@ Komet {
 
     *allClasses{
         ^Quarks.classesInPackage(KometPath.pkgName)
-    }
-
-    *record{
-        recorder = Recorder.new(server:Server.local);
-        recorder.filePrefix = "komet_";
-        recorder.recHeaderFormat = "wav";
-        recorder.record(
-            path:"~/%_%channels.wav".format( Date.getDate.stamp, numChannels).asAbsolutePath,
-            bus:0,
-            numChannels: numChannels,
-            node: KometMainChain(\main).group
-        )
-    }
-
-    *stopRecording{
-        recorder.stopRecording;
-    }
-
-    *pauseRecording{
-        recorder.pauseRecording
-    }
-
-    *resumeRecording{
-        recorder.pauseRecording
     }
 }

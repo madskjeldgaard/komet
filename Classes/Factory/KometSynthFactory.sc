@@ -1,6 +1,6 @@
 KometSynthFactory : AbstractKometFactory {
   classvar
-  <numChansOut,
+  <kometChannels,
   <synthFuncs,
   <initialized = false,
   <forceRebuild=false;
@@ -11,19 +11,23 @@ KometSynthFactory : AbstractKometFactory {
 
   *init{|numChannels, rebuild|
     forceRebuild=rebuild;
+    if(numChannels.isKometChannel, {
+        if(numChannels.check(), {
+            kometChannels = numChannels;
+            if(KometComponentLoader.allLoaded.not, {
+                KometComponentLoader.loadAll();
+            });
 
-    numChansOut = numChannels;
-
-    if(KometComponentLoader.allLoaded.not, {
-        KometComponentLoader.loadAll();
-    });
-
-    if(forceRebuild.not, {
-        "Not rebuilding %. Reading defaults from SynthDescLib.".format(this.name).warn;
-        SynthDescLib.read();
-        initialized = true;
+            if(forceRebuild.not, {
+                "Not rebuilding %. Reading defaults from SynthDescLib.".format(this.name).warn;
+                SynthDescLib.read();
+                initialized = true;
+            }, {
+                initialized = this.loadSourceFunctions(KometSynthLib.files[\synths]);
+            });
+        });
     }, {
-        initialized = this.loadSourceFunctions(KometSynthLib.files[\synths]);
+        Log(\komet).error("%: Not a valid KometChannel".format(this.class.name));
     });
 
   }
@@ -43,7 +47,7 @@ KometSynthFactory : AbstractKometFactory {
 
                       sig = KFilters().getWrap(filterType, "f", "", envType, sig, dur, 0);
 
-                      sig = KPanners().getWrap(kometSynthFuncDef.channels, numChansOut, "", "", sig);
+                      sig = KPanners().getWrap(kometSynthFuncDef.channels, kometChannels, "", "", sig);
 
                       sig * amp
                   };

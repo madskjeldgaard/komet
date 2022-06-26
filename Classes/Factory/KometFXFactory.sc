@@ -4,35 +4,36 @@
 *
 */
 KometFXFactory : AbstractKometFactory {
-    classvar <numChannels=2, <initialized=false, <path;
+    classvar <kometChannels, <initialized=false, <path;
     classvar <forceRebuild=false;
 
     // TODO: Use rebuild
     *new{|channels, rebuild=false|
         initialized = false;
-
         forceRebuild = rebuild;
 
-        if(forceRebuild.not, {
-            "Not rebuilding %. Reading defaults from SynthDescLib.".format(this.name).warn;
-            SynthDescLib.read();
-        });
+        if(channels.isKometChannel, {
+            if(channels.check(), {
+                var result;
+                if(forceRebuild.not, {
+                    "Not rebuilding %. Reading defaults from SynthDescLib.".format(this.name).warn;
+                    SynthDescLib.read();
+                });
 
-        channels.isNil.if({
-            Log(\komet).error("numChannels not set")
-        }, {
-            var result;
-            numChannels = channels;
+                kometChannels = channels;
 
-            result = this.loadSourceFunctions(KometSynthLib.files[\fx]);
+                result = this.loadSourceFunctions(KometSynthLib.files[\fx]);
 
-            if(result, {
-                initialized = true;
-            }, {
-                Log(\komet).warning("Not initialized");
+                if(result, {
+                    initialized = true;
+                }, {
+                    Log(\komet).warning("Not initialized");
+                });
             });
+        }, {
+            Log(\komet).error("%: Not a valid KometChannel".format(this.class.name));
+        })
 
-        });
     }
 
     *prAddSynthDef{|kometSynthFuncDef|
@@ -51,13 +52,13 @@ KometFXFactory : AbstractKometFactory {
 
             var clean = fadeIn * In.ar(
                 bus:out,
-                numChannels:numChannels
+                numChannels:kometChannels.numChannels
             );
 
             var sig = clean;
 
             sig = SynthDef.wrap(
-                if(category == \channelized, {kometSynthFuncDef.func.value(numChannels)}, { kometSynthFuncDef.func }),
+                if(category == \channelized, {kometSynthFuncDef.func.value(kometChannels.numChannels)}, { kometSynthFuncDef.func }),
                 prependArgs: [sig]
             );
 
