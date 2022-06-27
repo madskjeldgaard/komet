@@ -70,6 +70,7 @@ Komet {
                 // The main output fx chain
                 KometMainChain(\main, [
                     KometFXItem.new(\eq3, \channelized, []),
+                    KometFXItem.new(\leakdc, \channelized, []),
                     // TODO:
                     // KometFXItem.new(\klimit, \channelized, [])
                 ],
