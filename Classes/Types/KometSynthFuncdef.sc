@@ -9,6 +9,10 @@ KometSynthFuncDef : Singleton{
         <specs,
         <checkFunc;
 
+    *allOfType{|thistype|
+        ^this.all.select{|synt| synt.type == thistype }
+    }
+
     *initClass{
         supportedTypes = [\fx, \synth]
     }
