@@ -16,9 +16,13 @@ KometChain : AbstractKometChain {
     play {
         Log(\komet).debug("Initializing server tree for %", this.class.name);
 
-        server.makeBundle(nil, {
+        // server.makeBundle(nil, {
+        forkIfNeeded{
             group = Group.new(target: addAfter, addAction: addAction);
+            server.sync;
             this.initializeAllNodes();
-        })
+
+        }
+        // })
     }
 }

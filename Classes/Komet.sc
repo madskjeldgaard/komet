@@ -2,6 +2,7 @@ Komet {
     classvar <testBuffers;
     classvar <synthFactory, <fxFactory;
     classvar <mainOut, <numChannels;
+    classvar <initialized=false;
 
     *allChains{
         ^KometMainChain.all
@@ -60,8 +61,8 @@ Komet {
                 if(build, {
                     this.build(numChannels);
                 }, {
-                    synthFactory = KometSynthFactory.new(numChannelsOut, rebuild: false);
-                    fxFactory = KometFXFactory.new(numChannelsOut, rebuild: false);
+                    synthFactory = KometSynthFactory.new(kometChans, rebuild: false);
+                    fxFactory = KometFXFactory.new(kometChans, rebuild: false);
                 });
 
                 // An empty FX chain that the user can populate if needed
@@ -77,6 +78,8 @@ Komet {
                 numChannels,
                 KometMainChain(\preMain).group
             );
+
+            initialized = true;
 
         }, {
             Log(\komet).error("Dependencies not installed or satisfied");
@@ -101,10 +104,15 @@ Komet {
         var fails = [];
 
         // TODO make this synchronous
-        KometTest.subclasses.do{|sub|
-            sub.run();
-            fails = fails.add(sub.failures.any{|res| res});
-        };
+        // forkIfNeeded{
+        //     Server.local.boot;
+            KometTest.subclasses.do{|sub|
+                Log(\komet).info("Running test for %".format(sub.class.name));
+                // Server.local.sync;
+                sub.run();
+                fails = fails.add(sub.failures.any{|res| res});
+            };
+        // }
 
         ^fails.any{|res| res}.not
     }

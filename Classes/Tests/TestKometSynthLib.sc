@@ -1,5 +1,8 @@
 TestKometSynthLib : KometTest {
         setUp{
+            if(Komet.initialized.not, {
+                Komet.start(2, false);
+            });
             KometSynthLib.clear();
         }
 
