@@ -36,12 +36,11 @@ var desc = "An equalizer with low- and highshelf + 3 bell curves",
         bellfreq3: Spec.specs[\freq],
         highfreq: Spec.specs[\freq],
         lowfreq: Spec.specs[\freq],
-        belllevel1: Spec.specs[\db],
-        belllevel2: Spec.specs[\db],
-        belllevel3: Spec.specs[\db],
-        highlevel: Spec.specs[\db],
-        lowlevel: Spec.specs[\db]
-
+        belllevel1: [-96, 96, \lin, 0].asSpec,
+        belllevel2: [-96, 96, \lin, 0].asSpec,
+        belllevel3: [-96, 96, \lin, 0].asSpec,
+        highlevel: [-96, 96, \lin, 0].asSpec,
+        lowlevel: [-96, 96, \lin, 0].asSpec,
     );
 
 KometSynthFuncDef(
