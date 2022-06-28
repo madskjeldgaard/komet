@@ -1,11 +1,11 @@
 KometGui{
     *new{
         var title = "KometGUI";
-        var win = Window.new(title);
+        var win = KometWindow.new(title);
         var layout = VLayout(
-            StaticText(win).string_(title),
+            KometSmallTitle(win).string_(title),
             HLayout(
-                Button.new(win).states_([["Browse synths"]]).action_({
+                KometButton.new(win).states_([["Browse synths"]]).action_({
                     Komet.browse()
                 }),
                 this.prLogLevel(win)
@@ -20,9 +20,9 @@ KometGui{
 
     *prLogLevel{|win|
         ^HLayout(
-            StaticText(win)
+            KometParameterText(win)
             .string_("Log level: "),
-            Button.new(win)
+            KometButton.new(win)
             .states_(Log.levels.keys.asArray.collect{|lvl| [lvl]})
             .action_({|obj|
                 var levels = Log.levels.keys.asArray;
@@ -36,7 +36,7 @@ KometGui{
 
     *prTransport{|parent|
         ^HLayout(
-            Button.new(parent).states_([
+            KometButton.new(parent).states_([
                 ["Mute"],
                 ["Unmute"],
             ]).action_({|obj|
@@ -48,7 +48,7 @@ KometGui{
                     Server.local.unmute()
                 })
             }),
-            Button.new(parent).states_([
+            KometButton.new(parent).states_([
                 ["Record"],
                 ["Stop recording"],
             ]).action_({|obj|
@@ -60,8 +60,8 @@ KometGui{
                     Komet.stopRecording()
                 })
             }),
-            StaticText.new(parent).string_("Volume:"),
-            Slider.new(parent)
+            KometParameterText.new(parent).string_("Volume:"),
+            KometSlider.new(parent)
             .orientation_(\vertical)
             .action_({|obj|
                 var db = Spec.specs[\db].map(obj.value);
@@ -77,7 +77,7 @@ KometGui{
     *prChainButtons{|parent|
         var layout;
         var chainButtons = KometMainChain.all.collect{|chain, index|
-            Button.new(parent)
+            KometButton.new(parent)
             .states_([
                 [chain.name]
             ])
@@ -89,8 +89,9 @@ KometGui{
         }.asArray;
 
         chainButtons = [
-            StaticText.new(parent).string_("Chains:").font_(Font.default.bold_(true))
+            KometSmallTitle.new(parent).string_("Chains:")
         ] ++ chainButtons;
+
         ^VLayout.new(*chainButtons);
     }
 

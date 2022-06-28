@@ -1,10 +1,10 @@
 +KometMainChain{
     *gui{
-        var win = Window.new("All KometMainChains");
+        var win = KometWindow.new("All KometMainChains");
         var layout ;
 
         var chainButtons = KometMainChain.all.collect{|chain, index|
-            Button.new(win)
+            KometButton.new(win)
             .states_([
                 [chain.name]
             ])
@@ -15,7 +15,7 @@
 
         }.asArray;
 
-        chainButtons = [StaticText.new(win).string_("Chains:")] ++ chainButtons;
+        chainButtons = [KometParameterText.string_("Chains:")] ++ chainButtons;
         layout = VLayout.new(*chainButtons);
         win.layout = layout;
         win.front;
