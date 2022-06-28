@@ -4,6 +4,10 @@ Komet {
     classvar <mainOut, <numChannels;
     classvar <initialized=false;
 
+    *gui{
+        KometGui.new()
+    }
+
     *allChains{
         ^KometMainChain.all
     }

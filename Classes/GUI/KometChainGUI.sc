@@ -2,7 +2,6 @@
 *
 * TODO:
 *
-* - Remove fx
 * - Reorder fx
 * - Clear fx
 * - Use MPV: https://doc.sccode.org/Classes/SimpleController.html
@@ -61,13 +60,35 @@ KometChainGUI {
         });
 
         // chainButtons = [StaticText.new(win).string_("Chains:")] ++ chainButtons;
-        layout = VLayout.new(*[fxlist]++chainButtons);
+        layout = VLayout.new(*[fxlist, removeFX]++chainButtons);
         win.layout = layout;
         win.front;
     }
 
     prGUIRemoveFX{|chain, parentwin|
-        // TODO
+        var name = chain.name;
+        var title = "Remove FX from KometChain %".format(name);
+        var win = Window.new(title);
+        var possibleFX = chain.fxChain.collect{|ff| ff.name}.asArray;
+        var list = ListView.new(parent:win).items_(possibleFX);
+        var buttons = HLayout(
+            Button.new(win).states_([["Remove"]]).action_({
+                var index = list.selection;
+                var selectedFX = possibleFX[index][0]; // 0 index is hardcoded because this gui will return an array
+                chain.class.all[chain.name].removeFX(index[0]);
+
+                win.close();
+                parentwin.close();
+                this.gui(chain);
+            }),
+            Button.new(win).states_([["Cancel"]]).action_({
+                win.close()
+            }),
+        );
+        var layout = VLayout(StaticText(win).string_(title), list, buttons);
+        win.layout = layout;
+        win.front;
+
     }
 
     prGUIAddNewFX{|chain, parentwin|
@@ -77,14 +98,24 @@ KometChainGUI {
         var possibleFX = KometSynthFuncDef.allOfType(\fx).collect{|fff| fff.name }.asArray;
         var list = ListView.new(parent:win).items_(possibleFX);
         var buttons = HLayout(
-            Button.new(win).states_([["Add"]]).action_({
+            Button.new(win).states_([["Add to tail"]]).action_({
                 var index = list.selection;
                 var selectedFX = possibleFX[index][0]; // 0 index is hardcoded because this gui will return an array
-                var currentChain = chain.fxChain;
                 var fxItemToAdd = KometFXItem.new(selectedFX, KometSynthFuncDef(selectedFX).category, []);
-                var newChain = currentChain ++ [fxItemToAdd];
-                // Set new chain
-                chain.class.all[chain.name].set(newChain, chain.numChannels, chain.addAfter);
+
+                chain.class.all[chain.name].addFX(fxItemToAdd, \tail);
+
+                win.close();
+                parentwin.close();
+                this.gui(chain);
+            }),
+            Button.new(win).states_([["Add to head"]]).action_({
+                var index = list.selection;
+                var selectedFX = possibleFX[index][0]; // 0 index is hardcoded because this gui will return an array
+                var fxItemToAdd = KometFXItem.new(selectedFX, KometSynthFuncDef(selectedFX).category, []);
+
+                chain.class.all[chain.name].addFX(fxItemToAdd, \head);
+
                 win.close();
                 parentwin.close();
                 this.gui(chain);

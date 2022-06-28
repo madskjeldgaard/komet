@@ -88,50 +88,74 @@ AbstractKometChain : Singleton{
         data[index][\pattern].stop()
     }
 
+    // TODO: TEST
+    addFX{|fxItem, addTo=\tail|
+        if(fxItem.class == KometFXItem, {
+            switch (addTo,
+                \tail, {
+                    this.setFXChain(fxChain ++ fxItem)
+                },
+                \head, {
+                    this.setFXChain([fxItem] ++ fxChain)
+                }
+            );
+
+        })
+    }
+
+    // TODO: TEST
+    removeFX{|indexOfFX|
+        if(indexOfFX < fxChain.size, {
+            Log(\komet).debug("%, removing fx at index %", this.class.name, indexOfFX);
+            this.setFXChain(fxChain.reject{|item, index| index == indexOfFX })
+        })
+    }
+
     setFXChain{|newChain|
         this.clear();
+        if(newChain.every{|fxitem| fxitem.class == KometFXItem}, {
+            // FIXME: do we want to carry over synth args from previous synths or clear them?
+            newChain.do{|fxItem, index|
+                if(fxItem.class == KometFXItem, {
+                    var name = fxItem.name;
+                    var type = fxItem.type;
+                    var args = fxItem.args;
 
-        // FIXME: do we want to carry over synth args from previous synths or clear them?
-        newChain.do{|fxItem, index|
-            if(fxItem.class == KometFXItem, {
-                var name = fxItem.name;
-                var type = fxItem.type;
-                var args = fxItem.args;
+                    if(KometFXFactory.initialized, {
+                        if(KometSynthLib.at(\fx, type, name).isNil.not, {
 
-                if(KometFXFactory.initialized, {
-                    if(KometSynthLib.at(\fx, type, name).isNil.not, {
+                            if(index > (data.size - 1), {
+                                Log(\komet).debug("%, adding data at index %", this.class.name, index);
+                                data = data.add(IdentityDictionary.new)
+                            });
 
-                        if(index > (data.size - 1), {
-                            Log(\komet).debug("%, adding data at index %", this.class.name, index);
-                            data = data.add(IdentityDictionary.new)
-                        });
-
-                        //  Converting to dict ensures no duplicates when setting new args
-                        data[index][\args] = args.asDict;
-                        data[index][\fxName] = name;
-                        data[index][\fxType] = type;
-                        data[index][\node] = nil;
+                            //  Converting to dict ensures no duplicates when setting new args
+                            data[index][\args] = args.asDict;
+                            data[index][\fxName] = name;
+                            data[index][\fxType] = type;
+                            data[index][\node] = nil;
+                        }, {
+                            Log(\komet).error(
+                                "%: basename % / type % does not exist",
+                                this.class.name,
+                                name,
+                                type
+                            )
+                        })
                     }, {
                         Log(\komet).error(
-                            "%: basename % / type % does not exist",
-                            this.class.name,
-                            name,
-                            type
-                        )
-                    })
-                }, {
-                    Log(\komet).error(
                             "%: KometFXFactory not intialized... can't add fx chain",
                             this.class.name,
                         )
+                    })
+                }, {
+                    Log(\komet).warning("FXItem at index % does not contain the correct amount of items (%). Skipping it", index, fxItemSize)
                 })
-            }, {
-                Log(\komet).warning("FXItem at index % does not contain the correct amount of items (%). Skipping it", index, fxItemSize)
-            })
-        };
+            };
 
-        fxChain = newChain;
+            fxChain = newChain;
 
+        })
     }
 
     at{|index|
