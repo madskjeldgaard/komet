@@ -1,4 +1,26 @@
 # Changelog
+## [0.1.3] - 2022-06-28
+
+### Bug Fixes
+
+- Make browse work again
+- Set eq specs properly
+- Set fxChain to new chain when setting new
+
+### Features
+
+- Add *record to Komet
+- Add KometChannels to add type safety
+- Add leakdc to default main chain
+- Make it possible to add fx to chain in GUI
+- Add Komet.gui - main interface
+- Add (ugly) themeing to gui
+- Add *record and *stopRecording
+
+### Faet
+
+- Add gui to chain classes
+
 ## [0.1.2] - 2022-04-26
 
 ### Bug Fixes
