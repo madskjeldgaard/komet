@@ -1,8 +1,28 @@
 Komet {
     classvar <testBuffers;
     classvar <synthFactory, <fxFactory;
-    classvar <mainOut, <numChannels;
+    classvar <numChannels;
     classvar <initialized=false;
+    classvar <recorder;
+
+    *record{|path, bus, duration|
+        recorder = recorder ?? {Recorder.new(server:Server.local)};
+
+        recorder .recHeaderFormat_("WAV");
+
+        recorder.record(
+            path: path ? "~/komet_%.wav".format(Date.getDate.stamp),
+            bus: bus,
+            numChannels: numChannels,
+            node: KometMainChain(\main).group,
+            duration: duration
+        )
+
+    }
+
+    *stopRecording{
+        recorder.stopRecording;
+    }
 
     *gui{
         KometGui.new()
