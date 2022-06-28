@@ -20,7 +20,7 @@ KometEvents{
             ~base = ~synthfuncdef.name;
             ~category = ~synthfuncdef.category;
         }, {
-            ~base = ~base ? ~name ? \complex;
+            ~base = ~base  ? \complex;
             ~category = ~category ? \synthetic;
         });
 
