@@ -130,6 +130,8 @@ AbstractKometChain : Singleton{
             })
         };
 
+        fxChain = newChain;
+
     }
 
     at{|index|
