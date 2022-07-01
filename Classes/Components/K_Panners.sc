@@ -5,8 +5,8 @@ KPanners : KComponentManager{
     ^this.createInstance(componentName)
   }
 
-  getWrap{|numChannelsIn, output, prefix="", suffix="" ... wrapperArgs|
-    var func = this.getFunctionForWrapper(numChannelsIn, output, prefix, suffix);
+  getWrap{|numChannelsIn, kometChannels, prefix="", suffix="" ... wrapperArgs|
+    var func = this.getFunctionForWrapper(numChannelsIn, kometChannels, prefix, suffix);
     ^SynthDef.wrap(func, prependArgs: wrapperArgs)
   }
 
@@ -39,28 +39,32 @@ KPanners : KComponentManager{
         }
     }, {
         // Ambisonics output - check if the symbol is a supported order
-        case
-        {numChannelsIn == 1} {
-            ^switch (output.hoaOrder(),
-            1, { \mono2hoaO1 },
-            2, { \mono2hoaO2 },
-            3, { \mono2hoaO3 },
-            4, { \mono2hoaO4 },
-            5, { \mono2hoaO5 },
-            6, { \mono2hoaO6 },
-            7, { \mono2hoaO7 })
-        }
-        {numChannelsIn == 2} {
-            ^switch (output.hoaOrder(),
-            1, { \stereo2hoaO1 },
-            2, { \stereo2hoaO2 },
-            3, { \stereo2hoaO3 },
-            4, { \stereo2hoaO4 },
-            5, { \stereo2hoaO5 },
-            6, { \stereo2hoaO6 },
-            7, { \stereo2hoaO7 })
-        };
+        if(output.hoaOrder().notNil, {
+            case
+            {numChannelsIn == 1} {
+                switch (output.hoaOrder(),
+                1, { \mono2hoaO1 },
+                2, { \mono2hoaO2 },
+                3, { \mono2hoaO3 },
+                4, { \mono2hoaO4 },
+                5, { \mono2hoaO5 },
+                6, { \mono2hoaO6 },
+                7, { \mono2hoaO7 })
+            }
+            {numChannelsIn == 2} {
+                switch (output.hoaOrder(),
+                1, { \stereo2hoaO1 },
+                2, { \stereo2hoaO2 },
+                3, { \stereo2hoaO3 },
+                4, { \stereo2hoaO4 },
+                5, { \stereo2hoaO5 },
+                6, { \stereo2hoaO6 },
+                7, { \stereo2hoaO7 })
+            };
 
+        }, {
+            Log(\komet).error("Trying to run hoa panner with outputs in non hoa mode")
+        })
         // if(numChannelsIn > 2, { "num channels in has to be 1 or 2 channels for HOA in M".error});
 
     })

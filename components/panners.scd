@@ -89,6 +89,7 @@ panners.multi2azimuth = {|prefix, suffix, numChannelsOut|
 };
 
 (1..7).do{|order|
+
 	panners.put("stereo2hoaO%".format(order).asSymbol, {|prefix, suffix|
 		{|sig|
 

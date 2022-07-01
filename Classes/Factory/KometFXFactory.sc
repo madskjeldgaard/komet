@@ -58,7 +58,17 @@ KometFXFactory : AbstractKometFactory {
             var sig = clean;
 
             sig = SynthDef.wrap(
-                if(category == \channelized, {kometSynthFuncDef.func.value(kometChannels.numChannels)}, { kometSynthFuncDef.func }),
+                switch (category,
+                    \channelized, {
+                        kometSynthFuncDef.func.value(kometChannels.numChannels)
+                    },
+                    \hoa, {
+                        kometSynthFuncDef.func.value(kometChannels.hoaOrder())
+                    },
+                    \stereo, {
+                        kometSynthFuncDef.func
+                    },
+                ),
                 prependArgs: [sig]
             );
 

@@ -68,9 +68,8 @@ Komet {
         }
     }
 
-    *build{|numChannelsOut|
-        var kometChans = KometChannels.new(numChannelsOut);
-        // TODO
+    *build{|kometChans|
+        // var kometChans = KometChannels.new(numChannelsOut);
         synthFactory = KometSynthFactory.new(kometChans, rebuild: true);
         fxFactory = KometFXFactory.new(kometChans, rebuild: true);
     }
@@ -83,7 +82,7 @@ Komet {
                 var addAfter = 1;
 
                 if(build, {
-                    this.build(numChannels);
+                    this.build(kometChans);
                 }, {
                     synthFactory = KometSynthFactory.new(kometChans, rebuild: false);
                     fxFactory = KometFXFactory.new(kometChans, rebuild: false);
