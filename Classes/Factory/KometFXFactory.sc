@@ -37,61 +37,67 @@ KometFXFactory : AbstractKometFactory {
     }
 
     *prAddSynthDef{|kometSynthFuncDef|
-        var synthdefname = kometSynthFuncDef.synthdefName();
-        var type = kometSynthFuncDef.type;
-        var category = kometSynthFuncDef.category;
-        var baseName = kometSynthFuncDef.name;
-        var builtFunc = {|out, drywet=0.5, fadeInTime=1.0, fadeOutTime=8, gate=1|
+        if(kometSynthFuncDef.category == \hoa && kometChannels.isAmbisonics.not, {
+            // Skip if Komet is not in HOA mode and the synthdef is a hoa one
+            Log(\komet).debug("Skipping kometSynthFuncDef % because Komet is not in HOA mode and it is a HOA synth", kometSynthFuncDef.name);
+        }, {
 
-            // var fadeIn = Line.ar(0,1,fadeInTime);
-            var fadeIn = EnvGen.kr(
-                envelope:Env.new([0,1,0], [fadeInTime, fadeOutTime], releaseNode: 1),
-                gate:gate,
-                doneAction:\doneAction.ir(0)
-            );
+            var synthdefname = kometSynthFuncDef.synthdefName();
+            var type = kometSynthFuncDef.type;
+            var category = kometSynthFuncDef.category;
+            var baseName = kometSynthFuncDef.name;
+            var builtFunc = {|out, drywet=0.5, fadeInTime=1.0, fadeOutTime=8, gate=1|
 
-            var clean = fadeIn * In.ar(
-                bus:out,
-                numChannels:kometChannels.numChannels
-            );
+                // var fadeIn = Line.ar(0,1,fadeInTime);
+                var fadeIn = EnvGen.kr(
+                    envelope:Env.new([0,1,0], [fadeInTime, fadeOutTime], releaseNode: 1),
+                    gate:gate,
+                    doneAction:\doneAction.ir(0)
+                );
 
-            var sig = clean;
+                var clean = fadeIn * In.ar(
+                    bus:out,
+                    numChannels:kometChannels.numChannels
+                );
 
-            sig = SynthDef.wrap(
-                switch (category,
-                    \channelized, {
-                        kometSynthFuncDef.func.value(kometChannels.numChannels)
-                    },
-                    \hoa, {
-                        kometSynthFuncDef.func.value(kometChannels.hoaOrder())
-                    },
-                    \stereo, {
-                        kometSynthFuncDef.func
-                    },
-                ),
-                prependArgs: [sig]
-            );
+                var sig = clean;
 
-            sig = XFade2.ar(clean, sig, drywet.linlin(0.0,1.0,-1.0,1.0));
-            ReplaceOut.ar(out, sig * fadeIn);
-        };
+                sig = SynthDef.wrap(
+                    switch (category,
+                        \channelized, {
+                            kometSynthFuncDef.func.value(kometChannels.numChannels)
+                        },
+                        \hoa, {
+                            kometSynthFuncDef.func.value(kometChannels.hoaOrder())
+                        },
+                        \stereo, {
+                            kometSynthFuncDef.func
+                        },
+                    ),
+                    prependArgs: [sig]
+                );
 
-        var synthdef = SynthDef(synthdefname, builtFunc);
+                sig = XFade2.ar(clean, sig, drywet.linlin(0.0,1.0,-1.0,1.0));
+                ReplaceOut.ar(out, sig * fadeIn);
+            };
 
-        KometSynthLib.put(type, category, baseName, \rawFunc, kometSynthFuncDef.func);
-        KometSynthLib.put(type, category, baseName, \builtFunc, builtFunc);
-        KometSynthLib.put(type, category, baseName, \synthDefName, synthdefname);
-        KometSynthLib.put(type, category, baseName, \synthDef, synthdef);
-        KometSynthLib.put(type, category, baseName, \kometSynthFuncDef, kometSynthFuncDef);
+            var synthdef = SynthDef(synthdefname, builtFunc);
 
-        Log(\komet).info("Added SynthDef %", synthdefname);
-        Log(\komet).info("\t %", kometSynthFuncDef.text);
+            KometSynthLib.put(type, category, baseName, \rawFunc, kometSynthFuncDef.func);
+            KometSynthLib.put(type, category, baseName, \builtFunc, builtFunc);
+            KometSynthLib.put(type, category, baseName, \synthDefName, synthdefname);
+            KometSynthLib.put(type, category, baseName, \synthDef, synthdef);
+            KometSynthLib.put(type, category, baseName, \kometSynthFuncDef, kometSynthFuncDef);
 
-        if(forceRebuild, {
-            Log(\komet).info("Loading SynthDef %", synthdefname);
-            // Save to disk and load the synthdef
-            synthdef.load;
-        })
+            Log(\komet).info("Added SynthDef %", synthdefname);
+            Log(\komet).info("\t %", kometSynthFuncDef.text);
+
+            if(forceRebuild, {
+                Log(\komet).info("Loading SynthDef %", synthdefname);
+                // Save to disk and load the synthdef
+                synthdef.load;
+            })
+        });
 
     }
 }

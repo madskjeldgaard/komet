@@ -36,7 +36,7 @@ AbstractKometFactory{
         if(kometSynthFuncDef.class == KometSynthFuncDef, {
             if(kometSynthFuncDef.check(), {
 
-                Log(\komet).info("Adding synthdef: %".format(kometSynthFuncDef.synthdefName()));
+                Log(\komet).info("Reading file containing SynthDef: %".format(kometSynthFuncDef.synthdefName()));
 
                 this.prAddSynthDef(
                     kometSynthFuncDef

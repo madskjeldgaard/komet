@@ -37,6 +37,11 @@ KometSynthFactory : AbstractKometFactory {
       if(KometComponentLoader.allLoaded, {
           KEnvelopes().keys.do{|envType|
               KFilters().keys.do{|filterType|
+                  // Only load HOA things in HOA mode
+                  if(kometSynthFuncDef.category == \hoa && kometChannels.isAmbisonics.not, {
+                      // Skip if Komet is not in HOA mode and the synthdef is a hoa one
+                      Log(\komet).debug("Skipping kometSynthFuncDef % because Komet is not in HOA mode and it is a HOA synth", kometSynthFuncDef.name);
+                  }, {
                   var synthdefname = kometSynthFuncDef.synthdefName(envType, filterType);
 
                   // No VCA and no Out-UGen (makes it useful in Ndefs)
@@ -78,6 +83,8 @@ KometSynthFactory : AbstractKometFactory {
 
                   // Save to disk and load the synthdef
                   synthdef.load;
+
+                  })
               }
           }
       }, {

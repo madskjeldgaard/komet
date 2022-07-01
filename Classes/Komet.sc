@@ -4,6 +4,9 @@ Komet {
     classvar <numChannels;
     classvar <initialized=false;
     classvar <recorder;
+    classvar <mode;
+
+    classvar <binauralDecoder, <>cipicID=21;
 
     *record{|path, bus, duration|
         recorder = recorder ?? {Recorder.new(server:Server.local)};
@@ -69,7 +72,6 @@ Komet {
     }
 
     *build{|kometChans|
-        // var kometChans = KometChannels.new(numChannelsOut);
         synthFactory = KometSynthFactory.new(kometChans, rebuild: true);
         fxFactory = KometFXFactory.new(kometChans, rebuild: true);
     }
@@ -77,33 +79,51 @@ Komet {
     *start{|numChannelsOut=2, build=false|
         var kometChans = KometChannels.new(numChannelsOut);
         if(kometChans.check(),{
+
+            if(kometChans.isAmbisonics, {
+                mode = \hoa;
+            }, {
+                mode = \normal
+            });
+
+            Log(\komet).info("Booting in % mode".format(mode));
+
             numChannels = kometChans.numChannels();
+
             if(KometDependencies.check(), {
-                var addAfter = 1;
+                Server.local.waitForBoot{
+                    var addAfter = 1;
 
-                if(build, {
-                    this.build(kometChans);
-                }, {
-                    synthFactory = KometSynthFactory.new(kometChans, rebuild: false);
-                    fxFactory = KometFXFactory.new(kometChans, rebuild: false);
-                });
+                    this.prLoadResources();
+                    Server.local.sync;
 
-                // An empty FX chain that the user can populate if needed
-                KometMainChain(\preMain, [], numChannels, addAfter);
+                    if(build, {
+                        this.build(kometChans);
+                    }, {
+                        synthFactory = KometSynthFactory.new(kometChans, rebuild: false);
+                        fxFactory = KometFXFactory.new(kometChans, rebuild: false);
+                    });
 
-                // The main output fx chain
-                KometMainChain(\main, [
-                    KometFXItem.new(\eq3, \channelized, []),
-                    KometFXItem.new(\leakdc, \channelized, []),
-                    // TODO:
-                    // KometFXItem.new(\klimit, \channelized, [])
-                ],
-                numChannels,
-                KometMainChain(\preMain).group
-            );
+                    Server.local.sync;
 
-            initialized = true;
+                    // An empty FX chain that the user can populate if needed
+                    KometMainChain(\preMain, [], numChannels, addAfter);
 
+                    // The main output fx chain
+                    KometMainChain(\main, [
+                        KometFXItem.new(\eq3, \channelized, []),
+                        KometFXItem.new(\leakdc, \channelized, []),
+                        // TODO:
+                        // KometFXItem.new(\klimit, \channelized, [])
+                    ],
+                    numChannels,
+                    KometMainChain(\preMain).group
+                );
+
+                Server.local.sync;
+                initialized = true;
+
+            }
         }, {
             Log(\komet).error("Dependencies not installed or satisfied");
         })
@@ -115,6 +135,17 @@ Komet {
 
     *browse{
         KSynthBrowser.new(KometSynthLib.get);
+    }
+
+    *prLoadResources{
+
+        if(mode == \hoa, {
+            // Ambisonics resources
+            binauralDecoder = FoaDecoderKernel.newCIPIC(cipicID);
+        }, {
+            // "normal mode only resources" if any
+        });
+
     }
 
     // TODO
