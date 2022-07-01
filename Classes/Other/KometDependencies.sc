@@ -19,8 +19,11 @@ KometDependencies {
         // Gutter Synth
         checked.put(\gutterSynthInstalled, \GutterSynth.asClass.notNil);
 
+        // SafetyLimiter Synth
+        checked.put(\safetyLimiterInstalled, \SafetyLimiter.asClass.notNil);
+
         // VSTPlugin
-        checked.put(\vstpluginInstalled, \VSTPlugin.asClass.notNil);
+        // checked.put(\vstpluginInstalled, \VSTPlugin.asClass.notNil);
 
         checked.keysValuesDo{|check, result|
             Log(\komet).debug("Dependency check: %, result: %", check, result);
