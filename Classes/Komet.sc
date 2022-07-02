@@ -75,10 +75,13 @@ Komet {
         fxFactory = KometFXFactory.new(kometChans, rebuild: true);
     }
 
-    *start{|numChannelsOut=2, build=false, withGui=true|
+    *start{|numChannelsOut=2, build=false, withGui=true, action({}), loglevel(\debug)|
         var kometChans = KometChannels.new(numChannelsOut);
         if(kometChans.check(),{
+            // Set log level
+            this.logLevel(loglevel);
 
+            // Set mode
             if(kometChans.isAmbisonics, {
                 mode = \hoa;
                 order = kometChans.hoaOrder();
