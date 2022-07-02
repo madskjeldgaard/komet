@@ -15,7 +15,7 @@ Komet {
         recorder .recHeaderFormat_("WAV");
 
         recorder.record(
-            path: path ? "~/komet_%.wav".format(Date.getDate.stamp),
+            path: path ? "~/komet_%_%.wav".format(Date.getDate.stamp, if(mode == \hoa, {AtkHoa.format}).join("_")),
             bus: bus,
             numChannels: numChannels,
             node: KometMainChain(\main).group,
@@ -95,7 +95,7 @@ Komet {
 
             if(KometDependencies.check(), {
                 if(Server.local.hasBooted.not, {
-                    Log(\komet).warn("Server hasn' booted yet. Booting it now.")
+                    Log(\komet).warning("Server hasn' booted yet. Booting it now.")
                 });
 
                 Server.local.waitForBoot{
