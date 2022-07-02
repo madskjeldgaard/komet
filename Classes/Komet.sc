@@ -114,6 +114,10 @@ Komet {
                     this.gui()
                 });
 
+                // Call action when booted
+                Server.local.sync;
+                action.value()
+
             }
         }, {
             Log(\komet).error("Dependencies not installed or satisfied");
