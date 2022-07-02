@@ -58,9 +58,9 @@ KometWindow{
     *new{ arg name="",
         bounds,
         resizable = true,
-        border = false,
+        border = true,
         server,
-        scroll = false;
+        scroll = true;
 
         ^Window.new(name, bounds, resizable , border , server, scroll)
         .background_(this.bg);
