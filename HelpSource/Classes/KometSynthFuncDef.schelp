@@ -1,7 +1,7 @@
 TITLE::KometSynthFuncDef
 SUMMARY::Define a synth for the Komet system
 CATEGORIES::Komet
-RELATED::Classes/AbstractKometSynthFactory,Classes/Singleton,Classes/KometSynthLib,
+RELATED::Classes/AbstractKometSynthFactory,Classes/Singleton,Classes/KometSynthLib
 
 DESCRIPTION::
 This class is used to store and define synths in the Komet system.
