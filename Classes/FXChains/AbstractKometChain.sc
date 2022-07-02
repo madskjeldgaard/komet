@@ -90,6 +90,7 @@ AbstractKometChain : Singleton{
     // TODO: TEST
     addFX{|fxItem, addTo=\tail|
         if(fxItem.class == KometFXItem, {
+            this.free();
             switch (addTo,
                 \tail, {
                     this.setFXChain(fxChain ++ [fxItem])
