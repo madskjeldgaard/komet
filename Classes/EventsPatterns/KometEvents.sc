@@ -91,7 +91,12 @@ KometEvents{
       ~fcutoff = ~fcutoff ? ~cutoff;
 
       // Panning and spatial
-      ~angle = ~pan ? 0;
+      ~angle = ~angle ? ~pan ? 0;
+      ~elevation = ~elevation ? 0;
+      ~autopanangle = ~autopanangle ? ~autopan ? 0;
+      ~autopanelevation = ~autopanelevation ? 0;
+
+      ~lagTime = ~lagTime ? 0;
 
       // Inherit from normal note event
       ~type = \note;
