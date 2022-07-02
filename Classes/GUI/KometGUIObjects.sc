@@ -17,11 +17,11 @@ KometFonts{
     }
 
     *smallTitle{
-        ^this.default.bold_(true).size_(20)
+        ^this.default.bold_(true).size_(14)
     }
 
     *parameter{
-        ^this.default.size_(12)
+        ^this.default.size_(14)
     }
 }
 
@@ -50,7 +50,7 @@ KometColors{
     }
 
     *white{
-        ^Color.new255(red:249, green:249, blue:249, alpha:254)
+        ^Color.new255(red:249, green:249, blue:249, alpha:230)
     }
 }
 
@@ -76,7 +76,7 @@ KometSlider{
         ^Slider
         .new(parent,bounds)
         .knobColor_(KometColors.colors[0])
-        .background_(KometColors.colors[3])
+        .background_(KometColors.white())
     }
 }
 
@@ -94,7 +94,7 @@ KometSmallTitle{
 
 KometParameterText{
     *new{|parent, bounds|
-        ^StaticText.new(parent, bounds).font_(KometFonts.parameter).stringColor_(KometColors.colors[1]);
+        ^StaticText.new(parent, bounds).font_(KometFonts.parameter).stringColor_(KometColors.colors[0]);
     }
 }
 

@@ -4,7 +4,7 @@ KometGui{
         var win = KometWindow.new(title);
         var layout = VLayout(
             KometSmallTitle(win).string_(title),
-            HLayout(
+            VLayout(
                 KometButton.new(win).states_([["Browse synths"]]).action_({
                     Komet.browse()
                 }),
@@ -35,7 +35,7 @@ KometGui{
     }
 
     *prTransport{|parent|
-        ^HLayout(
+        ^VLayout(
             KometButton.new(parent).states_([
                 ["Mute"],
                 ["Unmute"],
@@ -62,7 +62,7 @@ KometGui{
             }),
             KometParameterText.new(parent).string_("Volume:"),
             KometSlider.new(parent)
-            .orientation_(\vertical)
+            .orientation_(\horizontal)
             .action_({|obj|
                 var db = Spec.specs[\db].map(obj.value);
                 Server.local.volume.volume_(db)

@@ -75,7 +75,7 @@ Komet {
         fxFactory = KometFXFactory.new(kometChans, rebuild: true);
     }
 
-    *start{|numChannelsOut=2, build=false|
+    *start{|numChannelsOut=2, build=false, withGui=true|
         var kometChans = KometChannels.new(numChannelsOut);
         if(kometChans.check(),{
 
@@ -108,6 +108,11 @@ Komet {
 
                 Server.local.sync;
                 initialized = true;
+
+                // Open gui after boot
+                if(withGui, {
+                    this.gui()
+                });
 
             }
         }, {

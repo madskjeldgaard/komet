@@ -28,13 +28,9 @@ KometChainGUI {
                 var spec = specsForSynth[argName.asSymbol] ?? [0.0,1.0].asSpec;
                 var initValue = chain.argsAt(index).asDict.at(argName) ? spec.default;
 
-                VLayout(*[
-                    KometParameterText(win).string_(argName),
-                    numberbox
-                    .value_(
-                        initValue
-                    ),
-                    KometSlider.new(win).
+                HLayout(*[
+                    [KometParameterText(win).string_(argName), s: 3],
+                    [KometSlider.new(win).
                     action_({|obj|
                         var val = obj.value;
 
@@ -43,12 +39,17 @@ KometChainGUI {
                         chain.setSynthAt(index, argName, val);
                         numberbox.value_(val);
                     })
+                    .orientation_(\horizontal)
                     .value_(
                         spec.unmap(initValue)
-                    )
+                    ), s: 4],
+                    [numberbox
+                    .value_(
+                        initValue
+                    ), s: 1],
                 ])
             }.asArray;
-            VLayout(name,  HLayout(*sliders))
+            VLayout(name,  VLayout(*sliders))
 
         }.asArray;
 
