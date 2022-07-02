@@ -6,7 +6,8 @@ Komet {
     classvar <recorder;
     classvar <mode;
 
-    classvar <binauralDecoder, <>cipicID=21;
+    classvar <binauralCIPICDecoder, <binauralListenDecoder, <>cipicID=21, <>listenID=1017, <foaencodermatrix, <foadecoderkernelUHJ;
+    classvar <order;
 
     *record{|path, bus, duration|
         recorder = recorder ?? {Recorder.new(server:Server.local)};
@@ -40,9 +41,7 @@ Komet {
     }
 
     *initClass{
-        ServerBoot.add{
-            testBuffers = BufFiles.new(Server.local, KometPath.sndPath)
-        }
+
     }
 
     *install{
@@ -82,6 +81,7 @@ Komet {
 
             if(kometChans.isAmbisonics, {
                 mode = \hoa;
+                order = kometChans.hoaOrder();
             }, {
                 mode = \normal
             });
@@ -92,7 +92,6 @@ Komet {
 
             if(KometDependencies.check(), {
                 Server.local.waitForBoot{
-                    var addAfter = 1;
 
                     this.prLoadResources();
                     Server.local.sync;
@@ -105,20 +104,7 @@ Komet {
                     });
 
                     Server.local.sync;
-
-                    // An empty FX chain that the user can populate if needed
-                    KometMainChain(\preMain, [], numChannels, addAfter);
-
-                    // The main output fx chain
-                    KometMainChain(\main, [
-                        KometFXItem.new(\eq3, \channelized, []),
-                        KometFXItem.new(\leakdc, \channelized, []),
-                        // TODO:
-                        // KometFXItem.new(\klimit, \channelized, [])
-                    ],
-                    numChannels,
-                    KometMainChain(\preMain).group
-                );
+                    this.prSetupChains();
 
                 Server.local.sync;
                 initialized = true;
@@ -137,14 +123,45 @@ Komet {
         KSynthBrowser.new(KometSynthLib.get);
     }
 
-    *prLoadResources{
+    *prSetupChains{
+        var addAfter = 1;
+        // An empty FX chain that the user can populate if needed
+        KometMainChain(\preMain, [], numChannels, addAfter);
 
-        if(mode == \hoa, {
-            // Ambisonics resources
-            binauralDecoder = FoaDecoderKernel.newCIPIC(cipicID);
-        }, {
-            // "normal mode only resources" if any
-        });
+        // The main output fx chain
+        KometMainChain(\main, [
+            KometFXItem.new(\eq3, \channelized, []),
+            KometFXItem.new(\leakdc, \channelized, []),
+            // TODO:
+            // KometFXItem.new(\klimit, \channelized, [])
+        ],
+        numChannels,
+        KometMainChain(\preMain).group
+    );
+
+    if(mode == \hoa, {
+
+        KometMainChain(
+            \decoder, [],
+            numChannels,
+            KometMainChain(\main).group
+        );
+
+    });
+    }
+
+    *prLoadResources{
+            if(mode == \hoa, {
+                // Ambisonics resources
+                binauralCIPICDecoder = FoaDecoderKernel.newCIPIC(cipicID);
+                binauralListenDecoder = FoaDecoderKernel.newListen(listenID);
+                foaencodermatrix = FoaEncoderMatrix.newHoa1;
+                foadecoderkernelUHJ = FoaDecoderKernel.newUHJ;
+
+            }, {
+                // "normal mode only resources" if any
+            });
+            testBuffers = BufFiles.new(Server.local, KometPath.sndPath)
 
     }
 
