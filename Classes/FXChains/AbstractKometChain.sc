@@ -32,7 +32,6 @@ AbstractKometChain : Singleton{
                         this.free();
                     });
                     this.setFXChain(fxchain);
-                    this.play;
                     fxchain.do{|fx, thisindex|
                         this.setSynthAt(thisindex, *fx.args)
                     };
@@ -93,7 +92,7 @@ AbstractKometChain : Singleton{
         if(fxItem.class == KometFXItem, {
             switch (addTo,
                 \tail, {
-                    this.setFXChain(fxChain ++ fxItem)
+                    this.setFXChain(fxChain ++ [fxItem])
                 },
                 \head, {
                     this.setFXChain([fxItem] ++ fxChain)
@@ -107,13 +106,14 @@ AbstractKometChain : Singleton{
     removeFX{|indexOfFX|
         if(indexOfFX < fxChain.size, {
             Log(\komet).debug("%, removing fx at index %", this.class.name, indexOfFX);
+            this.free();
             this.setFXChain(fxChain.reject{|item, index| index == indexOfFX })
         })
     }
 
     setFXChain{|newChain|
         this.clear();
-        if(newChain.every{|fxitem| fxitem.class == KometFXItem}, {
+        if(newChain.every{|fxitem| fxitem.class == KometFXItem} or: { newChain.size == 0}, {
             // FIXME: do we want to carry over synth args from previous synths or clear them?
             newChain.do{|fxItem, index|
                 if(fxItem.class == KometFXItem, {
@@ -155,6 +155,7 @@ AbstractKometChain : Singleton{
 
             fxChain = newChain;
 
+            this.free(); this.play();
         })
     }
 
