@@ -6,7 +6,7 @@ KometSynthFuncDef : Singleton{
         <category,
         <channels,
         <text,
-        <specs,
+        <>specs,
         <checkFunc;
 
     *allOfType{|thistype|
