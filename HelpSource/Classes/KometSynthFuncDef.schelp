@@ -1,0 +1,77 @@
+TITLE::KometSynthFuncDef
+SUMMARY::Define a synth for the Komet system
+CATEGORIES::Komet
+RELATED::Classes/AbstractKometSynthFactory,Classes/Singleton,Classes/KometSynthLib,
+
+DESCRIPTION::
+This class is used to store and define synths in the Komet system.
+
+It is the Komet equivalent to link::Classes/SynthDef:: with a few extra
+features. In short, use this class to add more sound generators and effects to
+the system.
+
+In the case of source sound synthesizers (like a square wave oscillator or some
+other sound generator), the resulting base function is sent off to
+link::Classes/KometSynthFactory:: to be combined with the different panning
+functions, envelopes and filters defined in the system. In the case of effects,
+the result is sent to link::Classes/KometFXFatory::.
+
+The class is a link::Classes/Singleton::.
+
+CLASSMETHODS::
+METHOD::supportedTypes
+
+METHOD::initClass
+
+METHOD::addAll
+
+INSTANCEMETHODS::
+METHOD::add
+
+This will call link::Classes/KometSynthFactory*load:: for synths and
+link::Classes/KometFXFactory*load:: for effects, which will build the synths and
+add the results to link::KometSynthLib::.
+
+METHOD::func
+Get the synth function contained in the object
+
+METHOD::type
+The type of the synth. This can either be code::\synth::, code::\fx:: or
+code::\parfx::.
+
+METHOD::category
+The category of the synth.
+
+For effect functions this is very important: It can either be
+code::\channelized:: (for single channel effects that are then used on every
+channel of the system's sound), code::\hoa:: (which is only used for high order
+ambisonics) or code::\stereo:: for stereo functions.
+
+This can be whatever makes sense for source functions. Oscillators are put in
+the code::\synthetic:: category and physical modelled stuff in
+code::\physical::.
+
+METHOD::channels
+Get the number of channels
+
+METHOD::text
+A description of the synth as a string
+
+METHOD::specs
+An array of specs for the synth
+
+METHOD::play
+This will play an instance of the synth for testing purposes. Any arguments you
+pass in are passed on as synth args to the enclosed link::Classes/Synth::.
+ARGUMENT::args
+
+METHOD::synthdefName
+Used to generate the synthdefName when finally calling
+link::Classes/SynthDef*add:: in the factory classes.
+ARGUMENT::args
+
+EXAMPLES::
+
+CODE::
+// See the root of this project in a folder called "synths"
+::
