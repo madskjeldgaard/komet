@@ -91,6 +91,10 @@ Komet {
             numChannels = kometChans.numChannels();
 
             if(KometDependencies.check(), {
+                if(Server.local.hasBooted.not, {
+                    Log(\komet).warn("Server hasn' booted yet. Booting it now.")
+                });
+
                 Server.local.waitForBoot{
 
                     this.prLoadResources();
