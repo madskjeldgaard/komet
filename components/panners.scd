@@ -65,21 +65,21 @@ panners.multi2azimuth = {|prefix, suffix, numChannelsOut|
 			// @TODO auto panning untested
 			var anglePanner = KAutoPan.ar(
 				pan:K_NC.kr("angle", 0),
-				panFreq:K_NC.kr("panFreq", 1, prefix:"angle"),
-				autopan:K_NC.kr("autopan", 0.0, prefix:"angle"),
-				panShape:K_NC.kr("panshape", 1.0, prefix:"angle"),
+				panFreq:K_NC.kr("panFreq", 1, suffix:"angle"),
+				autopan:K_NC.kr("autopan", 0.0, suffix:"angle"),
+				panShape:K_NC.kr("panshape", 1.0, suffix:"angle"),
 			);
 
 			var elevationPanner = KAutoPan.ar(
 				pan:K_NC.kr("elevation", 0),
-				panFreq:K_NC.kr("panFreq", 1, prefix:"elevation"),
-				autopan:K_NC.kr("autopan", 0.0, prefix:"elevation"),
-				panShape:K_NC.kr("panshape", 1.0, prefix:"elevation"),
+				panFreq:K_NC.kr("panFreq", 1, suffix:"elevation"),
+				autopan:K_NC.kr("autopan", 0.0, suffix:"elevation"),
+				panShape:K_NC.kr("panshape", 1.0, suffix:"elevation"),
 			);
 
 			HoaEncodeDirection.ar(
 				in: sig,
-				theta: anglePanner * pi,
+				theta: (anglePanner * pi),
 				phi: elevationPanner * pi,
 				radius: K_NC.kr("radius", AtkHoa.refRadius),
 				order: order
@@ -93,19 +93,18 @@ panners.multi2azimuth = {|prefix, suffix, numChannelsOut|
 	panners.put("stereo2hoaO%".format(order).asSymbol, {|prefix, suffix|
 		{|sig|
 
-			// @TODO auto panning untested
 			var anglePanner = KAutoPan.ar(
 				pan:K_NC.kr("angle", 0),
-				panFreq:K_NC.kr("panFreq", 1, prefix:"angle"),
-				autopan:K_NC.kr("autopan", 0.0, prefix:"angle"),
-				panShape:K_NC.kr("panshape", 1.0, prefix:"angle"),
-			);
+				panFreq:K_NC.kr("panFreq", 1, suffix:"angle"),
+				autopan:K_NC.kr("autopan", 0.0, suffix:"angle"),
+				panShape:K_NC.kr("panshape", 1.0, suffix:"angle"),
+            );
 
 			var elevationPanner = KAutoPan.ar(
 				pan:K_NC.kr("elevation", 0),
-				panFreq:K_NC.kr("panFreq", 1, prefix:"elevation"),
-				autopan:K_NC.kr("autopan", 0.0, prefix:"elevation"),
-				panShape:K_NC.kr("panshape", 1.0, prefix:"elevation"),
+				panFreq:K_NC.kr("panFreq", 1, suffix:"elevation"),
+				autopan:K_NC.kr("autopan", 0.0, suffix:"elevation"),
+				panShape:K_NC.kr("panshape", 1.0, suffix:"elevation"),
 			);
 
 			var numChansIn = 2;
