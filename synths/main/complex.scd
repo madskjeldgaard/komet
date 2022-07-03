@@ -8,19 +8,19 @@
 	var func =  {|dur, freq=440, freqOffset=0, modFreq=100, amMod=0, fmMod=0|
         var am, fm, sig, modulator, timbreMod;
 
-        var lagTime = \lagTime.kr(1);
+        var lagTime = \lagTime.kr(1.0);
         freq = freq + freqOffset.klag(lagTime);
         freq = freq.kWithPitchEnv(
                 dur,
                 K_NC.kr("pitchEnvAmount", 0).klag(lagTime),
                 envType:\adsr
             );
+
         freq = freq.kWithWow(
             K_NC.kr("wow", 0.0),
             wowMinFreq:0.01,
             wowMaxFreq: 10.0
         );
-        timbreMod=K_NC.ar("timbreMod", 0).klag(lagTime);
 
 		modulator = Squine.ar(
 			freq: modFreq.klag(lagTime),
@@ -56,6 +56,7 @@
         if(addWavefolder, {
             var wavefold=K_NC.ar("wavefold", 0.1).klag(lagTime), numCells=K_NC.ir("cells", 4);
             var gain = wavefold.linexp(0.00000000000001,1.0,1.0,20.0);
+            timbreMod=K_NC.ar("timbreMod", 0).klag(lagTime);
 
             gain = modulator.range(
                 (1.0 - timbreMod) * gain,
