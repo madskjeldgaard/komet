@@ -136,7 +136,7 @@ Komet {
     }
 
     *browse{
-        KSynthBrowser.new(KometSynthLib.get);
+        KSynthBrowser.new(KometSynthLib.allSynthDefNames());
     }
 
     *prSetupChains{
