@@ -93,6 +93,12 @@ Komet {
 
             numChannels = kometChans.numChannels();
 
+            if(numChannels > Server.local.options.numInputBusChannels, {
+                Log(\komet).warning(
+                    "Number of output channels exceed number of inputs channels. This means that internal microphone might be audible in fx synths"
+                );
+            });
+
             if(KometDependencies.check(), {
                 if(Server.local.hasBooted.not, {
                     Log(\komet).warning("Server hasn' booted yet. Booting it now.")
