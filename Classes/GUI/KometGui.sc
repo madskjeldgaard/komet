@@ -3,7 +3,10 @@ KometGui{
         var title = "KometGUI";
         var win = KometWindow.new(title);
         var layout = VLayout(
+            // Title
             KometSmallTitle(win).string_(title),
+
+            // Browse
             VLayout(
                 KometButton.new(win).states_([["Browse synths"]]).action_({
                     Komet.browse()
@@ -11,7 +14,11 @@ KometGui{
                 this.prLogLevel(win)
 
             ),
+
+            // Record, mute, vol etc
             this.prTransport(win),
+
+            // Effect chains
             this.prChainButtons(win)
         );
         win.layout = layout;
@@ -20,6 +27,10 @@ KometGui{
 
     *prLogLevel{|win|
         ^HLayout(
+
+            // Mode
+            KometParameterText.new(win).string_("Mode: "),KometParameterText.new(win).string_(Komet.mode),
+
             KometParameterText(win)
             .string_("Log level: "),
             KometButton.new(win)
@@ -36,6 +47,12 @@ KometGui{
 
     *prTransport{|parent|
         ^VLayout(
+            KometButton.new(parent).states_([
+                ["Plot NodeTree"],
+            ]).action_({|obj|
+                var val = obj.value;
+                Server.local.plotTree
+            }),
             KometButton.new(parent).states_([
                 ["Mute"],
                 ["Unmute"],

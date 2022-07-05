@@ -17,11 +17,11 @@ KometFonts{
     }
 
     *smallTitle{
-        ^this.default.bold_(true).size_(14)
+        ^this.default.bold_(true).size_(16)
     }
 
     *parameter{
-        ^this.default.size_(14)
+        ^this.default.size_(16)
     }
 }
 
