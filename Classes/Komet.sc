@@ -164,8 +164,8 @@ Komet {
         KometMainChain(\preMain).group
     );
 
+    // Add a decoder chain after the other ones if in hoa mode
     if(mode == \hoa, {
-
         KometMainChain(
             \decoder, [],
             numChannels,
