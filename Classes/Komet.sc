@@ -117,10 +117,8 @@ Komet {
                     });
 
                     Server.local.sync;
+                    1.wait;
                     this.prSetupChains();
-
-                Server.local.sync;
-                initialized = true;
 
                 // Open gui after boot
                 if(withGui, {
@@ -129,8 +127,13 @@ Komet {
 
                 // Call action when booted
                 Server.local.sync;
-                action.value()
+                action.value();
 
+                Server.local.sync;
+                initialized = true;
+
+                // Done
+                Log(\komet).info("DONE LOADING");
             }
         }, {
             Log(\komet).error("Dependencies not installed or satisfied");
