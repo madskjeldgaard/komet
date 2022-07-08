@@ -8,6 +8,7 @@ Komet {
 
     classvar <binauralCIPICDecoder, <binauralListenDecoder, <>cipicID=21, <>listenID=1017, <foaencodermatrix, <foadecoderkernelUHJ;
     classvar <order;
+    classvar <>resourcePath; // Gets set by KometPreset
 
     *record{|path, bus, duration|
         recorder = recorder ?? {Recorder.new(server:Server.local)};
@@ -41,7 +42,7 @@ Komet {
     }
 
     *initClass{
-
+        // StartUp.add({ })
     }
 
     *install{
