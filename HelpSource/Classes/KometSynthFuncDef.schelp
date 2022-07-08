@@ -65,6 +65,28 @@ This will play an instance of the synth for testing purposes. Any arguments you
 pass in are passed on as synth args to the enclosed link::Classes/Synth::.
 ARGUMENT::args
 
+code::
+// Playing a synthfunc def
+(
+var harmonics = 1;
+var freq = 1.0*rrand(80.0, 100.0);
+var beatFreq = 0.5;
+var dur = 128;
+
+harmonics.do{|harm|
+    KometSynthFuncDef(\complex).play(
+        \wow, rrand(0.005,0.0),
+        \freq, freq * (harm+1) + [0, beatFreq],
+        \mainskew, 0.9,
+        \mainclip, -0.1,
+        \timbreMod, rrand(0.5,1.0),
+        \dur, dur,
+        \amp, 0.23/harmonics
+    )
+}
+)
+::
+
 METHOD::synthdefName
 Used to generate the synthdefName when finally calling
 link::Classes/SynthDef*add:: in the factory classes.
