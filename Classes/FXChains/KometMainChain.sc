@@ -22,11 +22,14 @@ KometMainChain : AbstractKometChain {
     }
 
     play {
-        Log(\komet).debug("Initializing server tree for %", this.class.name);
+        Server.local.doWhenBooted{
+            Log(\komet).debug("Initializing server tree for %", this.class.name);
 
-        server.makeBundle(nil, { // make sure they are in order
-            server.sendMsg("/g_new", group, 3, addAfter);
-            this.initializeAllNodes();
-        })
+            server.makeBundle(nil, { // make sure they are in order
+                server.sendMsg("/g_new", group, 3, addAfter);
+                this.initializeAllNodes();
+            })
+
+        }
     }
 }
