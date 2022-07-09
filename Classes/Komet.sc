@@ -78,71 +78,75 @@ Komet {
 
     *start{|numChannelsOut=2, build=false, withGui=true, action({}), loglevel(\debug)|
         var kometChans = KometChannels.new(numChannelsOut);
-        if(kometChans.check(),{
-            // Set log level
-            this.logLevel(loglevel);
 
-            // Set mode
-            if(kometChans.isAmbisonics, {
-                mode = \hoa;
-                order = kometChans.hoaOrder();
-            }, {
-                mode = \normal
-            });
+        initialized.not.if({
+            if(kometChans.check(),{
+                // Set log level
+                this.logLevel(loglevel);
 
-            Log(\komet).info("Booting in % mode".format(mode));
-
-            numChannels = kometChans.numChannels();
-
-            if(numChannels > Server.local.options.numInputBusChannels, {
-                Log(\komet).warning(
-                    "Number of output channels exceed number of inputs channels. This means that internal microphone might be audible in fx synths"
-                );
-            });
-
-            if(KometDependencies.check(), {
-                if(Server.local.hasBooted.not, {
-                    Log(\komet).warning("Server hasn' booted yet. Booting it now.")
+                // Set mode
+                if(kometChans.isAmbisonics, {
+                    mode = \hoa;
+                    order = kometChans.hoaOrder();
+                }, {
+                    mode = \normal
                 });
 
-                Server.local.waitForBoot{
+                Log(\komet).info("Booting in % mode".format(mode));
 
-                    this.prLoadResources();
-                    Server.local.sync;
+                numChannels = kometChans.numChannels();
 
-                    if(build, {
-                        this.build(kometChans);
-                    }, {
-                        synthFactory = KometSynthFactory.new(kometChans, rebuild: false);
-                        fxFactory = KometFXFactory.new(kometChans, rebuild: false);
+                if(numChannels > Server.local.options.numInputBusChannels, {
+                    Log(\komet).warning(
+                        "Number of output channels exceed number of inputs channels. This means that internal microphone might be audible in fx synths"
+                    );
+                });
+
+                if(KometDependencies.check(), {
+                    if(Server.local.hasBooted.not, {
+                        Log(\komet).warning("Server hasn' booted yet. Booting it now.")
                     });
 
-                    Server.local.sync;
-                    1.wait;
-                    this.prSetupChains();
+                    Server.local.waitForBoot{
 
-                // Open gui after boot
-                if(withGui, {
-                    this.gui()
-                });
+                        this.prLoadResources();
+                        Server.local.sync;
 
-                // Call action when booted
-                Server.local.sync;
-                action.value();
+                        if(build, {
+                            this.build(kometChans);
+                        }, {
+                            synthFactory = KometSynthFactory.new(kometChans, rebuild: false);
+                            fxFactory = KometFXFactory.new(kometChans, rebuild: false);
+                        });
 
-                Server.local.sync;
-                initialized = true;
+                        Server.local.sync;
+                        1.wait;
+                        this.prSetupChains();
 
-                // Done
-                Log(\komet).info("DONE LOADING");
-            }
+                        // Open gui after boot
+                        if(withGui, {
+                            this.gui()
+                        });
+
+                        // Call action when booted
+                        Server.local.sync;
+                        action.value();
+
+                        Server.local.sync;
+                        initialized = true;
+
+                        // Done
+                        Log(\komet).info("DONE LOADING");
+                    }
+                }, {
+                    Log(\komet).error("Dependencies not installed or satisfied");
+                })
+            },{
+                Log(\komet).error("%: Invalid KometChannels. Doing nothing".format(this.class.name));
+            })
         }, {
-            Log(\komet).error("Dependencies not installed or satisfied");
+            Log(\komet).warning("Already initialized. Not starting again.")
         })
-    },{
-        Log(\komet).error("%: Invalid KometChannels. Doing nothing".format(this.class.name));
-    })
-
     }
 
     *browse{
