@@ -217,4 +217,33 @@ Komet {
     *allClasses{
         ^Quarks.classesInPackage(KometPath.pkgName)
     }
+
+    *playSoundfile{|filename, numFileChannels, withFX, fxArgs|
+        var synthdefname = "kometfileplayer" ++ numFileChannels;
+        var buffer;
+        var group;
+
+        fork{
+            SynthDef(synthdefname, { |out, buffer = 0|
+                Out.ar(out, DiskIn.ar(numFileChannels, buffer));
+            }).add;
+
+            Server.local.sync;
+            Log(\komet).info("Loading soundfile %", filename);
+            buffer = Buffer.cueSoundFile(Server.local, filename, 0, numFileChannels, completionMessage: {|buf|
+            });
+
+            Server.local.sync;
+            group = Group.new;
+            Server.local.sync;
+            Log(\komet).info("Playing soundfile %", filename);
+            Synth.head(group, synthdefname, [\buffer, buffer]);
+
+            if(withFX.notNil, {
+                Server.local.sync;
+                Log(\komet).info("Adding FX % to file player group", withFX);
+                Synth.tail(group, KometSynthFuncDef(withFX).synthdefName, fxArgs)
+            });
+        }
+    }
 }

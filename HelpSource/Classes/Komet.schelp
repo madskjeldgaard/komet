@@ -7,6 +7,26 @@ DESCRIPTION::
 Short description... TODO
 
 CLASSMETHODS::
+METHOD::playSoundfile
+Play a soundfile from disk
+
+code::
+var filename = "/Volumes/mads_roed_ssd1/å/renders/skitser/Å-skitse2_acn_n3d_7_220708_140400.wav";
+var numChannels = 64;
+Komet.playSoundfile(filename, numChannels, 'hoafreqshift', [\shiftfreq, 101]);
+::
+
+ARGUMENT::filename
+A string containing a file name path
+ARGUMENT::numFileChannels
+Number of channels in file
+
+ARGUMENT::withFX
+An FX name. Should be the name of a link::Classes/KometSynthFuncDef::
+
+ARGUMENT::fxArgs
+Arguments to the fx synth
+
 METHOD::synthFactory
 
 METHOD::fxFactory
@@ -44,10 +64,6 @@ METHOD::get
 METHOD::test
 
 METHOD::allClasses
-
-
-
-
 
 EXAMPLES::
 
