@@ -9,6 +9,8 @@ This class is the main interface for the Komet system.
 This is where you start the system and it contains most of the controls you need
 to use.
 
+Once you have the system started, see link::Guides/KometCookbook:: for usage examples.
+
 CLASSMETHODS::
 METHOD::start
 This method starts the Komet system and boots the server if it hasn't booted
