@@ -5,6 +5,7 @@
   schelp: "Komet",
   dependencies: [
 	  "atk-sc3",
+      "https://github.com/madskjeldgaard/plugins.quark",
 	  "https://github.com/madskjeldgaard/PolyBuf",
 	  "https://github.com/scztt/Log.quark",
 	  "https://github.com/madskjeldgaard/faust.quark",
