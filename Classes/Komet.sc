@@ -16,7 +16,7 @@ Komet {
         recorder .recHeaderFormat_("WAV");
 
         recorder.record(
-            path: path ? "~/komet_%_%.wav".format(Date.getDate.stamp, if(mode == \hoa, {AtkHoa.format}).join("_")),
+            path: path ? "~/komet_%_%.wav".format(Date.getDate.stamp, if(mode == \hoa, {AtkHoa.format}).join("_")).asAbsolutePath,
             bus: bus,
             numChannels: numChannels,
             node: KometMainChain(\main).group,
