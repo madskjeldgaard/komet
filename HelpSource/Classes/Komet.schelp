@@ -12,6 +12,12 @@ to use.
 Once you have the system started, see link::Guides/KometCookbook:: for usage
 examples and link::Guides/KometIntro:: for a general introduction.
 
+If you haven't run Komet before, please run code::Komet.install():: to install
+all the plugins necessary.
+
+NOTE::Komet won't boot at all if you haven't installed all the dependencies
+correctly::
+
 CLASSMETHODS::
 METHOD::start
 This method starts the Komet system and boots the server if it hasn't booted
