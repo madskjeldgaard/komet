@@ -1,4 +1,61 @@
 # Changelog
+## [unreleased]
+
+### Bug Fixes
+
+- Simplify ~base in event
+- Komet.build not passing KometChannels on
+- Move VSTPlugin stuff to a seperate package
+- Drywet full by default
+- FX don't have default args from parent wrap
+- Only load (hoa) resources when necessary
+- Chain, free/init nodetree when adding/removing
+- Free before adding fx to chain
+- Change window defaults to include border
+- Make lagTime 0 by default in event and other defaults
+- Autopan not working in HOA (Because of wrong name)
+- *browse not working
+- Values lagging to initial value
+- Complex, only add timbreMod if wavefolder
+- Report when boot process done
+- Komet Chains trying to add before server booted
+- Specs contained wrong defaults
+- Default record path not absolute
+- Komet*start possible to be called twice
+- Use Plugins.quark for non-Arch systems
+- Quote path properly
+- Use CondVar when checking chains
+- Wait is needed in KometMainChain test
+- KometSynthLib test adding before fxlib init
+- KometEvents test not working (because of not waiting)
+
+### Documentation
+
+- Add more examples
+- Add docs for Komet
+- Beef up KometIntro
+- Add install info
+
+### Features
+
+- Add ambisonics mode. Only load HOA stuff if in that.
+- Fix up GUI to make it nicer
+- Add callback after Komet.start
+- Warn if server not booted
+- Set default log level to debug
+- Add HOA info to filename if recording in hoa
+- Add formant, vosim and zosc synths
+- Add pluck and rongs synths
+- Add warning about num inputs messing up mic
+- Add silence and input synths
+- Add PtparToggle pattern class
+- Add Komet*resourcePath (for presets)
+- Add *playSoundfile to Komet
+- Add plugins.quark as dependency
+- Use plugins.quark to install dependencies
+- Add external plugin dependencies to quark
+- Add musliplayer synth
+
 ## [0.1.3] - 2022-06-28
 
 ### Bug Fixes

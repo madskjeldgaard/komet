@@ -1,14 +1,14 @@
 (
   name: "komet",
   summary: "Komet is a computer music / sound system by Mads Kjeldgaard",
-  version: "0.1.3",
+  version: "v0.1.4",
   schelp: "Komet",
   dependencies: [
 	  "atk-sc3",
       "https://github.com/madskjeldgaard/plugins.quark",
+	  "https://github.com/madskjeldgaard/faust.quark",
 	  "https://github.com/madskjeldgaard/PolyBuf",
 	  "https://github.com/scztt/Log.quark",
-	  "https://github.com/madskjeldgaard/faust.quark",
 	  "https://github.com/scztt/Singleton.quark",
 	  "https://github.com/madskjeldgaard/fxpatterns"
   ],
