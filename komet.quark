@@ -12,17 +12,23 @@
 	  "https://github.com/scztt/Singleton.quark",
 	  "https://github.com/madskjeldgaard/fxpatterns"
   ],
+  plugin_dependencies: [
+      'supercollider-safety-limiter',
+      'guttersynth-sc',
+      'portedplugins',
+      'squinewave'
+  ],
   aur_dependencies: [
       "faust",
-      "supercollider-vstplugin",
-      "supercollider-xplaybuf-git",
       "supercollider-guttersynth-git",
       "supercollider-squinewave-git",
-      "supercollider-portedplugins"
+      "supercollider-portedplugins",
+      "supercollider-safety-limiter-git"
   ],
   brew_dependencies: [
       // TODO
   ],
+
   url: "https://github.com/madskjeldgaard/komet/",
   license: "GPL",
   copyright: "Mads Kjeldgaard, 2021"
