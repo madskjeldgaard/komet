@@ -4,7 +4,7 @@ TestKometFaustFiles : KometTest{
         this.assert(
             KometPath.faustFilesPath.files.collect{|fff|
                 Faust.isFaustFile(fff).if({
-                    "faust % > /dev/null".format(fff.fullPath).systemCmd == 0
+                    "faust % > /dev/null".format(fff.fullPath.quote()).systemCmd == 0
                 }, {
                     true
                 })
