@@ -34,7 +34,7 @@ TestKometChains : KometTest{
 
     test_argumentpersistence{
         fork{
-            var cond = Condition.new();
+            var cond = CondVar.new();
             var args;
             var numChannels = 2;
             var setArgs = [];
@@ -55,11 +55,11 @@ TestKometChains : KometTest{
             // Initial args
             KometMainChain(\main).synthAt(0).get(\lowlevel, {|val|
                 this.assert(lowlevel == val, "Synth has initial args", details: [\expected, lowlevel, \got, val]);
-                cond.unhang;
+                cond.signalOne;
             });
 
             this.debug("Waiting for KometMainChain to return value\n");
-            cond.hang;
+            cond.waitFor(10);
 
             // Cmd period
             thisProcess.hardStop(); Server.local.sync;
@@ -70,11 +70,11 @@ TestKometChains : KometTest{
             Server.local.sync;
             KometMainChain(\main).synthAt(0).get(\lowlevel, {|val|
                 this.assert(lowlevel == val, "Synth has initial args after cmd period", details: [\expected, lowlevel, \got, val]);
-                cond.unhang;
+                cond.signalOne;
             });
 
             this.debug("Waiting for KometMainChain to return value\n");
-            cond.hang;
+            cond.waitFor(10);
 
             // Set args again
             lowlevel = (-10.0);
@@ -85,22 +85,22 @@ TestKometChains : KometTest{
 
             KometMainChain(\main).synthAt(0).get(\lowlevel, {|val|
                 this.assert(lowlevel == val, "Synth has correct args after being set manually", details: [\expected, lowlevel, \got, val]);
-                cond.unhang;
+                cond.signalOne;
             });
 
             this.debug("Waiting for KometMainChain to return value\n");
-            cond.hang;
+            cond.waitFor(10);
 
             thisProcess.hardStop(); Server.local.sync; 1.wait;
             this.assert(setArgs == args, "Newly set args persist after hardstop");
 
             KometMainChain(\main).synthAt(0).get(\lowlevel, {|val|
                 this.assert(lowlevel == val, "Synth has correct args after being set manually and cmd period being called", details: [\expected, lowlevel, \got, val]);
-                cond.unhang;
+                cond.signalOne;
             });
 
             this.debug("Waiting for KometMainChain to return value\n");
-            cond.hang;
+            cond.waitFor(10);
 
         }
     }
