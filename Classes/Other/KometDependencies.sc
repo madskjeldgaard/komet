@@ -11,7 +11,7 @@ KometDependencies {
         checked.put(\portedPluginsInstalled, \Rongs.asClass.notNil);
 
         // XPlaybuf
-        checked.put(\xplaybufInstalled, \XPlayBuf.asClass.notNil);
+        // checked.put(\xplaybufInstalled, \XPlayBuf.asClass.notNil);
 
         // Squine wave
         checked.put(\squineWaveInstalled, \Squine.asClass.notNil);
@@ -37,16 +37,19 @@ KometDependencies {
         ^KometFaustPackage.install()
     }
 
+    *prInstallUsingPluginsQuark{
+        // Use Plugins.quark
+        var dependencies = Quark("komet").data.plugin_dependencies;
+        dependencies.do{|depend|
+            Log(\komet).info("Installing plugin " ++ depend);
+            Plugins.installPlugin(depend)
+        }
+    }
+
     *installPlugins{
         Platform.case(
             \osx,       {
-                // Use Plugins.quark
-                var dependencies = Quark("komet").data.plugin_dependencies;
-                dependencies.do{|depend|
-                    Log(\komet).info("Installing plugin " ++ depend);
-                    Plugins.installPlugin(depend)
-                }
-
+                this.prInstallUsingPluginsQuark();
             },
             \linux,     {
                 var isArchLinux = "command -v pacman".systemCmd == 0;
@@ -57,12 +60,13 @@ KometDependencies {
                     var dependencies = Quark("komet").data.aur_dependencies;
                     K_AURHelper.install(dependencies)
                 }, {
-                    "Only arch linux is supported".warn
+                    this.prInstallUsingPluginsQuark();
                 })
 
             },
             \windows,   {
-                "Not supported".error.throw
+                //TODO: No idea if this works
+                this.prInstallUsingPluginsQuark();
             }
         );
     }
