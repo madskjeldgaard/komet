@@ -2,9 +2,14 @@
 TestKometEvents : KometTest{
 
     setUp {
+        var condvar = CondVar.new();
         KometSynthFactory.initialized.not.if{
             KometSynthFactory.new(numChannelsOut:2, rebuild:false);
-        }
+        };
+
+        condvar.waitFor(10, {
+            KometSynthFactory.initialized
+        })
     }
 
     test_k_envelope_equivalence{
