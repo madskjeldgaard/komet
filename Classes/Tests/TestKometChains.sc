@@ -51,10 +51,12 @@ TestKometChains : KometTest{
             ], numChannels, 1);
 
             Server.local.sync;
+            1.wait;
 
             // Initial args
             KometMainChain(\main).synthAt(0).get(\lowlevel, {|val|
-                this.assert(lowlevel == val, "Synth has initial args", details: [\expected, lowlevel, \got, val]);
+                var info = "Synth has initial args";
+                this.assert(lowlevel == val, info, details: [info, \expected, lowlevel, \got, val]);
                 cond.signalOne;
             });
 
@@ -69,7 +71,8 @@ TestKometChains : KometTest{
 
             Server.local.sync;
             KometMainChain(\main).synthAt(0).get(\lowlevel, {|val|
-                this.assert(lowlevel == val, "Synth has initial args after cmd period", details: [\expected, lowlevel, \got, val]);
+                var info = "Synth has initial args after cmd period";
+                this.assert(lowlevel == val, info, details: [info, \expected, lowlevel, \got, val]);
                 cond.signalOne;
             });
 
@@ -84,7 +87,8 @@ TestKometChains : KometTest{
             this.assert(setArgs == args, "Setting args changes data");
 
             KometMainChain(\main).synthAt(0).get(\lowlevel, {|val|
-                this.assert(lowlevel == val, "Synth has correct args after being set manually", details: [\expected, lowlevel, \got, val]);
+                var info = "Synth has correct args after being set manually";
+                this.assert(lowlevel == val, info, details: [info, \expected, lowlevel, \got, val]);
                 cond.signalOne;
             });
 
@@ -95,7 +99,8 @@ TestKometChains : KometTest{
             this.assert(setArgs == args, "Newly set args persist after hardstop");
 
             KometMainChain(\main).synthAt(0).get(\lowlevel, {|val|
-                this.assert(lowlevel == val, "Synth has correct args after being set manually and cmd period being called", details: [\expected, lowlevel, \got, val]);
+                var info = "Synth has correct args after being set manually and cmd period being called";
+                this.assert(lowlevel == val, info, details: [info, \expected, lowlevel, \got, val]);
                 cond.signalOne;
             });
 
