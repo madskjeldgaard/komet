@@ -40,11 +40,18 @@ KometDependencies {
     *installPlugins{
         Platform.case(
             \osx,       {
-                "TODO".warn
+                // Use Plugins.quark
+                var dependencies = Quark("komet").data.plugin_dependencies;
+                dependencies.do{|depend|
+                    Log(\komet).info("Installing plugin " ++ depend);
+                    Plugins.installPlugin(depend)
+                }
+
             },
             \linux,     {
                 var isArchLinux = "command -v pacman".systemCmd == 0;
 
+                // Use an AUR helper to install dependencies
                 if(isArchLinux, {
                     // Install packages via aur
                     var dependencies = Quark("komet").data.aur_dependencies;
