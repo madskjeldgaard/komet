@@ -1,9 +1,10 @@
 TestKometSynthLib : KometTest {
         setUp{
-            if(Komet.initialized.not, {
-                Komet.start(2, false);
-            });
+
             KometSynthLib.clear();
+            if(Komet.initialized.not, {
+                Komet.start(2, true);
+            });
         }
 
         tearDown{
@@ -14,9 +15,10 @@ TestKometSynthLib : KometTest {
         // test_synthdata{}
 
         test_fxdata{
+            var condvar = CondVar.new();
             var func = {|in, freq| in * SinOsc.ar(freq)};
             var type = \fx;
-            var category = \testcategory;
+            var category = \stereo;
             var basename = \testbase;
             var numChans = 2;
             var desc = "This is a description of a test synth";
@@ -31,7 +33,9 @@ TestKometSynthLib : KometTest {
                 specs,
             );
             var dataEntry, expectedKeys;
-
+            condvar.waitFor(10, {
+                KometFXFactory.initialized
+            });
             sd.add();
 
             dataEntry = KometSynthLib.at(type, category, basename);
@@ -51,10 +55,11 @@ TestKometSynthLib : KometTest {
 
             this.assert(dataEntry.size == expectedKeys.size, "KometSynthFuncDef added to global KometSynthLib with correct size data in " ++ basename.asString);
         }
+
         test_add{
             var func = {|in, freq| in * SinOsc.ar(freq)};
             var type = \fx;
-            var category = \testcategory;
+            var category = \stereo;
             var basename = \testbase;
             var numChans = 2;
             var desc = "This is a description of a test synth";
