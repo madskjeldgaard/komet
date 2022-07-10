@@ -1,5 +1,5 @@
 # Changelog
-## [unreleased]
+## [0.1.4] - 2022-07-10
 
 ### Bug Fixes
 
