@@ -19,7 +19,7 @@ In addition, the system contains many convenience functions, custom types and sh
 
 - Define one source sound function, get a plethora of SynthDefs - each source function is combined with every envelope, filter and panning function in the library automatically.
 - Consistent argument names in SynthDefs
-- Strict typing to ensure data is initialized correctly
+- Strict-ish typing to ensure data is initialized correctly
 - An FX library organized into stereo, channelized and high order ambisonics versions.
 	- Includes a framework for generating "parallel processing" fx SynthDefs from all defined fx source functions
 - Multichannel support:
@@ -59,13 +59,12 @@ If they're not installed, you can force the installation by running `KometDepend
 Some external plugins written in C++ are necessary as well.
 
 These are:
-- [vstplugin](https://git.iem.at/pd/vstplugin)
-- [xplaybuf](https://github.com/elgiano/XPlayBuf) 
 - [guttersynth-sc](https://github.com/madskjeldgaard/guttersynth-sc)
 - [squinewave](https://github.com/required-field/squinewave)
 - [portedplugins](https://github.com/madskjeldgaard/portedplugins)
+- [supercollider-safety-limiter](https://github.com/nhthn/supercollider-safety-limiter)
 
-You can either install them yourself or run `KometDependencies.installPlugins()`.
+You can either install them yourself or run `KometDependencies.installPlugins()` - this will use [plugins.quark](https://github.com/madskjeldgaard/plugins.quark) to automatically compile and install the above plugins and [faust.quark](https://github.com/madskjeldgaard/faust.quark) to compile and install the included Faust-plugins. To do this you need to have Git, Faust and CMake installed on your system.
 
 ### Necessary server settings
 Some server settings need to be adjusted to allow for the extreme amount of synthdefs produced:
