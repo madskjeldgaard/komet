@@ -31,6 +31,7 @@ In addition, the system contains many convenience functions, custom types and sh
 - JITlib-style FX chain as well as a "main output" effect system
 - Event types to make it easier and less errorprone to write patterns
 - Pattern types to easily manipulate fx chains or the main output effects
+- An expansive library of custom Faust-based plugins including filters, equalizers, compressors etc.
 
 ## Dependencies
 
