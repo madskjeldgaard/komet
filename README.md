@@ -7,9 +7,11 @@ It is currently not intended for use by others, but feel free to check it out.
 
 ## About the system
 
-Komet is both a library and a factory. 
+Komet is a library and a factory. 
 
 ### Features
+
+Komet is a computer music system that makes advanced synthesis operations and composition easier. It auto generates thousands of synthesizer variations from simple recipes and offers a range of DAW-like features such as effect chains (like on channel strips) and other conveniences. It can work natively in stereo, multichannel or high order ambisonics mode with the flick of a switch, allowing the same compositions to be used in different sound systems.
 
 The main principle is to modularize the synth components into simple source functions and components that are then combined in all sorts of combinations. This way, a sound process only needs to be defined once to be built using all combinations of those components. This leads to more predictable naming schemes that makes it easier to compose with.
 
