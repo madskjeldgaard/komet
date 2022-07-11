@@ -1,4 +1,5 @@
 // A convenience function to make sure the correct arguments are passed to fx chains
+
 KometFXItem[slot] {
     var <data;
     classvar <maxSize=3;

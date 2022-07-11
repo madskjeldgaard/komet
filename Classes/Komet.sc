@@ -13,7 +13,7 @@ Komet {
     *record{|path, bus, duration|
         recorder = recorder ?? {Recorder.new(server:Server.local)};
 
-        recorder .recHeaderFormat_("WAV");
+        recorder.recHeaderFormat_("WAV");
 
         recorder.record(
             path: path ? "~/komet_%_%.wav".format(Date.getDate.stamp, if(mode == \hoa, {AtkHoa.format}).join("_")).asAbsolutePath,
@@ -76,13 +76,13 @@ Komet {
         fxFactory = KometFXFactory.new(kometChans, rebuild: true);
     }
 
-    *start{|numChannelsOut=2, build=false, withGui=true, action({}), loglevel(\debug)|
-        var kometChans = KometChannels.new(numChannelsOut);
+    *start{|numChannelsOut, build, openGuiAfterInit, action, loglevel|
+        var kometChans = KometChannels.new(numChannelsOut ? KometConfig.config[\numChannelsOut] ? 2);
 
         initialized.not.if({
             if(kometChans.check(),{
                 // Set log level
-                this.logLevel(loglevel);
+                this.logLevel(loglevel ? KometConfig.config[\loglevel] ? \debug);
 
                 // Set mode
                 if(kometChans.isAmbisonics, {
@@ -112,7 +112,7 @@ Komet {
                         this.prLoadResources();
                         Server.local.sync;
 
-                        if(build, {
+                        if(build ? KometConfig.config[\build], {
                             this.build(kometChans);
                         }, {
                             synthFactory = KometSynthFactory.new(kometChans, rebuild: false);
@@ -124,13 +124,15 @@ Komet {
                         this.prSetupChains();
 
                         // Open gui after boot
-                        if(withGui, {
+                        if(openGuiAfterInit ? KometConfig.config[\openGuiAfterInit], {
                             this.gui()
                         });
 
                         // Call action when booted
                         Server.local.sync;
-                        action.value();
+                        if(action.notNil, {
+                            action.value();
+                        });
 
                         Server.local.sync;
                         initialized = true;
@@ -155,27 +157,17 @@ Komet {
 
     *prSetupChains{
         var addAfter = 1;
+        var mainchain, premainchain, decoderchain;
         // An empty FX chain that the user can populate if needed
-        KometMainChain(\preMain, [], numChannels, addAfter);
+        premainchain = KometConfig.config[\chains][\preMain].collect{|i| i.asKometFXItem} ?? [];
+        KometMainChain(\preMain, premainchain, numChannels, addAfter);
 
-        // The main output fx chain
-        KometMainChain(\main, [
-            KometFXItem.new(\eq3, \channelized, []),
-            KometFXItem.new(\leakdc, \channelized, []),
-            // TODO:
-            // KometFXItem.new(\klimit, \channelized, [])
-        ],
-        numChannels,
-        KometMainChain(\preMain).group
-    );
+        KometMainChain(\main, KometConfig.config[\chains][\main].collect{|i| i.asKometFXItem}, numChannels, KometMainChain(\preMain).group);
 
     // Add a decoder chain after the other ones if in hoa mode
     if(mode == \hoa, {
-        KometMainChain(
-            \decoder, [],
-            numChannels,
-            KometMainChain(\main).group
-        );
+        decoderchain = KometConfig.config[\chains][\decoder].collect{|i| i.asKometFXItem} ?? [];
+        KometMainChain(\decoder, decoderchain, numChannels, KometMainChain(\main).group);
 
     });
     }
@@ -183,7 +175,9 @@ Komet {
     *prLoadResources{
             if(mode == \hoa, {
                 // Ambisonics resources
+                cipicID = KometConfig.config[\hoa][\cipicID] ? cipicID ? 21;
                 binauralCIPICDecoder = FoaDecoderKernel.newCIPIC(cipicID);
+                listenID = KometConfig.config[\hoa][\listenID] ? listenID ? 1017;
                 binauralListenDecoder = FoaDecoderKernel.newListen(listenID);
                 foaencodermatrix = FoaEncoderMatrix.newHoa1;
                 foadecoderkernelUHJ = FoaDecoderKernel.newUHJ;

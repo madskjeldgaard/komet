@@ -25,6 +25,10 @@ already. It will optionally build all SynthDefs or alternatively load the ones
 already built. It will also construct the default LINK::Classes/KometMainChain::
 instances and populate them with the defaults.
 
+You can start Komet without supplying any arguments to this method. If that's
+the case, it will rely on the defaults in your link::Classes/KometConfig::
+config file.
+
 ARGUMENT::numChannelsOut
 Number of output channels. Can either be an integer or a
 link::Classes/HoaOrder::. If the former (an integer), it will be interpreted as
@@ -35,7 +39,7 @@ Ambisonics mode.
 ARGUMENT::build
 Build all synthdefs
 
-ARGUMENT::withGui
+ARGUMENT::openGuiAfterInit
 Open the link::Classes/Komet*gui:: after the system has started.
 
 ARGUMENT::action

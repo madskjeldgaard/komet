@@ -1,0 +1,27 @@
+TITLE::KometConfig
+SUMMARY::Configuration file for the Komet syste,
+CATEGORIES::Komet
+RELATED::Classes/Komet
+
+DESCRIPTION::
+This class generates and manages the configuration file for Komet.
+
+To see and modify your config file: code::KometConfig.path.fullPath::
+
+CLASSMETHODS::
+METHOD::path
+A PathName containing the path of the configuration file.
+
+code::
+KometConfig.path.fullPath.load().postcs
+::
+
+METHOD::generateConfigFile
+This will generate a default config file. This happens automatically the first
+time you recompile the system after installation.
+
+EXAMPLES::
+
+CODE::
+//
+::
