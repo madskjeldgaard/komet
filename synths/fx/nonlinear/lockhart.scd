@@ -16,7 +16,7 @@ var desc = "A wavefolder",
     },
     type = \fx,
     category = \channelized,
-    basename = \lockwart,
+    basename = \lockhart,
     numChans = nil, // TODO: Not used
     specs = (
         gain: [0.0, 1.0],
