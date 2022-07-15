@@ -28,6 +28,10 @@ KometSynthLibExt{
         ^(this.thisPath() +/+ "synths" +/+ "parallel")
     }
 
+    *faust{
+        ^(this.thisPath() +/+ "faust")
+    }
+
     *initClass{
         Class.initClassTree(KometSynthLib);
         if((this.class != KometSynthLibExt) && (this.class != Meta_KometSynthLibExt), {
