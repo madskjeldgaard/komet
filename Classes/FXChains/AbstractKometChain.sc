@@ -243,16 +243,17 @@ AbstractKometChain : Singleton{
                     var numParams = pgc.numParameters;
 
                     dataItem[\vstArgs] = dataItem[\vstArgs] ?? {
-                        Array.newClear(numParams)
-                    };
+                        Array.newClear(numParams);
+                     };
 
                     numParams.do{|ind|
                         pgc.get(ind, {|val|
+                            // [ind, val].postln;
                             dataItem[\vstArgs][ind] =  val;
                         })
                     };
 
-                    Log(\komet).info( dataItem[\vstArgs]);
+                    // Log(\komet).info( dataItem[\vstArgs]);
 
                 })
             }
@@ -273,7 +274,7 @@ AbstractKometChain : Singleton{
         });
 
         Log(\komet).debug("Starting skipjack for chain %", this.name);
-        updateFunc.value(); // Call it before starting it to get the initial values
+        // updateFunc.value(); // Call it before starting it to get the initial values
         skipJack =  SkipJack.new(
             updateFunc:updateFunc,
             dt:updateInterval,
