@@ -19,7 +19,7 @@ var desc = "A wavefolder",
     basename = \lockhart,
     numChans = nil, // TODO: Not used
     specs = (
-        gain: [0.0, 1.0],
+        wavefold: [0.00001, 1.0],
         cells: [1, 10],
     );
 
