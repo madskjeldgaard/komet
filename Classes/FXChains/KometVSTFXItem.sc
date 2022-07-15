@@ -1,21 +1,24 @@
-// A convenience function to make sure the correct arguments are passed to fx chains
-KometFXItem[slot] {
+// A convenience function to make sure the correct arguments are passed to fx chains when using VSTPlugin
+KometVSTFXItem[slot] {
+    classvar <maxSize=4;
     var <data;
-    classvar <maxSize=3;
 
-    *new{|fxName, fxType, fxArgs|
-        ^super.new.init(fxName, fxType, fxArgs)
+    *new{|fxName, fxType, fxArgs, vstname|
+        ^super.new.init(fxName, fxType, fxArgs, vstname)
     }
 
-    init{|fxName, fxType, fxArgs|
+    init{|fxName, fxType, fxArgs, vstname|
         ^if(
             fxName.isKindOf(Symbol) &&
             fxType.isKindOf(Symbol) &&
-            fxArgs.isKindOf(SequenceableCollection), {
+            (vstname.isKindOf(Symbol) or: { vstname.isKindOf(String) }) &&
+            fxArgs.isKindOf(SequenceableCollection)
+            , {
                 data = Array.newClear(maxSize);
                 data.put(0, fxName);
                 data.put(1, fxType);
                 data.put(2, fxArgs);
+                data.put(3, vstname);
                 this
             }, {
                 Log(\komet).error("Could not make % instance", this.class.name);
@@ -40,4 +43,9 @@ KometFXItem[slot] {
     args{
         ^this.at(2)
     }
+
+    vstname{
+        ^this.at(3)
+    }
+
 }

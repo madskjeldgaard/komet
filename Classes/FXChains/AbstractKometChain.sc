@@ -114,10 +114,10 @@ AbstractKometChain : Singleton{
 
     setFXChain{|newChain|
         this.clear();
-        if(newChain.every{|fxitem| fxitem.class == KometFXItem} or: { newChain.size == 0}, {
+        if(newChain.every{|fxitem| fxitem.class == KometFXItem or: { fxitem.class == KometVSTFXItem }} or: { newChain.size == 0}, {
             // FIXME: do we want to carry over synth args from previous synths or clear them?
             newChain.do{|fxItem, index|
-                if(fxItem.class == KometFXItem, {
+                if(fxItem.class == KometFXItem or: { fxItem.class == KometVSTFXItem }, {
                     var name = fxItem.name;
                     var type = fxItem.type;
                     var args = fxItem.args;
@@ -131,10 +131,21 @@ AbstractKometChain : Singleton{
                             });
 
                             //  Converting to dict ensures no duplicates when setting new args
-                            data[index][\args] = args.asDict;
+                            data[index][\args] = (args ? []).asDict;
                             data[index][\fxName] = name;
                             data[index][\fxType] = type;
-                            data[index][\node] = nil;
+                            data[index][\node] = nil; // Node is set using the -initializeAllNodes method
+
+                            if(fxItem.class == KometVSTFXItem, {
+                                data[index][\vstname] = fxItem.vstname;
+                                data[index][\isVST] = true;
+                                data[index][\vstcontroller] = nil; // This will contain the actual controller, used by -initializeAllNodes
+                            }, {
+                                data[index][\vstname] = nil;
+                                data[index][\isVST] = false;
+                                data[index][\vstcontroller] = nil;
+                            });
+
                         }, {
                             Log(\komet).error(
                                 "%: basename % / type % does not exist",
@@ -179,12 +190,28 @@ AbstractKometChain : Singleton{
 
     setSynthAt{|index ... newArgs|
         if(Server.local.hasBooted, {
-        var args;
-        data[index][\args] = data[index][\args] ++ newArgs.asDict;
-        args = data[index][\args].asKeyValuePairs;
+            var args;
+            if(data[index].isNil.not, {
 
-        Log(\komet).debug("Setting synth at index % with args %", index, args);
-        this.synthAt(index).set(*args)
+                if(data[index][\args].isNil.not, {
+                    data[index][\args] = (data[index][\args] ++ newArgs).asDict;
+                }, {
+                    data[index][\args] = newArgs.asDict;
+                });
+
+                args = (data[index][\args] ? ()).asKeyValuePairs;
+
+                Log(\komet).debug("Setting synth at index % with args %", index, args);
+
+                if(this.synthAt(index).notNil, {
+                    this.synthAt(index).set(*args)
+                }, {
+                    Log(\komet).error("Could not find synth at index % ".format(index));
+                });
+
+            }, {
+                Log(\komet).error("Could not find any data at index % ".format(index));
+            })
 
         }, {
             Log(\komet).warning("%: Server hasn't booted", this.class.name);
@@ -213,7 +240,7 @@ AbstractKometChain : Singleton{
                 \synthDefName
             );
 
-            var args = dataItem[\args];
+            var args = data[index][\args];
 
             data[index][\node] = Synth(
                 synthDefName,
@@ -222,7 +249,47 @@ AbstractKometChain : Singleton{
                 addAction: \addToTail
             );
 
-            this.setSynthAt(index, args);
+            if(this.synthAt(index).isNil.not, {
+                this.setSynthAt(index, args);
+            }, {
+                Log(\komet).error("Synth at % is nil".format(index))
+            });
+
+            // VSTPlugin
+            // TODO: Server sync?
+            if(data[index][\isVST], {
+                Log(\komet).debug("FX Item at % is a vst: %".format(index, data[index][\vstname]));
+                Server.local.sync;
+
+                if(\VSTPluginController.asClass.notNil, {
+                    var controller;
+                    var vstname = data[index][\vstname];
+                    // Make a controller
+                    controller = \VSTPluginController.asClass.new(
+                        data[index][\node]
+                    );
+
+                    // Open the plugin using the controller and the node
+                    controller
+                    .open(vstname, action: {
+                        Log(\komet).debug("Opening vst plugin %".format(vstname));
+                        // TODO
+                        // var setArgs = savedParams.collect{|paramval, index| [index, paramval] }.flatten;
+                        //
+                        // Open plugin gui
+                        controller.editor;
+
+                        // TODO
+                        // Set parameters to old values
+                        // controller.set(*setArgs);
+                    },
+                    verbose: true
+                );
+
+                    data[index][\vstcontroller] = controller;
+                })
+            });
+
         }
     }
 }
