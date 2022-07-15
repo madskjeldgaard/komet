@@ -20,37 +20,52 @@ KometChainGUI {
 
         var chainButtons = chain.data.collect{|chainData, index|
             var fxname = chainData[\fxName];
-            var specsForSynth = KometSynthFuncDef(fxname).specs;
+            if(chainData[\isVST].not, {
+                // Not VSST
+                var specsForSynth = KometSynthFuncDef(fxname).specs;
 
-            var name = KometSmallTitle.new(win).string_(fxname);
-            var sliders = specsForSynth.collect{|value, argName|
-                var numberbox = KometNumberBox.new(win);
-                var spec = specsForSynth[argName.asSymbol] ?? [0.0,1.0].asSpec;
-                var initValue = chain.argsAt(index).asDict.at(argName) ? spec.default;
+                var name = KometSmallTitle.new(win).string_(fxname);
+                var sliders = specsForSynth.collect{|value, argName|
+                    var numberbox = KometNumberBox.new(win);
+                    var spec = specsForSynth[argName.asSymbol] ?? [0.0,1.0].asSpec;
+                    var initValue = chain.argsAt(index).asDict.at(argName) ? spec.default;
 
-                HLayout(*[
-                    [KometParameterText(win).string_(argName), s: 3],
-                    [KometSlider.new(win).
-                    action_({|obj|
-                        var val = obj.value;
+                    HLayout(*[
+                        [KometParameterText(win).string_(argName), s: 3],
+                        [KometSlider.new(win).
+                        action_({|obj|
+                            var val = obj.value;
 
-                        // Warped value
-                        val = spec.map(val);
-                        chain.setSynthAt(index, argName, val);
-                        numberbox.value_(val);
+                            // Warped value
+                            val = spec.map(val);
+                            chain.setSynthAt(index, argName, val);
+                            numberbox.value_(val);
+                        })
+                        .orientation_(\horizontal)
+                        .value_(
+                            spec.unmap(initValue)
+                        ), s: 4],
+                        [numberbox
+                            .value_(
+                                initValue
+                            ), s: 1],
+                        ])
+                    }.asArray;
+                    VLayout(name,  VLayout(*sliders))
+                }, {
+                    // VST
+                    var fxname = chainData[\fxName];
+                    var name = KometSmallTitle.new(win).string_(fxname.asString ++ ": " ++ chainData[\vstname]);
+                    VLayout(
+                        name,
+                        KometButton.new(win)
+                        .states_([["Open VST Gui"]])
+                        .action_({
+                            chainData[\vstcontroller].editor
                     })
-                    .orientation_(\horizontal)
-                    .value_(
-                        spec.unmap(initValue)
-                    ), s: 4],
-                    [numberbox
-                    .value_(
-                        initValue
-                    ), s: 1],
-                ])
-            }.asArray;
-            VLayout(name,  VLayout(*sliders))
 
+                    )
+            })
         }.asArray;
 
         var fxlist = KometButton.new(win).states_([["Add new fx"]]).action_({
