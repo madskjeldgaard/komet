@@ -47,6 +47,14 @@ Quarks.install("https://codeberg.org/madskjeldgaard/komet")
 
 This library makes use of a range of internal Faust plugins and external c++-plugins.
 
+### Extensions
+To make the main package lighter, some functionality has been moved to external and optional extensions. 
+
+Install them if you want their functionality as well:
+
+- [VSTPlugin support](https://codeberg.org/madskjeldgaard/kometvst)
+- [High order ambisonics support](https://codeberg.org/madskjeldgaard/komethoa)
+
 ### External plugins
 
 #### Faust plugins

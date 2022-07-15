@@ -1,6 +1,7 @@
 AbstractKometChain : Singleton{
     classvar fxItemSize=3;
     classvar freeBeforePlay=true;
+    var <skipJack;
     var <fxChain, <numChannels, <server, <group, <addAfter;
     var <data;
     var <initialized;
@@ -206,11 +207,11 @@ AbstractKometChain : Singleton{
                 if(this.synthAt(index).notNil, {
                     this.synthAt(index).set(*args)
                 }, {
-                    Log(\komet).error("Could not find synth at index % ".format(index));
+                    Log(\komet).warning("Could not find synth at index % ".format(index));
                 });
 
             }, {
-                Log(\komet).error("Could not find any data at index % ".format(index));
+                Log(\komet).warning("Could not find any data at index % ".format(index));
             })
 
         }, {
@@ -230,7 +231,61 @@ AbstractKometChain : Singleton{
         this.subclassResponsibility(thisMethod);
     }
 
+    // Used to poll the parameters of a vst plugin
+    startSkipJack{
+
+        // This function will poll the VST Plugin's parameters
+        // FIXME: This could definately be more effective
+        var updateFunc = {
+            data.do{|dataItem, index|
+                if(dataItem[\isVST] ? false,{
+                    var pgc = dataItem[\vstcontroller];
+                    var numParams = pgc.numParameters;
+
+                    dataItem[\vstArgs] = dataItem[\vstArgs] ?? {
+                        Array.newClear(numParams)
+                    };
+
+                    numParams.do{|ind|
+                        pgc.get(ind, {|val|
+                            dataItem[\vstArgs][ind] =  val;
+                        })
+                    };
+
+                    Log(\komet).info( dataItem[\vstArgs]);
+
+                })
+            }
+        };
+        // If there is no longer a vst in the chain, stop the SkipJack function
+        var stopTest = {
+            data.size
+            .collect{|ind| data[ind][\isVST] }
+            .any{|bool| bool }
+            .not
+        };
+
+        var updateInterval = 1;
+
+        // Stop if an instance exists
+        if(skipJack.notNil, {
+            SkipJack.stop(this.name);
+        });
+
+        Log(\komet).debug("Starting skipjack for chain %", this.name);
+        updateFunc.value(); // Call it before starting it to get the initial values
+        skipJack =  SkipJack.new(
+            updateFunc:updateFunc,
+            dt:updateInterval,
+            stopTest:stopTest,
+            name:this.name,
+            autostart:true
+        );
+
+    }
+
     initializeAllNodes{
+        var hasVST = false;
         Log(\komet).debug("initializing nodes for %", this.class.name);
         data.do { |dataItem, index|
             var synthDefName = KometSynthLib.at(
@@ -271,25 +326,38 @@ AbstractKometChain : Singleton{
 
                     // Open the plugin using the controller and the node
                     controller
-                    .open(vstname, action: {
+                    .open(vstname,
+                        action: {
                         Log(\komet).debug("Opening vst plugin %".format(vstname));
-                        // TODO
-                        // var setArgs = savedParams.collect{|paramval, index| [index, paramval] }.flatten;
-                        //
-                        // Open plugin gui
-                        controller.editor;
 
-                        // TODO
+                        // Open plugin gui
+                        if(data[index][\editor] ? false, {
+                            controller.editor;
+                        });
+
                         // Set parameters to old values
-                        // controller.set(*setArgs);
+                        if(data[index][\vstArgs].notNil, {
+                            data[index][\vstArgs].do{|val, ind|
+                                controller.set(ind, val);
+                            }
+                        });
                     },
                     verbose: true
                 );
-
                     data[index][\vstcontroller] = controller;
                 })
             });
 
-        }
+        };
+
+        hasVST = data.size
+            .collect{|ind| data[ind][\isVST] }
+            .any{|bool| bool };
+
+        if(hasVST, {
+            Log(\komet).debug("This chain has VST (%). Setting background task".format(hasVST));
+            this.startSkipJack();
+        });
+
     }
 }
