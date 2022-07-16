@@ -108,41 +108,7 @@ Komet {
                     });
 
                     Server.local.waitForBoot{
-
-                        this.prLoadResources();
-                        Server.local.sync;
-
-                        if(build ? KometConfig.config[\build], {
-                            this.build(kometChans);
-                        }, {
-                            synthFactory = KometSynthFactory.new(kometChans, rebuild: false);
-                            fxFactory = KometFXFactory.new(kometChans, rebuild: false);
-                        });
-
-                        Server.local.sync;
-                        1.wait;
-                        this.prSetupChains();
-
-                        // Open gui after boot
-                        if(openGuiAfterInit ? KometConfig.config[\openGuiAfterInit], {
-                            this.gui()
-                        });
-
-                        // Call action when booted
-                        Server.local.sync;
-                        if(action.notNil, {
-                            action.value();
-                        });
-
-                        // Call extension actions
-                        KometSynthLibExt.allSubclasses.do{|extClass|
-                            Server.local.sync;
-                            extClass.postInit()
-                        };
-
-                        Server.local.sync;
-                        initialized = true;
-
+                        this.prDoWhenBooted(numChannelsOut, build, openGuiAfterInit, action, loglevel, kometChans);
                         // Done
                         Log(\komet).info("DONE LOADING");
                     }
@@ -155,6 +121,46 @@ Komet {
         }, {
             Log(\komet).warning("Already initialized. Not starting again.")
         })
+    }
+
+    // This is where the actual init happens after server is booted
+    // It runs in a fork
+    *prDoWhenBooted{|numChannelsOut, build, openGuiAfterInit, action, loglevel, kometChans|
+
+        this.prLoadResources();
+        Server.local.sync;
+
+        if(build ? KometConfig.config[\build], {
+            this.build(kometChans);
+        }, {
+            synthFactory = KometSynthFactory.new(kometChans, rebuild: false);
+            fxFactory = KometFXFactory.new(kometChans, rebuild: false);
+        });
+
+        Server.local.sync;
+        1.wait;
+        this.prSetupChains();
+
+        // Open gui after boot
+        if(openGuiAfterInit ? KometConfig.config[\openGuiAfterInit], {
+            this.gui()
+        });
+
+        // Call action when booted
+        Server.local.sync;
+        if(action.notNil, {
+            action.value();
+        });
+
+        // Call extension actions
+        KometSynthLibExt.allSubclasses.do{|extClass|
+            Server.local.sync;
+            extClass.postInit()
+        };
+
+        Server.local.sync;
+        initialized = true;
+
     }
 
     *browse{
