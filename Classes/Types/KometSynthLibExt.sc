@@ -44,4 +44,8 @@ KometSynthLibExt{
             KometSynthLib.files[\parfx] = KometSynthLib.files[\parfx] ++ this.parfx().folders.collect{|dir| dir.files}.flatten;
         })
     }
+
+    *postInit{
+
+    }
 }

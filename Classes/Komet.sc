@@ -134,6 +134,12 @@ Komet {
                             action.value();
                         });
 
+                        // Call extension actions
+                        KometSynthLibExt.allSubclasses.do{|extClass|
+                            Server.local.sync;
+                            extClass.postInit()
+                        };
+
                         Server.local.sync;
                         initialized = true;
 
