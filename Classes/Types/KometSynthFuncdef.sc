@@ -13,6 +13,10 @@ KometSynthFuncDef : Singleton{
         ^this.all.select{|synt| synt.type == thistype }
     }
 
+    *allOfCategory{|thiscategory|
+        ^this.all.select{|synt| synt.category == thiscategory }
+    }
+
     *initClass{
         supportedTypes = [\fx, \synth]
     }
