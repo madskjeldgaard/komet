@@ -7,7 +7,7 @@ var desc = "A simple high pass filter",
 
             Array.fill(numChannels, {|chanNum|
                 var sig = in[chanNum];
-                HPF.ar(in, freq.klag(lagTime))
+                HPF.ar(sig, freq.klag(lagTime))
             });
 
         }
