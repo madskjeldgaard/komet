@@ -8,6 +8,7 @@
 * - Preset
 */
 KometChainGUI {
+    var fxNameList, removeablefxNameList;
 
     *new{|chain|
         ^super.new.gui(chain);
@@ -58,21 +59,34 @@ KometChainGUI {
                     var name = KometSmallTitle.new(win).string_(fxname.asString ++ ": " ++ chainData[\vstname]);
                     VLayout(
                         name,
-                        KometButton.new(win)
-                        .states_([["Open VST Gui"]])
-                        .action_({
-                            chainData[\vstcontroller].editor
-                    })
-
+                        HLayout(
+                            KometButton.new(win)
+                            .states_([["Open VST editor"]])
+                            .action_({
+                                chainData[\vstcontroller].editor
+                            }),
+                            KometButton.new(win)
+                            .states_([["Open VST gui"]])
+                            .action_({
+                                chainData[\vstcontroller].gui
+                            }),
+                        )
                     )
             })
         }.asArray;
+        var fxlist, removeFX;
 
-        var fxlist = KometButton.new(win).states_([["Add new fx"]]).action_({
+        // The possible list of fx to be added
+        fxNameList = KometSynthFuncDef.allOfType(\fx).collect{|fff| fff.name }.asArray;
+
+        // The list of fx that may be removed
+        removeablefxNameList = chain.fxChain.collect{|ff| ff.name}.asArray;
+
+        fxlist = KometButton.new(win).states_([["Add new fx"]]).action_({
             this.prGUIAddNewFX(chain, win)
         });
 
-        var removeFX = KometButton.new(win).states_([["Remove fx"]]).action_({
+        removeFX = KometButton.new(win).states_([["Remove fx"]]).action_({
             this.prGUIRemoveFX(chain, win)
         });
 
@@ -83,12 +97,15 @@ KometChainGUI {
     }
 
     prGUIRemoveFX{|chain, parentwin|
-        var name = chain.name;
-        var title = "Remove FX from KometChain %".format(name);
-        var win = KometWindow.new(title);
-        var possibleFX = chain.fxChain.collect{|ff| ff.name}.asArray;
-        var list = ListView.new(parent:win).items_(possibleFX);
-        var buttons = HLayout(
+        var name, title, win, possibleFX, list, buttons, layout;
+        name = chain.name;
+        title = "Remove FX from KometChain %".format(name);
+        win = KometWindow.new(title);
+        // Refresh list of currently removeable effects
+        removeablefxNameList = chain.fxChain.collect{|ff| ff.name}.asArray;
+        possibleFX = removeablefxNameList;
+        list = ListView.new(parent:win).items_(possibleFX);
+        buttons = HLayout(
             KometButton.new(win).states_([["Remove"]]).action_({
                 var index = list.selection;
                 var selectedFX = possibleFX[index][0]; // 0 index is hardcoded because this gui will return an array
@@ -96,13 +113,14 @@ KometChainGUI {
 
                 win.close();
                 parentwin.close();
+                // Refresh list of removeables
                 this.gui(chain);
             }),
             KometButton.new(win).states_([["Cancel"]]).action_({
                 win.close()
             }),
         );
-        var layout = VLayout(KometSmallTitle(win).string_(title), list, buttons);
+        layout = VLayout(KometSmallTitle(win).string_(title), list, buttons);
         win.layout = layout;
         win.front;
 
@@ -112,7 +130,7 @@ KometChainGUI {
         var name = chain.name;
         var title = "Add new FX to KometChain %".format(name);
         var win = KometWindow.new(title);
-        var possibleFX = KometSynthFuncDef.allOfType(\fx).collect{|fff| fff.name }.asArray;
+        var possibleFX = fxNameList;
         var list = ListView.new(parent:win).items_(possibleFX);
         var buttons = HLayout(
             KometButton.new(win).states_([["Add to tail"]]).action_({
