@@ -12,8 +12,7 @@ AbstractKometChain : Singleton{
                 fxchain.notNil, {
 
                     if(KometFXFactory.initialized.not || (KometSynthLib.global[\fx].size == 0), {
-                        Log(\komet).warning( "%: KometFXFactory not initialized. Building it now", this.class.name);
-                        KometFXFactory.new(KometChannels.new(numchannels), true);
+                        Log(\komet).error( "%: KometFXFactory not initialized. Building it now", this.class.name);
                     });
 
                     // Prioritize new node, otherwise value in instance and then group 1 as default
