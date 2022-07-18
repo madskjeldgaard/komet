@@ -44,6 +44,29 @@ Open the link::Classes/Komet*gui:: after the system has started.
 
 ARGUMENT::action
 A function that will be evaluated when the system is ready.
+If the function depends on the synths being fully set up, you need a fork and
+serversync like so:
+code::
+(
+Komet.start(
+    2,
+    true,
+    action: {
+        forkIfNeeded{
+            Server.local.sync;
+            KometMainChain(\main, [
+                KometFXItem.new(
+                    fxName:\hpf,
+                    fxType:\channelized,
+                    fxArgs:[]),
+                ],
+                Komet.numChannels
+            )
+        }
+    }
+)
+)
+::
 
 argument::logLevel
 Set the log level of the link::Classes/Log::ger used to post information. This
