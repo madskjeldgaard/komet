@@ -32,6 +32,12 @@ AbstractKometChain : Singleton{
                     if(freeBeforePlay, {
                         this.free();
                     });
+
+                    if(data.size > 0, {
+                        Log(\komet).debug( "%: data not empty, clearing it before setting new chain.".format( this.class.name));
+                        this.clear();
+                    });
+
                     this.setFXChain(fxchain);
                     fxchain.do{|fx, thisindex|
                         this.setSynthAt(thisindex, *fx.args)
