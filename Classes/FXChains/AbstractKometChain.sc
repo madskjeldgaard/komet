@@ -9,8 +9,7 @@ AbstractKometChain : Singleton{
     set{|fxchain, numchannels, addAfterNode|
             if(
                 fxchain.isArray &&
-                fxchain.notNil &&
-                numchannels.notNil, {
+                fxchain.notNil, {
 
                     if(KometFXFactory.initialized.not || (KometSynthLib.global[\fx].size == 0), {
                         Log(\komet).warning( "%: KometFXFactory not initialized. Building it now", this.class.name);
@@ -23,11 +22,7 @@ AbstractKometChain : Singleton{
                     Log(\komet).debug("%, setting Singleton", this.class.name);
 
                     fxChain = fxchain;
-                    numChannels = numchannels;
-
-                    if(KometFXFactory.initialized.not, {
-                        KometFXFactory.new(numChannels)
-                    });
+                    numChannels = numchannels ? Komet.numChannels;
 
                     if(freeBeforePlay, {
                         this.free();
