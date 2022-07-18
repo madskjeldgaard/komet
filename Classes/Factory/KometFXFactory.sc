@@ -39,7 +39,8 @@ KometFXFactory : AbstractKometFactory {
     *prAddSynthDef{|kometSynthFuncDef|
         if(kometSynthFuncDef.category == \hoa && kometChannels.isAmbisonics.not, {
             // Skip if Komet is not in HOA mode and the synthdef is a hoa one
-            Log(\komet).debug("Skipping kometSynthFuncDef % because Komet is not in HOA mode and it is a HOA synth", kometSynthFuncDef.name);
+            Log(\komet).debug("Skipping and clearing kometSynthFuncDef % because Komet is not in HOA mode and it is a HOA synth", kometSynthFuncDef.name);
+            kometSynthFuncDef.clear();
         }, {
 
             var synthdefname = kometSynthFuncDef.synthdefName();
