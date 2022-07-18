@@ -66,7 +66,9 @@ AbstractKometChain : Singleton{
                 thisNode.free;
                 data[index][\node] = nil;
             })
-        }
+        };
+
+        this.clear();
     }
 
     clear{
