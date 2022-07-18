@@ -126,7 +126,7 @@ KometSynthFuncDef : Singleton{
     }
 
     synthdefName{|...args|
-        var out = "komet";
+        var out = Komet.synthDefPrefix;
         ([type, this.name, category, channels] ++ args).do{|thisArg|
             if(thisArg.notNil, {
                 out = out ++ "_" ++ thisArg.asString;

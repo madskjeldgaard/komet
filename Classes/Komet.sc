@@ -5,6 +5,7 @@ Komet {
     classvar <initialized=false;
     classvar <recorder;
     classvar <mode;
+    classvar <synthDefPrefix="komet";
 
     classvar <binauralCIPICDecoder, <binauralListenDecoder, <>cipicID=21, <>listenID=1017, <foaencodermatrix, <foadecoderkernelUHJ;
     classvar <order;
@@ -63,10 +64,9 @@ Komet {
             Platform.userAppSupportDir +/+ "synthdefs"
         ).files.do{|file|
             if(
-                file.fileName.beginsWith(KometSynthFactory.synthDefPrefix) ||
-                file.fileName.beginsWith(KometFXFactory.synthDefPrefix), {
+                file.fileName.beginsWith(synthDefPrefix), {
                 Log(\komet).info("CLEAN: Deleting %", file.fileName);
-                // File.delete(file)
+                File.delete(file.fullPath)
             })
         }
     }
