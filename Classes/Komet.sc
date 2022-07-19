@@ -174,7 +174,7 @@ Komet {
         premainchain = KometConfig.config[\chains][\preMain].collect{|i| i.asKometFXItem} ?? [];
         KometMainChain(\preMain, premainchain, numChannels, addAfter);
 
-        KometMainChain(\main, KometConfig.config[\chains][\main].collect{|i| i.asKometFXItem}, numChannels, KometMainChain(\preMain).group);
+        KometMainChain(\main, KometConfig.config[\chains][\main].collect{|i| i.asKometFXItem} ?? [], numChannels, KometMainChain(\preMain).group);
 
     // Add a decoder chain after the other ones if in hoa mode
     if(mode == \hoa, {
