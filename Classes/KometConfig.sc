@@ -29,6 +29,7 @@ KometConfig{
         main: [
             [\eq3, \channelized, []],
             [\leakdc, \channelized, []],
+            [\safetylimiter, \channelized, []],
         ],
         decoder: [
             [\binaurallistendecoder, \hoa, []]

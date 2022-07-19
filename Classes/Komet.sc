@@ -147,7 +147,10 @@ Komet {
         });
 
         // Call action when booted
+        // FIXME: This needs a fork and server.local.sync externally to work.
+        // For now we are manually waiting but that sucks.
         Server.local.sync;
+        1.wait;
         if(action.notNil, {
             action.value();
         });
