@@ -1,7 +1,7 @@
 (
   name: "komet",
   summary: "Komet is a computer music / sound system by Mads Kjeldgaard",
-  version: "0.1.6",
+  version: "0.1.6B",
   schelp: "Komet",
   dependencies: [
 	  "atk-sc3",
