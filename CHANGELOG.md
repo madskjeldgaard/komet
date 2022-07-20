@@ -1,4 +1,37 @@
 # Changelog
+## [0.1.5] - 2022-07-19
+
+### Bug Fixes
+
+- Typo in name of \lockhart
+- Faust files not picked up in extensions
+- Lockhart specs wrongly named
+- \hpf collapsed stereo to mono
+- *clean not working
+- Clear kometchain after free
+- Clear before setting chain
+- Make channels optional in AbstractKometChain
+- Chain shouldn't build library
+- HOA synthffuncdefs not purged in non-hoa mode
+- Chain gui sometimes had wrong indices when adding/removing
+- Main chain not set if config empty
+
+### Documentation
+
+- Add info about action
+
+### Features
+
+- Add config file
+- Add basic VST fx plugin support
+- Add vst gui to chain gui
+- Add KometSynthFuncDef*allOfCategory
+- Add *postInit to extension
+- Add freeverb synth
+- Add Madstorro reverb
+- Add KometDelay
+- Add SafetyLimiter and add it to default chain
+
 ## [0.1.4] - 2022-07-10
 
 ### Bug Fixes
