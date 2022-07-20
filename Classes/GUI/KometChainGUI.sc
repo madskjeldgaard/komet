@@ -109,12 +109,19 @@ KometChainGUI {
             KometButton.new(win).states_([["Remove"]]).action_({
                 var index = list.selection;
                 var selectedFX = possibleFX[index][0]; // 0 index is hardcoded because this gui will return an array
-                chain.class.all[chain.name].removeFX(index[0]);
 
-                win.close();
-                parentwin.close();
-                // Refresh list of removeables
-                this.gui(chain);
+                if(selectedFX.notNil, {
+                    chain.class.all[chain.name].removeFX(index[0]);
+
+                    win.close();
+                    parentwin.close();
+                    // Refresh list of removeables
+                    this.gui(chain);
+
+                }, {
+                    Log(\komet).error("Selected FX not found")
+                })
+
             }),
             KometButton.new(win).states_([["Cancel"]]).action_({
                 win.close()

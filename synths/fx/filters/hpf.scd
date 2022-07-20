@@ -10,7 +10,9 @@ var desc = "A simple high pass filter",
     category = \channelized,
     basename = \hpf,
     numChans = nil, // TODO: Not used
-    specs = ();
+    specs = (
+        freq: Spec.specs[\freq]
+    );
 
 KometSynthFuncDef(
     basename,
