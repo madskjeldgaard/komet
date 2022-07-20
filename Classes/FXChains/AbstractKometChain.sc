@@ -114,9 +114,9 @@ AbstractKometChain : Singleton{
     }
 
     setFXChain{|newChain|
+        this.free();
         this.clear();
         if(newChain.every{|fxitem| fxitem.class == KometFXItem or: { fxitem.class == KometVSTFXItem }} or: { newChain.size == 0}, {
-            // FIXME: do we want to carry over synth args from previous synths or clear them?
             newChain.do{|fxItem, index|
                 if(fxItem.class == KometFXItem or: { fxItem.class == KometVSTFXItem }, {
                     var name = fxItem.name;
