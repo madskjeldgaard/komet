@@ -2,14 +2,8 @@
 var desc = "A simple high pass filter",
     func = {|numChannels|
         {|in, freq=100|
-
             var lagTime = \lagTime.kr(1);
-
-            Array.fill(numChannels, {|chanNum|
-                var sig = in[chanNum];
-                HPF.ar(sig, freq.klag(lagTime))
-            });
-
+            HPF.ar(in, freq.klag(lagTime))
         }
     },
     type = \fx,
