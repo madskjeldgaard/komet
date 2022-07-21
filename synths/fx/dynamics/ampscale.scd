@@ -2,7 +2,7 @@
 var desc = "Literally just an amplitude scale",
     func = {|numChannels|
         {|in, ampScale=1|
-            in * ampScale
+            in * ampScale.poll
         }
     },
     type = \fx,
