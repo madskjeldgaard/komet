@@ -79,7 +79,7 @@ KometSynthFactory : AbstractKometFactory {
                   KometSynthLib.put(type, category, envType, filterType, baseName, \synthDef, synthdef);
                   KometSynthLib.put(type, category, envType, filterType, baseName, \kometSynthFuncDef, kometSynthFuncDef);
 
-                  Log(\komet).info("Added SynthDef % and loading it now", synthdefname);
+                  Log(\komet).debug("Added SynthDef % and loading it now", synthdefname);
 
                   // Save to disk and load the synthdef
                   synthdef.load;
