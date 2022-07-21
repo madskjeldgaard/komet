@@ -79,7 +79,7 @@ KometFXFactory : AbstractKometFactory {
                 );
 
                 sig = XFade2.ar(clean, sig, drywet.linlin(0.0,1.0,-1.0,1.0));
-                ReplaceOut.ar(out, sig * fadeIn);
+                Out.ar(out, sig * fadeIn);
             };
 
             var synthdef = SynthDef(synthdefname, builtFunc);
