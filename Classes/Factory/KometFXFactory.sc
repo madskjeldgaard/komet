@@ -95,11 +95,11 @@ KometFXFactory : AbstractKometFactory {
             KometSynthLib.put(type, category, baseName, \synthDef, synthdef);
             KometSynthLib.put(type, category, baseName, \kometSynthFuncDef, kometSynthFuncDef);
 
-            Log(\komet).info("Added SynthDef %", synthdefname);
-            Log(\komet).info("\t %", kometSynthFuncDef.text);
+            Log(\komet).debug("Added SynthDef %", synthdefname);
+            Log(\komet).debug("\t %", kometSynthFuncDef.text);
 
             if(forceRebuild, {
-                Log(\komet).info("Loading SynthDef %", synthdefname);
+                Log(\komet).debug("Loading SynthDef %", synthdefname);
                 // Save to disk and load the synthdef
                 synthdef.load;
             })
