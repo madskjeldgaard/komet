@@ -24,6 +24,9 @@ KometFXFactory : AbstractKometFactory {
 
                 result = this.loadSourceFunctions(KometSynthLib.files[\fx]);
 
+                // Add send, etc.
+                this.prAddBasicSynthDefs();
+
                 if(result, {
                     initialized = true;
                 }, {
@@ -33,6 +36,35 @@ KometFXFactory : AbstractKometFactory {
         }, {
             Log(\komet).error("%: Not a valid KometChannel".format(this.class.name));
         })
+
+    }
+
+    *prAddBasicSynthDefs{
+        this.prAddSendSynthDef();
+    }
+
+    *prAddSendSynthDef{
+        Log(\komet).debug("Adding komet_send synthdef");
+
+        SynthDef.new(\komet_send, {|inbus, outbus, level=1, fadeInTime=1.0, fadeOutTime=8, gate=1|
+            // FIXME: Fade is only used to free synth. Messy!!
+            var fadeIn = EnvGen.kr(
+                envelope:Env.new([0,1,0], [fadeInTime, fadeOutTime], releaseNode: 1),
+                gate:gate,
+                doneAction:\doneAction.ir(0)
+            );
+
+            var clean = In.ar(
+                bus:inbus,
+                numChannels:kometChannels.numChannels
+            );
+
+            var sig = clean;
+
+            sig = sig * level;
+
+            Out.ar(outbus, sig);
+        }).add;
 
     }
 
@@ -63,6 +95,7 @@ KometFXFactory : AbstractKometFactory {
 
                 var sig = clean;
 
+                // Apply the FX
                 sig = SynthDef.wrap(
                     switch (category,
                         \channelized, {
@@ -79,7 +112,9 @@ KometFXFactory : AbstractKometFactory {
                 );
 
                 sig = XFade2.ar(clean, sig, drywet.linlin(0.0,1.0,-1.0,1.0));
-                ReplaceOut.ar(out, sig * fadeIn);
+                sig = sig * fadeIn;
+
+                ReplaceOut.ar(out, sig);  // "maintains on own bus"
             };
 
             var synthdef = SynthDef(synthdefname, builtFunc);
