@@ -42,7 +42,8 @@ KometSynthFactory : AbstractKometFactory {
                       // Skip if Komet is not in HOA mode and the synthdef is a hoa one
                       Log(\komet).debug("Skipping kometSynthFuncDef % because Komet is not in HOA mode and it is a HOA synth", kometSynthFuncDef.name);
                   }, {
-                  var synthdefname = kometSynthFuncDef.synthdefName(envType, filterType);
+                  // var synthdefname = kometSynthFuncDef.synthdefName(envType, filterType);
+                  var synthdefname = Komet.synthdefName(kometSynthFuncDef.type, kometSynthFuncDef.name, kometSynthFuncDef.category, envType, filterType);
 
                   // No VCA and no Out-UGen (makes it useful in Ndefs)
                   var rawFunc = { | dur=1, amp=0.25|

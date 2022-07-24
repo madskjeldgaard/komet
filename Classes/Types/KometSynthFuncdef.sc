@@ -2,9 +2,9 @@
 KometSynthFuncDef : Singleton{
     classvar <supportedTypes;
     var <func,
-        <type,
-        <category,
-        <channels,
+        <>type,
+        <>category,
+        <>channels,
         <text,
         <>specs,
         <checkFunc;
@@ -94,9 +94,6 @@ KometSynthFuncDef : Singleton{
             };
             checkFunc = check;
 
-            // To avoid duplicates
-            // name = name.asString ++ type.asString ++ category.asString ++ channels.asString;
-
             if(all.keys.includes(name), {
                 Log(\komet).info("Warning: % already exists for key %. Overwriting it.", this.class.name, name);
             });
@@ -125,15 +122,14 @@ KometSynthFuncDef : Singleton{
 
     }
 
+    // Used to generate and fetch all synthdef names in Komet
     synthdefName{|...args|
-        var out = Komet.synthDefPrefix;
-        ([type, this.name, category, channels] ++ args).do{|thisArg|
-            if(thisArg.notNil, {
-                out = out ++ "_" ++ thisArg.asString;
-            })
-        };
-
-        ^out.asSymbol
-
+        ^Komet.synthdefName(
+            [
+                type,
+                this.name,
+                category,
+            ] ++ args
+        )
     }
 }

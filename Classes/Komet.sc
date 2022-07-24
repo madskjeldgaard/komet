@@ -127,6 +127,7 @@ Komet {
     // It runs in a fork
     *prDoWhenBooted{|numChannelsOut, build, openGuiAfterInit, action, loglevel, kometChans|
 
+        KometEvents.addEventTypes();
         this.prLoadResources();
         Server.local.sync;
 
@@ -258,5 +259,41 @@ Komet {
                 Synth.tail(group, KometSynthFuncDef(withFX).synthdefName, fxArgs)
             });
         }
+    }
+
+    // Return the name of a synth
+    *getSynth{|name, category, env, filter|
+        ^this.synthdefName('synth', name, category, env, filter)
+    }
+
+    // Return the name of an fx
+    *getFX{|name, category, env, filter|
+        ^this.synthdefName('fx', name, category)
+    }
+
+    // Used to generate and fetch all synthdef names in Komet
+    *synthdefName{|...args|
+        var prefix = Komet.synthDefPrefix;
+        ^(
+            // [
+            //     prefix,
+            //     type,
+            //     this.name,
+            //     category,
+            // ]
+        [Komet.synthDefPrefix.asString]
+        ++ args
+        ++ [
+                Komet.order().notNil.if(
+                    {
+                        "O" ++ Komet.order()
+                    },
+                    {
+                        Komet.numChannels
+                    }
+                ) ?? { 
+                    ""
+                }
+        ]).join("_").asSymbol
     }
 }

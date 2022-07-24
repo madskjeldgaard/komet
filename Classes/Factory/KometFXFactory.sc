@@ -75,10 +75,12 @@ KometFXFactory : AbstractKometFactory {
             kometSynthFuncDef.clear();
         }, {
 
-            var synthdefname = kometSynthFuncDef.synthdefName();
+            // var synthdefname = kometSynthFuncDef.synthdefName();
             var type = kometSynthFuncDef.type;
             var category = kometSynthFuncDef.category;
             var baseName = kometSynthFuncDef.name;
+
+            var synthdefname = Komet.synthdefName(kometSynthFuncDef.type, kometSynthFuncDef.name, kometSynthFuncDef.category);
             var builtFunc = {|out, drywet=1.0, fadeInTime=1.0, fadeOutTime=8, gate=1|
 
                 // var fadeIn = Line.ar(0,1,fadeInTime);
