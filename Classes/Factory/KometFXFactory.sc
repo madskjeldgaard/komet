@@ -46,7 +46,7 @@ KometFXFactory : AbstractKometFactory {
     *prAddSendSynthDef{
         Log(\komet).debug("Adding komet_send synthdef");
 
-        SynthDef.new(\komet_send, {|inbus, outbus, level=1, fadeInTime=1.0, fadeOutTime=8, fadeInCurve=\lin, fadeOutCurve=\lin, gate=1|
+        SynthDef.new(\komet_send, {|inbus, outbus, level=1, fadeInTime=0.0, fadeOutTime=0.0, fadeInCurve=\lin, fadeOutCurve=\lin, gate=1|
             // FIXME: Fade is only used to free synth. Messy!!
             var fadeIn = EnvGen.kr(
                 envelope:Env.new(
@@ -86,7 +86,7 @@ KometFXFactory : AbstractKometFactory {
             var baseName = kometSynthFuncDef.name;
 
             var synthdefname = Komet.synthdefName(kometSynthFuncDef.type, kometSynthFuncDef.name, kometSynthFuncDef.category);
-            var builtFunc = {|out, drywet=1.0, fadeInTime=1.0, fadeOutTime=8, fadeInCurve=\lin, fadeOutCurve=\lin, gate=1|
+            var builtFunc = {|out, drywet=1.0, fadeInTime=0.0, fadeOutTime=0.0, fadeInCurve=\lin, fadeOutCurve=\lin, gate=1|
 
                 // var fadeIn = Line.ar(0,1,fadeInTime);
                 var fadeIn = EnvGen.kr(
