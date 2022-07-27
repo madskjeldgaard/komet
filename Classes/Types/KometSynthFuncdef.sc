@@ -125,7 +125,7 @@ KometSynthFuncDef : Singleton{
     // Used to generate and fetch all synthdef names in Komet
     synthdefName{|...args|
         ^Komet.synthdefName(
-            [
+            *[
                 type,
                 this.name,
                 category,
