@@ -12,7 +12,7 @@ var desc = "A feedback delay with a lowpass filter and limiter in feedback path"
                     delay: delay.klag(lagTime) * spread,
                     feedback: feedback.klag(lagTime),
                     interpolation: interpolation.klag(lagTime),
-                    freq: filterAmount.klag(lagTime),
+                    freq: (1.0-filterAmount).klag(lagTime),
                     q: q.klag(lagTime),
                 );
 
