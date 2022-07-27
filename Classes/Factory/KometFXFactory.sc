@@ -132,9 +132,11 @@ KometFXFactory : AbstractKometFactory {
             var synthdef = SynthDef(synthdefname, builtFunc);
 
             // Add default specs
-            kometSynthFuncDef.specs = kometSynthFuncDef.specs.put(\drywet, [0.0, 1.0, \lin, nil, 1].asSpec);
-            kometSynthFuncDef.specs = kometSynthFuncDef.specs.put(\fadeInTime, [0.0001, 10.0, \exp, nil, 1].asSpec);
-            kometSynthFuncDef.specs = kometSynthFuncDef.specs.put(\fadeOutTime, [0.0001, 10.0, \exp, nil, 8].asSpec);
+            kometSynthFuncDef.specs = kometSynthFuncDef.specs.put(\drywet, KometSpecs.specs[\drywet]);
+            kometSynthFuncDef.specs = kometSynthFuncDef.specs.put(\lagTime, KometSpecs.specs[\lagTime]);
+            kometSynthFuncDef.specs = kometSynthFuncDef.specs.put(\fadeCurve, KometSpecs.specs[\fadeCurve]);
+            kometSynthFuncDef.specs = kometSynthFuncDef.specs.put(\fadeInTime, KometSpecs.specs[\fadeTime]);
+            kometSynthFuncDef.specs = kometSynthFuncDef.specs.put(\fadeOutTime, KometSpecs.specs[\fadeTime]);
 
             KometSynthLib.put(type, category, baseName, \rawFunc, kometSynthFuncDef.func);
             KometSynthLib.put(type, category, baseName, \builtFunc, builtFunc);
