@@ -10,16 +10,16 @@ KometSpecs {
     *addSpecs{
         specs = (
             lagTime: ControlSpec.new(
-                minval: 0.0, maxval: 20.0, warp: 'exp', step: 0.0, default: 1.0
+                minval: 0.00001, maxval: 20.0, warp: 'exp', step: 0.0, default: 1.0
             ),
             spread: ControlSpec.new(
                 minval: 0.0, maxval: 1.0, warp: 'lin', step: 0.0, default: 0.0
             ),
             lfofreq: ControlSpec.new(
-                minval: 0.0, maxval: 100.0, warp: 'exp', step: 0.0, default: 0.1
+                minval: 0.0001, maxval: 100.0, warp: 'exp', step: 0.0, default: 0.1
             ),
             freqOffset: ControlSpec.new(
-                minval: 0.0, maxval: 100.0, warp: 'exp', step: 0.0, default: 0.0
+                minval: 0.000001, maxval: 100.0, warp: 'exp', step: 0.0, default: 0.0
             ),
             attack: [0.00001,100.0],
             release: [0.00001,100.0],
