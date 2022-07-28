@@ -69,7 +69,7 @@ KometFXFactory : AbstractKometFactory {
             sig = sig * level;
 
             Out.ar(outbus, sig);
-        }).add;
+        }).load;
 
     }
 
