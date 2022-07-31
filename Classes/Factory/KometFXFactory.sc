@@ -15,14 +15,15 @@ KometFXFactory : AbstractKometFactory {
         if(channels.isKometChannel, {
             if(channels.check(), {
                 var result;
+
+                kometChannels = channels;
                 if(forceRebuild.not, {
                     "Not rebuilding %. Reading defaults from SynthDescLib.".format(this.name).warn;
                     SynthDescLib.read();
+                    result = true;
+                }, {
+                    result = this.loadSourceFunctions(KometSynthLib.files[\fx]);
                 });
-
-                kometChannels = channels;
-
-                result = this.loadSourceFunctions(KometSynthLib.files[\fx]);
 
                 // Add send, etc.
                 this.prAddBasicSynthDefs();
