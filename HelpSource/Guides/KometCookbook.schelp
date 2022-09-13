@@ -330,3 +330,60 @@ ServerTree.add(~initVSTPlugins);
 
 )
 ::
+
+SECTION:: Concrete music
+
+SUBSECTION::Play a folder of concrete sounds using a pattern
+code::
+(
+Komet.start(2, true, action: {
+    // Load a folder of files after startup
+    b = BufFiles.new(s, "/Volumes/ mklacie1/sounds/ellenpiano");
+});
+)
+(
+// Play files in a pattern
+Pdef(\konkret,
+    Pbind(
+        \type, \k,
+
+        \base, \sampler2,
+        \env, \none,
+        \filter, \none,
+        \category, \buffer,
+
+		\amp, 0.5,
+
+        \buffer, b.asPrand(inf),
+
+        \rate, Pwhite(0.25,3.0),
+        \rateOffset, 0.0,
+        \loop, 0.0,
+
+        // Play full duration of sample
+        \fullSampleDur, Pfunc({|ev| ev[\buffer].duration / ev[\rate] }),
+        \dur, Pkey(\fullSampleDur),
+
+        // Use delta so that the synth can be passed the full sample duration
+        \delta, Pexprand(0.125, 1.75) * Pseq([1, Rest()], inf),
+        \lagTime, 0.0,
+
+        \direction, Pwrand([0.25, 0.75], [-1,1], inf),
+        \startPosition, 0.0,
+        \lagTime, 1.0,
+
+        \pitchEnvAmount, Pwhite(0.0,0.1),
+
+        \wow, 0.0,
+
+        \gate, 1.0,
+        \legato, 1.0,
+
+        \pan, Pwhite(-1.0,1.0),
+        \panFreq, 1.0,
+        \autopan, 0.0,
+        \panShape, 1.0,
+    )
+).play
+)
+::
