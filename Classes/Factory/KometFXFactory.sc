@@ -87,6 +87,18 @@ KometFXFactory : AbstractKometFactory {
             var baseName = kometSynthFuncDef.name;
 
             var synthdefname = Komet.synthdefName(kometSynthFuncDef.type, kometSynthFuncDef.name, kometSynthFuncDef.category);
+            // Node proxies need the function without In/Out stuff
+            var nodeproxyReadyFunction = switch (category,
+                \channelized, {
+                    kometSynthFuncDef.func.value(kometChannels.numChannels)
+                },
+                \hoa, {
+                    kometSynthFuncDef.func.value(kometChannels.hoaOrder())
+                },
+                \stereo, {
+                    kometSynthFuncDef.func
+                },
+            );
             var builtFunc = {|out, drywet=1.0, fadeInTime=0.0, fadeOutTime=0.0, fadeCurve(-4), gate=1|
 
                 // var fadeIn = Line.ar(0,1,fadeInTime);
@@ -110,17 +122,7 @@ KometFXFactory : AbstractKometFactory {
 
                 // Apply the FX
                 sig = SynthDef.wrap(
-                    switch (category,
-                        \channelized, {
-                            kometSynthFuncDef.func.value(kometChannels.numChannels)
-                        },
-                        \hoa, {
-                            kometSynthFuncDef.func.value(kometChannels.hoaOrder())
-                        },
-                        \stereo, {
-                            kometSynthFuncDef.func
-                        },
-                    ),
+                    nodeproxyReadyFunction,
                     prependArgs: [sig]
                 );
 
@@ -140,6 +142,7 @@ KometFXFactory : AbstractKometFactory {
             kometSynthFuncDef.specs = kometSynthFuncDef.specs.put(\fadeOutTime, KometSpecs.specs[\fadeTime]);
 
             KometSynthLib.put(type, category, baseName, \rawFunc, kometSynthFuncDef.func);
+            KometSynthLib.put(type, category, baseName, \nodeproxyFunction, nodeproxyReadyFunction);
             KometSynthLib.put(type, category, baseName, \builtFunc, builtFunc);
             KometSynthLib.put(type, category, baseName, \synthDefName, synthdefname);
             KometSynthLib.put(type, category, baseName, \synthDef, synthdef);
