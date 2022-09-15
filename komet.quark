@@ -10,7 +10,8 @@
 	  "https://github.com/madskjeldgaard/PolyBuf",
 	  "https://github.com/scztt/Log.quark",
 	  "https://github.com/scztt/Singleton.quark",
-	  "https://github.com/madskjeldgaard/fxpatterns"
+	  "https://github.com/madskjeldgaard/fxpatterns",
+      "https://github.com/madskjeldgaard/KFilter"
   ],
   plugin_dependencies: [
       'supercollider-safety-limiter',
