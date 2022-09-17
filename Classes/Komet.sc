@@ -126,45 +126,54 @@ Komet {
     // This is where the actual init happens after server is booted
     // It runs in a fork
     *prDoWhenBooted{|numChannelsOut, build, openGuiAfterInit, action, loglevel, kometChans|
-
-        KometEvents.addEventTypes();
-        this.prLoadResources();
-        Server.local.sync;
-
-        if(build ? KometConfig.config[\build], {
-            this.build(kometChans);
-        }, {
-            synthFactory = KometSynthFactory.new(kometChans, rebuild: false);
-            fxFactory = KometFXFactory.new(kometChans, rebuild: false);
-        });
-
-        Server.local.sync;
-        1.wait;
-        this.prSetupChains();
-
-        // Open gui after boot
-        if(openGuiAfterInit ? KometConfig.config[\openGuiAfterInit], {
-            this.gui()
-        });
-
-        // Call action when booted
-        // FIXME: This needs a fork and server.local.sync externally to work.
-        // For now we are manually waiting but that sucks.
-        Server.local.sync;
-        1.wait;
-        if(action.notNil, {
-            action.value();
-        });
-
-        // Call extension actions
-        KometSynthLibExt.allSubclasses.do{|extClass|
+        forkIfNeeded{
+            var condvar1, condvar2;
+            KometEvents.addEventTypes();
+            this.prLoadResources();
             Server.local.sync;
-            extClass.postInit()
-        };
 
-        Server.local.sync;
-        initialized = true;
+            if(build ? KometConfig.config[\build], {
+                this.build(kometChans);
+            }, {
+                synthFactory = KometSynthFactory.new(kometChans, rebuild: false);
+                fxFactory = KometFXFactory.new(kometChans, rebuild: false);
+            });
 
+            // Wait for initialzation of synth factories
+            condvar1 = CondVar.new();
+            condvar2 = CondVar.new();
+            Log(\komet).debug("Waiting for synth factory");
+            condvar1.waitFor(20, {KometSynthFactory.initialized});
+            Log(\komet).debug("Waiting for fx factory");
+            condvar2.waitFor(20, {KometFXFactory.initialized});
+
+            Server.local.sync;
+            this.prSetupChains();
+
+            // Open gui after boot
+            if(openGuiAfterInit ? KometConfig.config[\openGuiAfterInit], {
+                this.gui()
+            });
+
+            // Call action when booted
+            // FIXME: This needs a fork and server.local.sync externally to work.
+            // For now we are manually waiting but that sucks.
+            Server.local.sync;
+            1.wait;
+            if(action.notNil, {
+                action.value();
+            });
+
+            // Call extension actions
+            KometSynthLibExt.allSubclasses.do{|extClass|
+                Server.local.sync;
+                extClass.postInit()
+            };
+
+            Server.local.sync;
+            initialized = true;
+
+        }
     }
 
     *browse{
