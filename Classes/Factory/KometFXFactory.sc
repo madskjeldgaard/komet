@@ -20,10 +20,10 @@ KometFXFactory : AbstractKometFactory {
                 if(forceRebuild.not, {
                     "Not rebuilding %. Reading defaults from SynthDescLib.".format(this.name).warn;
                     SynthDescLib.read();
-                    result = true;
-                }, {
-                    result = this.loadSourceFunctions(KometSynthLib.files[\fx]);
                 });
+
+                // Load source functions, if build mode is not on, it will simply load the data
+                result = this.loadSourceFunctions(KometSynthLib.files[\fx]);
 
                 // Add send, etc.
                 this.prAddBasicSynthDefs();
@@ -33,6 +33,8 @@ KometFXFactory : AbstractKometFactory {
                 }, {
                     Log(\komet).warning("Not initialized");
                 });
+
+                Log(\komet).debug("Done initializing %".format(this.class.name));
             });
         }, {
             Log(\komet).error("%: Not a valid KometChannel".format(this.class.name));

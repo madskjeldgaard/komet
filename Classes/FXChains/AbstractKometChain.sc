@@ -149,7 +149,7 @@ AbstractKometChain : Singleton{
 
                         }, {
                             Log(\komet).error(
-                                "%: basename % / type % does not exist",
+                                "%%: basename % / type % does not exist",
                                 this.class.name,
                                 name,
                                 type
