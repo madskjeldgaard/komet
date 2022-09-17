@@ -19,12 +19,11 @@ KometSynthFactory : AbstractKometFactory {
             });
 
             if(forceRebuild.not, {
-                "Not rebuilding %. Reading defaults from SynthDescLib.".format(this.name).warn;
+                Log(\komet).warning("Not rebuilding %. Reading defaults from SynthDescLib.".format(this.name));
                 SynthDescLib.read();
-                initialized = true;
-            }, {
-                initialized = this.loadSourceFunctions(KometSynthLib.files[\synths]);
             });
+
+            initialized = this.loadSourceFunctions(KometSynthLib.files[\synths]);
         });
     }, {
         Log(\komet).error("%: Not a valid KometChannel".format(this.class.name));
@@ -83,7 +82,10 @@ KometSynthFactory : AbstractKometFactory {
                   Log(\komet).debug("Added SynthDef % and loading it now", synthdefname);
 
                   // Save to disk and load the synthdef
-                  synthdef.load;
+
+                  if(forceRebuild, {
+                      synthdef.load;
+                  });
 
                   })
               }

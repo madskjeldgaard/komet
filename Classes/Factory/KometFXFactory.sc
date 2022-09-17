@@ -18,7 +18,7 @@ KometFXFactory : AbstractKometFactory {
 
                 kometChannels = channels;
                 if(forceRebuild.not, {
-                    "Not rebuilding %. Reading defaults from SynthDescLib.".format(this.name).warn;
+                    Log(\komet).warning("Not rebuilding %. Reading defaults from SynthDescLib.".format(this.name));
                     SynthDescLib.read();
                 });
 
