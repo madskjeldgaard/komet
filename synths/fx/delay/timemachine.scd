@@ -9,7 +9,7 @@ var desc = "A tape loop inspired effect",
                 var samples = SampleRate.ir * tapeLengthInSeconds;
                 var local = LocalBuf(samples, numChannels: numChannels).clear;
                 var sig;
-                var feedback = LocalIn.ar(fb * in, numChannels: numChannels).tanh;
+                var feedback = LocalIn.ar(numChannels: numChannels).tanh;
 
                 RecordBuf.ar(in + feedback, local, offset * samples, reclvl, prelvl,  run: record,  loop: 1.0,  trigger: jumpToStart,  doneAction: 0);
 
